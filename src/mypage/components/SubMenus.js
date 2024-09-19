@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 const SubMenuBox = styled.aside`
   min-height: 650px;
   background: ${({ theme }) => theme.colors.black};
@@ -24,10 +24,14 @@ const SubMenuBox = styled.aside`
 
 const Submenus = () => {
   const { t } = useTranslation();
+  const { isStudent, isProfessor } = getUserStates();
+
   return (
     <SubMenuBox>
       <a href="/mypage/info">{t('회원정보수정')}</a>
       <a href="/mypage/board">{t('내가_작성한_게시글')}</a>
+      {isStudent && <a href='/mypage/test'></a>}
+      {isProfessor && <a href='/mypage/mystudent'></a>}
     </SubMenuBox>
   );
 };
