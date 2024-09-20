@@ -134,7 +134,7 @@ const PersonalCounselingCalendarForm = ({
         maxDate={endDate}
         tileDisabled={({ date }) => {
           const dayOfWeek = date.getDay();
-          return dayOfWeek === 0 || dayOfWeek === 6; // 0 (일요일) ~ 6 (토요일) -> 주말인 경우 비활성화
+          return dayOfWeek === 0 || dayOfWeek === 6; // 0 (일요일) ~ 6 (토요일) -> 주말인 경우 비활성화 (상담 신청 불가)
         }}
         prevLabel="<"
         nextLabel=">"

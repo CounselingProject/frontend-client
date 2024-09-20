@@ -67,7 +67,7 @@ const ReservationInfoBox = styled.dl`
 `;
 
 const PersonalCounselingForm = () => {
-  const { t } = useTranslation(); // 국제화 함수 사용
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState(null);
   const [times, setTimes] = useState([]);
   const [selectedTime, setSelectedTime] = useState('');
@@ -174,14 +174,14 @@ const PersonalCounselingForm = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>로딩 중</div>;
   }
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <PersonalCounselingCalendarForm
-        startDate={dayjs().startOf('day').toDate()} // 최소 날짜 설정 (예 : 오늘)
-        endDate={dayjs().add(30, 'day').toDate()} // 최대 날짜 설정 (예 : 30일 후)
+        startDate={dayjs().startOf('day').toDate()} // 최소 날짜 설정 : 오늘
+        endDate={dayjs().add(30, 'day').toDate()} // 최대 날짜 설정 : 30일 후
         selectedDate={selectedDate} // 선택된 날짜 전달
         onCalendarClick={onCalendarClick}
       />
