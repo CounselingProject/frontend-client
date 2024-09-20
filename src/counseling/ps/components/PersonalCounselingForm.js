@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PersonalCounselingCalendarForm from './PersonalCounselingCalendarForm';
-import InfoInputBox from './InfoInputBox';
+import InfoBox from './InfoBox';
 import { IoIosTime, IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { FaAddressBook } from 'react-icons/fa';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
@@ -217,7 +217,7 @@ const PersonalCounselingForm = () => {
                 <dl>
                   <dt>{t('신청자')}</dt>
                   <dd>
-                    <InfoInputBox
+                    <InfoBox
                       type="text"
                       name="name"
                       value={form.name}
@@ -231,7 +231,7 @@ const PersonalCounselingForm = () => {
                 <dl>
                   <dt>{t('이메일')}</dt>
                   <dd>
-                    <InfoInputBox
+                    <InfoBox
                       type="email"
                       name="email"
                       value={form.email}
@@ -245,7 +245,7 @@ const PersonalCounselingForm = () => {
                 <dl>
                   <dt>{t('연락처')}</dt>
                   <dd>
-                    <InfoInputBox
+                    <InfoBox
                       type="tel"
                       name="mobile"
                       value={form.mobile}
