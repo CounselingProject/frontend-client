@@ -127,7 +127,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
         </dd>
       </dl>
-      <dl>
+      {/* <dl>
         <dt>{t('성별')}</dt>
         <dd>
           <span onClick={() => onToggle('gender', 'FEMALE')}>
@@ -148,7 +148,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           </span>
           <StyledMessage variant="danger">{errors?.gender}</StyledMessage>
         </dd>
-      </dl>
+      </dl> */}
 
       {form?.userType === 'STUDENT' ? (
         <>
