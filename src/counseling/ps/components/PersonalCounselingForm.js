@@ -191,7 +191,7 @@ const PersonalCounselingForm = () => {
           <>
             <TitleCalendar>
               <IoIosTime />
-              <h2>{t('상담_시간_선택')}</h2>
+              <h2>{t('상담 시간 선택')}</h2>
             </TitleCalendar>
             <div className="time-buttons">
               {times.map((time) => (
@@ -211,7 +211,7 @@ const PersonalCounselingForm = () => {
             <div>
               <TitleCalendar>
                 <FaAddressBook />
-                <h2>{t('신청자_정보')}</h2>
+                <h2>{t('신청자 정보')}</h2>
               </TitleCalendar>
               <ReservationInfoBox>
                 <dl>
@@ -277,7 +277,7 @@ const PersonalCounselingForm = () => {
               <MessageBox color="danger" messages={errors.submit} />
             )}
             <StyledButton type="submit" color="primary">
-              {t('예약_하기')}
+              {t('예약 하기')}
             </StyledButton>
           </>
         )}
