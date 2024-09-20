@@ -2,6 +2,7 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import { BiSolidCalendar } from 'react-icons/bi';
+import 'react-calendar/dist/Calendar.css';
 
 const CalendarWrapper = styled.div`
   display: flex;
@@ -13,32 +14,32 @@ const CalendarWrapper = styled.div`
 
 const StyledCalendar = styled(Calendar)`
   width: 100%;
-  max-width: 100%; 
+  max-width: 100%;
   border: none;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
   .react-calendar__navigation {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    padding: 0 170px; 
+    padding: 0 170px;
   }
 
   .react-calendar__navigation button {
     color: #ff3d00;
     background: none;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     font-weight: bold;
-    flex: 1; 
-    max-width: 43%;  
-    text-align: center;  
+    flex: 1;
+    max-width: 43%;
+    text-align: center;
   }
 
   /* 요일 이름 스타일 */
   .react-calendar__month-view__weekdays {
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
@@ -47,22 +48,22 @@ const StyledCalendar = styled(Calendar)`
 
   /* 날짜 스타일 */
   .react-calendar__tile {
-    font-size: 1.2rem; 
-    padding: 15px 0; 
+    font-size: 1.2rem;
+    padding: 15px 0;
 
     &:hover,
     &:focus,
     &.react-calendar__tile--active {
-      background: #ff3d00; 
-      color: #ffffff; 
-      border-radius: 10px; 
+      background: #ff3d00;
+      color: #ffffff;
+      border-radius: 10px;
+    }
   }
 
   .react-calendar__tile--now {
-    //background: #ffe4e1;
-    background: #ffcccb;  
-    color: #d32f2f;  
-    border-radius: 10px; 
+    background: #ffcccb;
+    color: #d32f2f;
+    border-radius: 10px;
   }
 
   .react-calendar__tile--active {
@@ -116,7 +117,7 @@ const TitleCalendar = styled.h2`
 const PersonalCounselingCalendarForm = ({
   startDate,
   endDate,
-  availableDates,
+  selectedDate, // 상담 신청 날짜 prop로 받음
   onCalendarClick,
 }) => {
   return (
@@ -125,18 +126,16 @@ const PersonalCounselingCalendarForm = ({
         <BiSolidCalendar />
         <h2>상담 날짜를 선택해 주세요.</h2>
       </TitleCalendar>
+
       <StyledCalendar
         onChange={onCalendarClick}
+        value={selectedDate} // 신청 선택 날짜 표시
         minDate={startDate}
         maxDate={endDate}
-        tileDisabled={({ date }) =>
-          availableDates.findIndex(
-            (d) =>
-              date.getFullYear() === d.getFullYear() &&
-              date.getMonth() === d.getMonth() &&
-              date.getDate() === d.getDate(),
-          ) === -1
-        }
+        tileDisabled={({ date }) => {
+          const dayOfWeek = date.getDay();
+          return dayOfWeek === 0 || dayOfWeek === 6; // 0 (일요일) ~ 6 (토요일) -> 주말인 경우 비활성화
+        }}
         prevLabel="<"
         nextLabel=">"
         navigationLabel={null}

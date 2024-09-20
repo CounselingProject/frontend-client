@@ -3,11 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PersonalCounselingCalendarForm from './PersonalCounselingCalendarForm';
 import InfoInputBox from './InfoInputBox';
-import {
-  IoIosTime,
-  IoMdCheckmarkCircleOutline,
-  IoMdNotificationsOff,
-} from 'react-icons/io';
+import { IoIosTime, IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { FaAddressBook } from 'react-icons/fa';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import MessageBox from '../../commons/components/MessageBox';
@@ -72,7 +68,6 @@ const ReservationInfoBox = styled.dl`
 
 const PersonalCounselingForm = () => {
   const { t } = useTranslation(); // 국제화 함수 사용
-  const [availableDates, setAvailableDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [times, setTimes] = useState([]);
   const [selectedTime, setSelectedTime] = useState('');
@@ -83,25 +78,16 @@ const PersonalCounselingForm = () => {
   });
   const [errors, setErrors] = useState({});
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
-    // availableDates와 times 데이터 가져옴 useEffect
-    // 실제 데이터 fetching 로직으로 대체
-    const fetchData = async () => {
-      const fetchedAvailableDates = [
-        dayjs().add(1, 'day').format('YYYY-MM-DD'),
-        dayjs().add(2, 'day').format('YYYY-MM-DD'),
-        dayjs().add(3, 'day').format('YYYY-MM-DD'),
-      ];
-      setAvailableDates(fetchedAvailableDates);
-    };
-
-    fetchData();
+    //  minDate, maxDate 설정 -> 해야 하나?
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     if (selectedDate) {
-      // 선택 날짜에 따른 시간대 설정 : 9시 ~ 5시 - 1타임 1시간씩 배정 총 9타임
+      // 선택 날짜에 따른 시간대 설정 : 9시 ~ 17시 - 1타임 1시간씩 배정 총 9타임
       setTimes([
         '09:00',
         '10:00',
@@ -137,7 +123,7 @@ const PersonalCounselingForm = () => {
       name: form.name,
       email: form.email,
       mobile: form.mobile,
-      reservationDate: selectedDate,
+      reservationDate: dayjs(selectedDate).format('YYYY-MM-DD'),
       reservationTime: selectedTime,
     };
 
@@ -187,12 +173,16 @@ const PersonalCounselingForm = () => {
     setErrors((prev) => ({ ...prev, date: null }));
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <PersonalCounselingCalendarForm
-        startDate={availableDates[0]}
-        endDate={availableDates[availableDates.length - 1]}
-        availableDates={availableDates}
+        startDate={dayjs().startOf('day').toDate()} // 최소 날짜 설정 (예 : 오늘)
+        endDate={dayjs().add(30, 'day').toDate()} // 최대 날짜 설정 (예 : 30일 후)
+        selectedDate={selectedDate} // 선택된 날짜 전달
         onCalendarClick={onCalendarClick}
       />
       {errors.date && <MessageBox color="danger" messages={errors.date} />}
@@ -275,7 +265,7 @@ const PersonalCounselingForm = () => {
                 '* 개인 상담 신청에 성공하였습니다.',
                 '* 개인 상담은 교수 상담, 취업 상담, 심리 상담 3가지로 구분되며, 각 상담별로 상담실 호수가 다르니 유의하시길 바랍니다.',
                 '* 상담 예약 시간으로부터 15분 이상 늦을 경우 해당 학기의 개인 상담 뿐만 아니라 집단 상담 또한 신청이 불가하오니 지각하지 않을 것을 당부드립니다.',
-                '* 교수 상담의 경우, 교수의 스케쥴에 따라 상담이 취소될 수 있으니 상담 신청 상태를 확인하시길 바랍니다.',
+                '* 교수 상담의 경우, 교수의 스케줄에 따라 상담이 취소될 수 있으니 상담 신청 상태를 확인하시길 바랍니다.',
                 '* 취업 상담의 경우, 성적표를 필수로 지참하시길 바랍니다.',
                 '* 심리 상담의 경우, 심리 검사 결과지를 필수로 지참하시길 바랍니다.',
                 '* 상담 예약은 취소만 가능하며, 수정은 불가능 합니다.',
