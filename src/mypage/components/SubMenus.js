@@ -30,7 +30,7 @@ const Submenus = () => {
     <SubMenuBox>
       <a href="/mypage/info">{t('회원정보수정')}</a>
       <a href="/mypage/board">{t('내가 작성한 게시글')}</a>
-      {isStudent && <a href='/mypage/test'>{t('온라인 상담 내역')}</a>}
+      {isStudent && <a href='/mypage/test'>{t('온라인 심리검사')}</a>}
       {isProfessor && <a href='/mypage/mystudent'>{t('담당 학생')}</a>}
     </SubMenuBox>
   );
