@@ -5,14 +5,14 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 const Menus = styled.nav`
-  background: ${({ theme }) => theme.colors.black};
+  background: ${({ theme }) => theme.colors.white};
   .inner {
     display: flex;
     height: 45px;
     a {
       line-height: 45px;
       fontsize: ${({ theme }) => theme.fontSizes.mediumLarge}px;
-      color: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.black};
       padding: 0 35px;
     }
     a.on,
