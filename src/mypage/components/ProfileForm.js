@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React,{ useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
@@ -10,6 +10,7 @@ import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '@/member/constants/userType';
 import userStatus from '@/member/constants/userStatus';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
+import FileUpload from '@/commons/components/FileUpload';
 
 // 마이페이지 - 회원정보수정페이지
 const FormBox = styled.form``;
@@ -21,6 +22,17 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
     actions: { setUserInfo },
   } = getUserContext();
 
+  const insertImageCallback = useCallback(
+    (url) => {
+      // 프로필 이미지 URL 업데이트
+      setUserInfo((prev) => ({
+        ...prev,
+        profileImage: url, // 프로필 이미지 URL을 userInfo에 추가
+      }));
+    },
+    [setUserInfo],
+  );
+  
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       {/* <dl>
@@ -43,7 +55,16 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             ))}
         </dd>
       </dl> */}
+      
       <dl>
+      <FileUpload
+            imageOnly={true}
+            gid={form?.gid}
+            color="primary"
+            callback={insertImageCallback}
+          >
+            {t('이미지_첨부')}
+      </FileUpload>
         <dt>{t('이메일')}</dt>
         <dd>
           <StyledInput
@@ -63,6 +84,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             name="userName"
             value={form?.userName ?? ''}
             onChange={onChange}
+            disabled={true} // 이름은 수정 불가
           />
           <StyledMessage variant="danger">{errors?.userName}</StyledMessage>
         </dd>
@@ -112,17 +134,18 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             value={form?.addresssub ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.addressSub}</StyledMessage>
+          <StyledMessage variant="danger">{errors?.addresssub}</StyledMessage>
         </dd>
       </dl>
       <dl>
         <dt>{t('생년월일')}</dt>
         <dd>
           <StyledInput
-            type="date"
+            type="string"
             name="birth"
             value={form?.birth ?? ''}
             onChange={onChange}
+            disabled={true} // 생년월일은 수정 불가
           />
           <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
         </dd>
@@ -160,6 +183,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 name="stdntNo"
                 value={form?.stdntNo ?? ''}
                 onChange={onChange}
+                disabled={true} // 학번은 수정 불가
               />
               <StyledMessage variant="danger">{errors?.stdntNo}</StyledMessage>
             </dd>
@@ -172,6 +196,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 name="grade"
                 value={form?.grade ?? ''}
                 onChange={onChange}
+                disabled={true} // 학년은 수정 불가
               />
               <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
             </dd>
