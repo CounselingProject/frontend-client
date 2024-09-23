@@ -141,7 +141,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         <dt>{t('생년월일')}</dt>
         <dd>
           <StyledInput
-            type="date"
+            type="string"
             name="birth"
             value={form?.birth ?? ''}
             onChange={onChange}
