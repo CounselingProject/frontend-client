@@ -32,6 +32,7 @@ const MainMenu = () => {
         <div className="layout-width inner">
           <a href="#">{t('메뉴1')}</a>
           <a href="#">{t('메뉴2')}</a>
+          <a href="counseling/group">{t('집단상담 프로그램')}</a>
         </div>
       </Menus>
     )
