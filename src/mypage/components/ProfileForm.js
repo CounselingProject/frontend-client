@@ -108,8 +108,8 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         <dd>
           <StyledInput
             type="text"
-            name="addressSub"
-            value={form?.addressSub ?? ''}
+            name="addresssub"
+            value={form?.addresssub ?? ''}
             onChange={onChange}
           />
           <StyledMessage variant="danger">{errors?.addressSub}</StyledMessage>
