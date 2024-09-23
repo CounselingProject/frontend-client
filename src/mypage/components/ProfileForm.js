@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React,{ useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
@@ -10,6 +10,7 @@ import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '@/member/constants/userType';
 import userStatus from '@/member/constants/userStatus';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
+import FileUpload from '@/commons/components/FileUpload';
 
 // 마이페이지 - 회원정보수정페이지
 const FormBox = styled.form``;
@@ -21,6 +22,17 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
     actions: { setUserInfo },
   } = getUserContext();
 
+  const insertImageCallback = useCallback(
+    (url) => {
+      // 프로필 이미지 URL 업데이트
+      setUserInfo((prev) => ({
+        ...prev,
+        profileImage: url, // 프로필 이미지 URL을 userInfo에 추가
+      }));
+    },
+    [setUserInfo],
+  );
+  
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       {/* <dl>
@@ -43,7 +55,16 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             ))}
         </dd>
       </dl> */}
+      
       <dl>
+      <FileUpload
+            imageOnly={true}
+            gid={form?.gid}
+            color="primary"
+            callback={insertImageCallback}
+          >
+            {t('이미지_첨부')}
+          </FileUpload>
         <dt>{t('이메일')}</dt>
         <dd>
           <StyledInput
