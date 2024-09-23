@@ -21,6 +21,9 @@ const PersonalCounselingContainer = ({ type }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(null); // 선택한 상담 신청 날짜
+  const startDate = new Date(); // 시작 날짜
+  const endDate = new Date(); // 종료 날짜
+  endDate.setDate(startDate.getDate() + 30);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
 
   useEffect(() => {
@@ -55,8 +58,8 @@ const PersonalCounselingContainer = ({ type }) => {
       <Title>{counselingTitles[type]}</Title>
       <PersonalCounselingForm
         counselingType={type} // 상담 유형 구분
-        startDate={dayjs().startOf('day').toDate()} // 상담 신청 가능 시작 날짜 : 오늘
-        endDate={dayjs().add(30, 'day').toDate()} // 상담 신청 가능 끝 날짜 : 30일 후
+        startDate={startDate} // 상담 신청 가능 시작 날짜
+        endDate={endDate} // 상담 신청 가능 종료 날짜
         selectedDate={selectedDate} // 선택한 상담 신청 날짜
         onCalendarClick={handleCalendarClick}
         onSubmit={async (formData) => {
