@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 const HeaderBox = styled.header`
   .site-top {
-    background: #f8f8f8;
+    background: ${({ theme }) => theme.colors.lightDarkMint};
     border-bottom: 1px solid #d5d5d5;
     height: 120px;
 
@@ -89,7 +89,7 @@ const Header = () => {
                   {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
                 </span>
                 <span onClick={onLogout}>{t('로그아웃')}</span>
-                <a href='/mypage'>{t('마이페이지')}</a>
+                <a href="/mypage">{t('마이페이지')}</a>
               </>
             ) : (
               <>
