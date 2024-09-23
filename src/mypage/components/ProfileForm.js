@@ -134,7 +134,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             value={form?.addresssub ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.addressSub}</StyledMessage>
+          <StyledMessage variant="danger">{errors?.addresssub}</StyledMessage>
         </dd>
       </dl>
       <dl>
