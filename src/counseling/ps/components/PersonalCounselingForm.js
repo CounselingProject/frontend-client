@@ -118,7 +118,6 @@ const PersonalCounselingForm = ({
     try {
       await onSubmit(counselingData);
       setSubmissionSuccess(true);
-      // 폼 초기화
       setForm({ name: '', email: '', mobile: '' });
       setSelectedTime('');
       onCalendarClick(null);
