@@ -65,7 +65,7 @@ const GroupPage = () => {
       </div>
     </GroupDes>
   );
->>>>>>> 2702374798639d9c80ee8dbe500372a5aa5a7cc2
+
 };
 
 export default React.memo(GroupPage);
