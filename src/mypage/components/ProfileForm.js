@@ -64,7 +64,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             callback={insertImageCallback}
           >
             {t('이미지_첨부')}
-          </FileUpload>
+      </FileUpload>
         <dt>{t('이메일')}</dt>
         <dd>
           <StyledInput
@@ -84,6 +84,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             name="userName"
             value={form?.userName ?? ''}
             onChange={onChange}
+            disabled={true} // 이름은 수정 불가
           />
           <StyledMessage variant="danger">{errors?.userName}</StyledMessage>
         </dd>
@@ -144,6 +145,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             name="birth"
             value={form?.birth ?? ''}
             onChange={onChange}
+            disabled={true} // 생년월일은 수정 불가
           />
           <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
         </dd>
@@ -181,6 +183,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 name="stdntNo"
                 value={form?.stdntNo ?? ''}
                 onChange={onChange}
+                disabled={true} // 학번은 수정 불가
               />
               <StyledMessage variant="danger">{errors?.stdntNo}</StyledMessage>
             </dd>
@@ -193,6 +196,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 name="grade"
                 value={form?.grade ?? ''}
                 onChange={onChange}
+                disabled={true} // 학년은 수정 불가
               />
               <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
             </dd>
