@@ -24,7 +24,6 @@ const PersonalCounselingContainer = ({ type }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
 
   useEffect(() => {
-    // 로딩 상태 해제 (필요시 실제 데이터 로딩 로직 추가 가능)
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000); // 1초 후 로딩 해제
@@ -47,7 +46,6 @@ const PersonalCounselingContainer = ({ type }) => {
     psychological: t('심리 상담 예약'),
   };
 
-  // 유효한 상담 유형인지 확인
   if (!counselingTitles[type]) {
     return <div>{t('유효하지 않은 상담 유형입니다.')}</div>;
   }
