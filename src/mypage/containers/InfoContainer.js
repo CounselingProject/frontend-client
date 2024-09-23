@@ -1,67 +1,59 @@
 'use client';
 import React, { useState, useCallback, useEffect } from 'react';
-//import { useRouter } from 'next/router';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'next-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import ProfileForm from '../components/ProfileForm';
+import { updateMemberInfo } from '@/member/apis/apiInfo'; // apiRequest에서 updateMemberInfo 함수 가져오기  (경로 잘 못 됐었음)
 
 const InfoContainer = () => {
-  const { t } = useTranslation();
-  const router = useRouter(); 
+  const { t } = useTranslation(); // 다국어 지원을 위한 useTranslation hook 사용
+  const router = useRouter(); // 라우터를 사용해 페이지 이동 제어
 
-  // 유저 정보와 관련된 context를 불러옵니다.
+  // 유저 정보와 관련된 context를 불러옴
   const {
     states: { userInfo },
     actions: { setUserInfo },
   } = getUserContext();
 
-  // form 및 에러 상태 관리
-  const [form, setForm] = useState(userInfo || {});
-  const [errors, setErrors] = useState({});
-  const [mounted, setMounted] = useState(false); // 클라이언트 마운트 상태
+  // form 상태와 에러 상태 관리
+  const [form, setForm] = useState(userInfo || {}); // 초기값은 userInfo에서 불러옴
+  const [errors, setErrors] = useState({}); // 에러 메시지 저장
+  const [mounted, setMounted] = useState(false); // 클라이언트에서만 렌더링되도록 제어
 
-  // 컴포넌트가 마운트 되었을 때 상태를 업데이트
+  // 컴포넌트가 마운트되면 상태 업데이트
   useEffect(() => {
-    setMounted(true); // 클라이언트에서만 렌더링
+    setMounted(true); // 클라이언트 마운트 완료
   }, []);
 
-  const apiUpdateUser = async (form) => {
-    const response = await fetch('/account/update', { // API 엔드포인트를 '/api/update'로 설정
-      method: 'PATCH', // PATCH 메서드 사용
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form), // form 데이터를 JSON으로 변환하여 전송
-    });
-  
-    if (!response.ok) {
-      const errorResponse = await response.json(); // 오류 응답을 JSON으로 파싱
-      throw new Error(errorResponse.message || '회원 정보 수정에 실패했습니다.'); // 오류 메시지 던짐
+  // API 호출로 회원정보 수정
+  const apiUpdateUser = useCallback(async (form) => {
+    try {
+      const updatedData = await updateMemberInfo(form); // updateMemberInfo 호출
+      return updatedData; // 성공적으로 받은 데이터를 반환
+    } catch (err) {
+      throw err; // 에러 발생 시 호출한 곳으로 에러 전달
     }
-  
-    return await response.json(); // 수정된 사용자 정보를 반환
-  };
-  
-  
-
-  // 입력값 변경 시 form 업데이트
-  const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
   }, []);
 
-  // 필수 항목 검증 함수
+  // 입력값 변경 시 form 상태 업데이트
+  const onChange = useCallback((e) => {
+    setForm((prevForm) => ({ ...prevForm, [e.target.name]: e.target.value }));
+  }, []);
+
+  // 폼 검증 함수
   const validateForm = useCallback(() => {
     const _errors = {};
     let hasErrors = false;
 
     const requiredFields = {
-      userName: t('회원명을_입력하세요.'),
+      userName: t('회원명을_입력하세요.'), // 필수 항목 메시지
       zonecode: t('우편번호를_입력하세요.'),
       address: t('주소를_입력하세요.'),
       birth: t('생년월일을_입력하세요.'),
     };
 
+    // 학생일 경우 추가 필드 검증
     if (form?.userType === 'STUDENT') {
       requiredFields.stdntNo = t('학번을_입력하세요.');
       requiredFields.grade = t('학년을_입력하세요.');
@@ -69,66 +61,70 @@ const InfoContainer = () => {
       requiredFields.empNo = t('사번을_입력하세요.');
     }
 
-    for (const [field, message] of Object.entries(requiredFields)) {
-      if (!form[field]?.trim()) {
-        _errors[field] = message;
-        hasErrors = true;
-      }
-    }
+// 필수 필드가 비어있는지 확인
+for (const [field, message] of Object.entries(requiredFields)) {
+  const value = form[field];
 
-    setErrors(_errors);
-    return !hasErrors;
+  // 값이 문자열일 때만 trim()을 호출하고, 그렇지 않으면 빈 값인지 확인 (문자열일때만 trim 가능하다함)
+  if (typeof value !== 'string' || !value.trim()) {
+    _errors[field] = message; // 에러 메시지 저장
+    hasErrors = true;
+  }
+}
+
+
+    setErrors(_errors); // 에러 상태 업데이트
+    return !hasErrors; // 에러가 없으면 true 반환
   }, [form, t]);
 
-  // 제출 시 검증 및 회원 정보 수정 처리
+  // 폼 제출 처리
   const onSubmit = useCallback(
     async (e) => {
-      e.preventDefault(); // 기본 폼 제출 방지
+      e.preventDefault(); // 기본 제출 동작 방지
   
-      if (!validateForm()) return; // 폼 유효성 검사
-  
-      const _errors = {}; // 에러 메시지를 저장할 객체
-  
-      (async () => {
-        try {
-          // 회원정보 수정 API 호출
-          await apiUpdateUser(form); // form 데이터를 사용하여 사용자 정보를 업데이트
-  
-          // 폼 초기화
-          setForm(initialForm); // 초기값으로 리셋 (initialForm은 초기 상태)
-  
-          // 수정 완료 후 마이페이지로 이동
-          router.replace('/mypage');
-        } catch (err) {
-          // 검증 실패 또는 수정 실패
-          const messages =
-            typeof err.message === 'string'
-              ? { global: [err.message] }
-              : err.message;
-  
-          // 에러 메시지를 _errors 객체에 저장
-          for (const [field, _messages] of Object.entries(messages)) {
-            _errors[field] = _errors[field] ?? [];
-            _errors[field].push(_messages);
-          }
-          setErrors({ ..._errors }); // 상태 업데이트
-        }
-      })();
-    },
-    [form, validateForm, router]
-  );  
+      // 폼이 유효하지 않으면 중단
+      if (!validateForm()) return;
 
-  // 서버에서 렌더링 방지
+      const _errors = {}; // 에러 메시지 저장용 객체
+
+      try {
+        // 회원정보 수정 API 호출
+        await apiUpdateUser(form);
+
+        // 폼 초기값으로 리셋 (userInfo로 되돌림)
+        setForm(userInfo);
+
+        // 수정 완료 후 마이페이지로 이동
+        router.replace('/mypage');
+      } catch (err) {
+        // 서버로부터 받은 에러 메시지 처리
+        const messages =
+          typeof err.message === 'string'
+            ? { global: [err.message] }
+            : err.message;
+
+        // 에러 메시지 업데이트
+        for (const [field, _messages] of Object.entries(messages)) {
+          _errors[field] = _errors[field] ?? [];
+          _errors[field].push(_messages);
+        }
+        setErrors({ ..._errors }); // 에러 상태 업데이트
+      }
+    },
+    [form, validateForm, router, apiUpdateUser, userInfo]
+  );
+
+  // 서버 렌더링 방지: 클라이언트에서만 렌더링
   if (!mounted) return null;
 
   return (
     <ProfileForm 
-      form={form}
-      errors={errors}
-      onChange={onChange}
-      onSubmit={onSubmit}
+      form={form}        // form 데이터
+      errors={errors}    // 에러 메시지
+      onChange={onChange} // 입력값 변경 핸들러
+      onSubmit={onSubmit} // 폼 제출 핸들러
     />
   );
 };
 
-export default React.memo(InfoContainer);
+export default React.memo(InfoContainer); // 컴포넌트 최적화를 위해 memo 사용
