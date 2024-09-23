@@ -41,7 +41,7 @@ const PersonalContainer = styled.div`
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    text-decoration: none; /* 기본 링크 스타일 제거 */
+    text-decoration: none;
     cursor: pointer;
 
     &:last-child {
@@ -62,18 +62,18 @@ const CounselingPage = () => {
       <h1 className="p1">{t('개인 상담')}</h1>
       <h3 className="p2">
         {t(
-          '개인 상담은 교수 상담, 취업 상담, 심리 상담으로 구분되며 달력에서 일자 및 시간을 선택하여 신청할 수 있습니다.',
+          '개인 상담은 교수 상담, 취업 상담, 심리 상담 3가지로 구분되며 신청 페이지의 달력에서 일자 및 시간을 선택하여 신청할 수 있습니다.',
         )}
       </h3>
 
       <ul className="counseling_list">
-        <Link className="ps1" href="/counseling/professor">
+        <Link className="ps1" href="/counseling/type/professor">
           {t('교수 상담')}
         </Link>
-        <Link className="ps1" href="/counseling/employment">
+        <Link className="ps1" href="/counseling/type/employment">
           {t('취업 상담')}
         </Link>
-        <Link className="ps1" href="/counseling/psychological">
+        <Link className="ps1" href="/counseling/type/psychological">
           {t('심리 상담')}
         </Link>
       </ul>

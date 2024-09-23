@@ -105,12 +105,12 @@ const PersonalCounselingForm = ({
       return;
     }
 
-    // 상담 유형에 따른 추가 데이터 설정
+    // 상담 유형별 추가 데이터 설정
     const counselingData = {
       ...form,
       category: counselingType.toUpperCase(), // 상담 유형 대문자로 설정
-      rDate: dayjs(selectedDate).format('YYYY-MM-DD'),
-      rTime: selectedTime,
+      rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
+      rTime: selectedTime, // 상담 선택 시간
       reason: `(${counselingType}) 신청`,
       cNo: null, // 개인 상담이므로 집단 상담 번호는 null
     };
@@ -123,7 +123,7 @@ const PersonalCounselingForm = ({
       onCalendarClick(null);
       setErrors({});
     } catch (error) {
-      console.error('예약 신청 오류 :', error);
+      console.error('예약 신청 오류 : ', error);
       setErrors({ submit: t('상담 예약에 실패했습니다.') });
     }
   };
