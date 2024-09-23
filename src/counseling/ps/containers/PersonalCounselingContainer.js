@@ -47,7 +47,7 @@ const PersonalCounselingContainer = ({ type }) => {
   };
 
   if (!counselingTitles[type]) {
-    return <div>{t('유효하지 않은 상담 유형입니다.')}</div>;
+    return <div>{t('존재하지 않는 상담입니다.')}</div>;
   }
 
   return (
@@ -55,8 +55,8 @@ const PersonalCounselingContainer = ({ type }) => {
       <Title>{counselingTitles[type]}</Title>
       <PersonalCounselingForm
         counselingType={type} // 상담 유형 구분
-        startDate={dayjs().startOf('day').toDate()} // 상담 신청 가능 최초 날짜 : 오늘
-        endDate={dayjs().add(30, 'day').toDate()} // 상담 신청 가능 최후 날짜 : 30일 후
+        startDate={dayjs().startOf('day').toDate()} // 상담 신청 가능 시작 날짜 : 오늘
+        endDate={dayjs().add(30, 'day').toDate()} // 상담 신청 가능 끝 날짜 : 30일 후
         selectedDate={selectedDate} // 선택한 상담 신청 날짜
         onCalendarClick={handleCalendarClick}
         onSubmit={async (formData) => {
