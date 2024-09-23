@@ -9,16 +9,21 @@ import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '@/member/constants/userType';
 import userStatus from '@/member/constants/userStatus';
+import { getUserContext } from '@/commons/contexts/UserInfoContext';
 
 // 마이페이지 - 회원정보수정페이지
 const FormBox = styled.form``;
 
 const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
   const { t } = useTranslation();
+  const {
+    states: { userInfo },
+    actions: { setUserInfo },
+  } = getUserContext();
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <dl>
+      {/* <dl>
         <dt>{t('회원유형')}</dt>
         <dd>
           {Object.keys(userType)
@@ -37,7 +42,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
               </span>
             ))}
         </dd>
-      </dl>
+      </dl> */}
       <dl>
         <dt>{t('이메일')}</dt>
         <dd>
@@ -122,7 +127,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
         </dd>
       </dl>
-      <dl>
+      {/* <dl>
         <dt>{t('성별')}</dt>
         <dd>
           <span onClick={() => onToggle('gender', 'FEMALE')}>
@@ -143,7 +148,7 @@ const ProfileForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           </span>
           <StyledMessage variant="danger">{errors?.gender}</StyledMessage>
         </dd>
-      </dl>
+      </dl> */}
 
       {form?.userType === 'STUDENT' ? (
         <>
