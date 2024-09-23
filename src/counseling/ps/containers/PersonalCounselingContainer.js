@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 import PersonalCounselingForm from './PersonalCounselingForm';
 import styled from 'styled-components';
 import { apiApplyReservation } from '../../apis/apiCounseling';
