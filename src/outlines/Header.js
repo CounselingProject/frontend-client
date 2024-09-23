@@ -4,11 +4,13 @@ import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
+import Image from 'next/image';
+
 const HeaderBox = styled.header`
   .site-top {
     background: #f8f8f8;
     border-bottom: 1px solid #d5d5d5;
-    height: 35px;
+    height: 120px;
 
     div {
       text-align: right;
@@ -78,6 +80,7 @@ const Header = () => {
     showHeader && (
       <HeaderBox>
         <section className="site-top">
+       
           <div className="layout-width">
             {isLogin ? (
               <>
