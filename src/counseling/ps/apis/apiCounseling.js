@@ -23,17 +23,3 @@ export const apiGetCounselingInfo = (cNo) =>
 export const apiApplyReservation = (formData) => {
   return apiRequest('/apply', 'POST', formData);
 };
-
-// 예약 신청 목록 조회
-export const apiListReservations = (search) => {
-  search = search ?? {};
-
-  const qs = [];
-  for (const [k, v] of Object.entries(search)) {
-    qs.push(`${k}=${encodeURIComponent(v)}`);
-  }
-
-  let url = '/apply';
-  if (qs.length > 0) url += `?${qs.join('&')}`;
-  return requestData(url);
-};
