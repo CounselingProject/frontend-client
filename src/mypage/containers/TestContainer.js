@@ -1,9 +1,8 @@
 'use client';
 import React from 'react';
-import PsychologicalTest from '../components/psychologicaltest';
-
+import psychologicaltest from '../components/PsychologicalTest';
 const TestContainer = () => {
-  return <PsychologicalTest />;
+  return <psychologicaltest />;
 };
 
 export default React.memo(TestContainer);

@@ -1,4 +1,4 @@
-const Status = {
+const status = {
   START: '접수중',
   END: '접수마감',
   APPLY: '예약접수',
@@ -7,4 +7,4 @@ const Status = {
   DONE: '상담완료',
 };
 
-export default Status;
+export default status;
