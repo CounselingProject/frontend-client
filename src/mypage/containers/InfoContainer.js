@@ -19,12 +19,6 @@ const InfoContainer = () => {
   // form 상태와 에러 상태 관리
   const [form, setForm] = useState(userInfo || {}); // 초기값은 userInfo에서 불러옴
   const [errors, setErrors] = useState({}); // 에러 메시지 저장
-  const [mounted, setMounted] = useState(false); // 클라이언트에서만 렌더링되도록 제어
-
-  // 컴포넌트가 마운트되면 상태 업데이트
-  useEffect(() => {
-    setMounted(true); // 클라이언트 마운트 완료
-  }, []);
 
   // API 호출로 회원정보 수정
   const apiUpdateUser = useCallback(async (form) => {
@@ -45,7 +39,6 @@ const InfoContainer = () => {
   const validateForm = useCallback(() => {
     const _errors = {};
     let hasErrors = false;
-
     const requiredFields = {
       userName: t('회원명을_입력하세요.'), // 필수 항목 메시지
       zonecode: t('우편번호를_입력하세요.'),
@@ -61,17 +54,16 @@ const InfoContainer = () => {
       requiredFields.empNo = t('사번을_입력하세요.');
     }
 
-// 필수 필드가 비어있는지 확인
-for (const [field, message] of Object.entries(requiredFields)) {
-  const value = form[field];
+    // 필수 필드가 비어있는지 확인
+    for (const [field, message] of Object.entries(requiredFields)) {
+      const value = form[field];
 
-  // 값이 문자열일 때만 trim()을 호출하고, 그렇지 않으면 빈 값인지 확인 (문자열일때만 trim 가능하다함)
-  if (typeof value !== 'string' || !value.trim()) {
-    _errors[field] = message; // 에러 메시지 저장
-    hasErrors = true;
-  }
-}
-
+      // 값이 문자열일 때만 trim()을 호출하고, 그렇지 않으면 빈 값인지 확인 (문자열일때만 trim 가능하다함)
+      if (typeof value !== 'string' || !value.trim()) {
+        _errors[field] = message; // 에러 메시지 저장
+        hasErrors = true;
+      }
+    }
 
     setErrors(_errors); // 에러 상태 업데이트
     return !hasErrors; // 에러가 없으면 true 반환
@@ -81,7 +73,7 @@ for (const [field, message] of Object.entries(requiredFields)) {
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault(); // 기본 제출 동작 방지
-  
+
       // 폼이 유효하지 않으면 중단
       if (!validateForm()) return;
 
@@ -97,6 +89,7 @@ for (const [field, message] of Object.entries(requiredFields)) {
         // 수정 완료 후 마이페이지로 이동
         router.replace('/mypage');
       } catch (err) {
+        console.log('err', err);
         // 서버로부터 받은 에러 메시지 처리
         const messages =
           typeof err.message === 'string'
@@ -111,18 +104,25 @@ for (const [field, message] of Object.entries(requiredFields)) {
         setErrors({ ..._errors }); // 에러 상태 업데이트
       }
     },
-    [form, validateForm, router, apiUpdateUser, userInfo]
+    [form, validateForm, router, apiUpdateUser, userInfo],
   );
 
-  // 서버 렌더링 방지: 클라이언트에서만 렌더링
-  if (!mounted) return null;
+  const fileUploadCallback = useCallback((files) => {
+    if (!files || files.length === 0) {
+      return;
+    }
+    const file = files[0];
+    const profileImage = `${file.thumbUrl}?seq=${file.seq}&width=300&height=400`;
+    setForm((form) => ({ ...form, profileImage }));
+  }, []);
 
   return (
-    <ProfileForm 
-      form={form}        // form 데이터
-      errors={errors}    // 에러 메시지
+    <ProfileForm
+      form={form} // form 데이터
+      errors={errors} // 에러 메시지
       onChange={onChange} // 입력값 변경 핸들러
       onSubmit={onSubmit} // 폼 제출 핸들러
+      fileUploadCallback={fileUploadCallback}
     />
   );
 };
