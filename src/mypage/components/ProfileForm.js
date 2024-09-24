@@ -167,6 +167,18 @@ const ProfileForm = ({
               <StyledMessage variant="danger">{errors?.empNo}</StyledMessage>
             </dd>
           </dl>
+          <dl>
+            <dt>{t('담당 과목')}</dt>
+            <dd>
+              <StyledInput
+                type="text"
+                name="empNo"
+                value={form?.subject ?? ''}
+                onChange={onChange}
+              />
+              <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
+            </dd>
+          </dl>
         </>
       )}
 
