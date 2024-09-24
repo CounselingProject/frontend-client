@@ -16,12 +16,12 @@ const StyledFileUpload = styled(FileUpload)``;
 const FormBox = styled.form``;
 
 const ProfileForm = ({
-  form,
-  errors,
-  onSubmit,
-  onChange,
-  fileUploadCallback,
-}) => {
+                       form,
+                       errors,
+                       onSubmit,
+                       onChange,
+                       fileUploadCallback,
+                     }) => {
   const { t } = useTranslation();
 
   return (
@@ -58,69 +58,20 @@ const ProfileForm = ({
       </dl>
 
       <dl>
-        <dt>{t('비밀번호')}</dt>
-        <dd>
-          <StyledInput
-            type="password"
-            name="password"
-            value={form?.password ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.password}</StyledMessage>
-        </dd>
-      </dl>
-
-      <dl>
-        <dt>{t('비밀번호_확인')}</dt>
-        <dd>
-          <StyledInput
-            type="password"
-            name="confirmPassword"
-            value={form?.confirmPassword ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">
-            {errors?.confirmPassword}
-          </StyledMessage>
-        </dd>
-      </dl>
-
-      <dl>
         <dt>{t('휴대전화번호')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="mobile"
-            value={form?.mobile ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.mobile}</StyledMessage>
-        </dd>
+        <dd>{form?.mobile}</dd>
       </dl>
+
       <dl>
         <dt>{t('우편번호')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="zonecode"
-            value={form?.zonecode ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.zonecode}</StyledMessage>
-        </dd>
+        <dd>{form?.zonecode}</dd>
       </dl>
+
       <dl>
         <dt>{t('주소')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="address"
-            value={form?.address ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.address}</StyledMessage>
-        </dd>
+        <dd>{form?.address}</dd>
       </dl>
+
       <dl>
         <dt>{t('나머지_주소')}</dt>
         <dd>

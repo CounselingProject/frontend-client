@@ -1,5 +1,5 @@
 import BoardContainer from '@/mypage/containers/BoardContainer';
-import InfoContainer from '@/mypage/containers/InfoContainer';
+import UpdateContainer from '@/mypage/containers/UpdateContainer';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 import TestContainer from '@/mypage/containers/TestContainer';
 
@@ -15,7 +15,7 @@ const MypageModePage = ({ params, searchParams }) => {
       Container = TestContainer;
       break;
     default:
-      Container = InfoContainer;
+      Container = UpdateContainer;
   }
 
   return (
