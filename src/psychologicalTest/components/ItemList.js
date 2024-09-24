@@ -7,8 +7,8 @@ const MyFacebookLoader = () => <Facebook />;
 const ItemList = ({ items, loading }) => {
   return loading ? (
     <ul>
-      {items.map((item) => (
-        <li key={item[1]}>
+      {items.map((item, i) => (
+        <li key={`${item[0]}_${item[1]}_${i}`}>
           <Link href={`/psychologicalTest/${item[0]}`}>{item[1]}</Link>
         </li>
       ))}
