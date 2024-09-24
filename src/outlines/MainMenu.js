@@ -30,7 +30,7 @@ const MainMenu = () => {
     showMainMenu && (
       <Menus>
         <div className="layout-width inner">
-          <a href="/phycalogical">{t('심리검사')}</a>
+          <a href="/psychologicalTest/list">{t('심리검사')}</a>
           <a href="/counseling">{t('개인 상담')}</a>
           <a href="/counseling/group">{t('집단상담 프로그램')}</a>
         </div>
