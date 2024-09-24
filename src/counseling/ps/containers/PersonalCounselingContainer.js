@@ -3,9 +3,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import PersonalCounselingForm from './PersonalCounselingForm';
+import PersonalCounselingForm from '../components/PersonalCounselingForm';
 import styled from 'styled-components';
-import { apiApplyReservation } from '../../apis/apiCounseling';
+import { apiApplyReservation } from '../apis/apiCounseling';
 
 const Container = styled.div`
   padding: 20px;

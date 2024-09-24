@@ -1,5 +1,5 @@
-import apiRequest from '../commons/libs/apiRequest';
-import requestData from '../commons/libs/requestData';
+import apiRequest from '@/commons/libs/apiRequest';
+import requestData from '@/commons/libs/requestData';
 
 // 상담 프로그램 목록 조회
 export const apiListCounseling = (search) => {
