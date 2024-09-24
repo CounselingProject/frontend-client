@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PersonalCounselingCalendarForm from './PersonalCounselingCalendarForm';
 import InfoBox from './InfoBox';
-import { StyledButton } from '@/components/commons/components/buttons/StyledButton';
-import MessageBox from '@/components/commons/components/MessageBox';
+import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import MessageBox from '@/commons/components/MessageBox';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
@@ -19,9 +19,9 @@ const TimeTable = styled.div`
 `;
 
 const TimeButton = styled.button`
-  background: ${({ isSelected }) => (isSelected ? '#ff3d00' : '#ffffff')};
-  color: ${({ isSelected }) => (isSelected ? '#ffffff' : '#ff3d00')};
-  border: 1px solid #ff3d00;
+  background: ${({ isSelected }) => (isSelected ? '#0069b4' : '#ffffff')};
+  color: ${({ isSelected }) => (isSelected ? '#ffffff' : '#0069b4')};
+  border: 1px solid ${({ theme }) => theme.colors.blue};
   border-radius: 5px;
   width: 130px;
   padding: 10px 35px;
@@ -32,7 +32,7 @@ const TimeButton = styled.button`
   transition: background 0.3s, color 0.3s;
 
   &:hover {
-    background: #ff3d00;
+    background: ${({ theme }) => theme.colors.blue};
     color: #ffffff;
   }
 `;

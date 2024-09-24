@@ -48,10 +48,6 @@ const PersonalCounselingContainer = ({ type }) => {
     psychological: t('심리 상담 예약'),
   };
 
-  if (!counselingTitles[type]) {
-    return <div>{t('존재하지 않는 상담입니다.')}</div>;
-  }
-
   return (
     <Container>
       <Title>{counselingTitles[type]}</Title>

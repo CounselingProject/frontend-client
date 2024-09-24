@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BiSolidCalendar } from 'react-icons/bi';
 import 'react-calendar/dist/Calendar.css';
 
-const CalendarWrapper = styled.div`
+const CalendarWrapper = styled.div`~
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
@@ -54,31 +54,30 @@ const StyledCalendar = styled(Calendar)`
     &:hover,
     &:focus,
     &.react-calendar__tile--active {
-      background: #ff3d00;
-      color: #ffffff;
-      border-radius: 10px;
+      background: ${({ theme }) => theme.colors.blue};
+      color: ${({ theme }) => theme.colors.white};
     }
   }
 
   .react-calendar__tile--now {
-    background: #ffcccb;
-    color: #d32f2f;
-    border-radius: 10px;
+    // 오늘 날짜 색상
+    background: ${({ theme }) => theme.colors.beige};
+    color: ${({ theme }) => theme.colors.green};
   }
 
   .react-calendar__tile--active {
-    background: #ff3d00;
-    color: #ffffff;
-    border-radius: 7%;
+    // 날짜 선택 시 색상
+    background: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.colors.white};
   }
 
   .react-calendar__tile:hover {
-    background: #ffcccb;
-    border-radius: 7%;
+    background: ${({ theme }) => theme.colors.sky_blue_Dark};
   }
 
   .react-calendar__navigation button {
-    color: #ff3d00;
+    // N월 글자 색상
+    color: ${({ theme }) => theme.colors.blue};
     min-width: 44px;
     background: none;
     font-size: 1.2rem;
@@ -88,11 +87,14 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__weekdays {
     text-align: center;
     font-weight: bold;
-    color: #ff3d00;
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.blue};
+    padding: 0.7em;
   }
 
   .react-calendar__month-view__days__day--weekend {
-    color: #d32f2f;
+    // 주말 날짜 색상
+    color: ${({ theme }) => theme.colors.green};
   }
 `;
 
