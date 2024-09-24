@@ -18,6 +18,7 @@ const HeaderBox = styled.header`
         line-height: 34px;
         margin-left: 10px;
         font-size: ${({ theme }) => theme.fontSizes.normal};
+        cursor: pointer;
 
         &.on {
           color: ${({ theme }) => theme.colors.primary};
