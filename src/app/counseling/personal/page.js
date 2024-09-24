@@ -67,13 +67,13 @@ const CounselingPage = () => {
       </h3>
 
       <ul className="counseling_list">
-        <Link className="ps1" href="/counseling/type/professor">
+        <Link className="ps1" href="/counseling/professor">
           {t('교수 상담')}
         </Link>
-        <Link className="ps1" href="/counseling/type/employment">
+        <Link className="ps1" href="/counseling/employment">
           {t('취업 상담')}
         </Link>
-        <Link className="ps1" href="/counseling/type/psychological">
+        <Link className="ps1" href="/counseling/psychological">
           {t('심리 상담')}
         </Link>
       </ul>
