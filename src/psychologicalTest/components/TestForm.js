@@ -10,24 +10,116 @@ const FormBox = styled.form``;
 const ItemBox = ({ no, item, className }) => {
   const { questionId, questionText, testType } = item;
   const { t } = useTranslation();
+
+  const optionsMap = {
+    COMPULSION: (
+      <>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('아니다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇다')}
+        </span>
+      </>
+    ),
+    EVASION: (
+      <>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('전혀 그렇지 않다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇지 않다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('보통이다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('매우 그렇다')}
+        </span>
+      
+      </>
+    ),
+    STRESS: (
+      <>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('전혀 그렇지 않다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇지 않다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('매우 그렇다')}
+        </span>
+      </>
+    ),
+    INTERNET_ADDICTION: (
+      <>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('전혀 그렇지 않다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇지 않다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('그렇다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('매우 그렇다')}
+        </span>
+      </>
+    ),
+    EATING_DISORDER: (
+      <>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('거의 드물다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('가끔 그렇다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('자주 그렇다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('매우 자주 그렇다')}
+        </span>
+        <span>
+          <IoIosRadioButtonOff />
+          {t('항상 그렇다')}
+        </span>
+      </>
+    ),
+  };
+
   return (
     <li className={className}>
       <div>
-        {no}.{questionText}
-        {testType === 'COMPULSION' ? (
-          <>
-            <span>
-              <IoIosRadioButtonOff />
-              {t('예')}
-            </span>
-            <span>
-              <IoIosRadioButtonOff />
-              {t('아니오')}
-            </span>
-          </>
-        ) : (
-          <></>
-        )}
+        {no}. {questionText}
+        {optionsMap[testType] || null}
       </div>
     </li>
   );
