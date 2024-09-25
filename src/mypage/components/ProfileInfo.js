@@ -1,9 +1,9 @@
 'use client';
-import React, { useCallback } from 'react';
+import React from 'react';
+import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
 import { StyledDt } from '@/commons/components/Mypage/StyledDt';
 import { StyledDd } from '@/commons/components/Mypage/StyledDd';
-import { useTranslation } from 'next-i18next';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '@/member/constants/userType';
 import FileUpload from '@/commons/components/FileUpload';
@@ -36,97 +36,98 @@ const StyledFileUpload = styled(FileUpload)`
 const FormBox = styled.form``;
 
 const ProfileInfo = ({
-                       form,
-                       errors,
-                       fileUploadCallback
+                       memberInfo,
+                       errors
                      }) => {
   const { t } = useTranslation();
 
   const FormBox = styled.form`
-  pointer-events: none; /* 전체 폼을 비활성화 (필요 시) */
-`;
+      pointer-events: none; /* 전체 폼을 비활성화 (필요 시) */
+  `;
+
+  // memberInfo.data가 존재하는지 확인하고, 데이터를 접근하도록 변경
+  const data = memberInfo?.data;
 
   return (
     <FormBox autoComplete="off">
       <dl>
         <StyledDt>{t('프로필_이미지')}</StyledDt>
-          <StyledFileUpload
-            imageOnly={true}
-            gid={form?.gid}
-            single={true}
-            done={true}
-            width={400}
-            color="primary"
-            imageUrl={form?.profileImage}
-            callback={fileUploadCallback}
-          >
-            {t('이미지_첨부')}
-          </StyledFileUpload>
+        <StyledFileUpload
+          imageOnly={true}
+          gid={data?.gid}
+          single={true}
+          done={true}
+          width={400}
+          color="primary"
+          imageUrl={data?.profileImage}
+        >
+          {t('이미지_첨부')}
+        </StyledFileUpload>
       </dl>
       <dl>
         <StyledDt>{t('회원유형')}</StyledDt>
-        <StyledDd>{userType[form?.userType]}</StyledDd>
+        <StyledDd>{userType[data?.userType]}</StyledDd>
       </dl>
       <dl>
         <StyledDt>{t('이메일')}</StyledDt>
-        <StyledDd>{form?.email}</StyledDd>
+        <StyledDd>{data?.email}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('회원명')}</StyledDt>
-        <StyledDd>{form?.userName}</StyledDd>
+        <StyledDd>{data?.userName}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('휴대전화번호')}</StyledDt>
-        <StyledDd>{form?.mobile}</StyledDd>
+        <StyledDd>{data?.mobile}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('우편번호')}</StyledDt>
-        <StyledDd>{form?.zonecode}</StyledDd>
+        <StyledDd>{data?.zonecode}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('주소')}</StyledDt>
-        <StyledDd>{form?.address}</StyledDd>
+        <StyledDd>{data?.address}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('나머지_주소')}</StyledDt>
-        <StyledDd>{form?.addresssub}</StyledDd>
+        <StyledDd>{data?.addresssub}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('생년월일')}</StyledDt>
-        <StyledDd>{form?.birth}</StyledDd>
+        <StyledDd>{data?.birth}</StyledDd>
       </dl>
 
       <dl>
         <StyledDt>{t('성별')}</StyledDt>
-        <StyledDd>{form?.gender === 'FEMALE' ? t('여성') : t('남성')}</StyledDd>
+        <StyledDd>{data?.gender === 'FEMALE' ? t('여성') : t('남성')}</StyledDd>
       </dl>
 
-      {form?.userType === 'STUDENT' ? (
+      {data?.userType === 'STUDENT' ? (
         <>
           <dl>
             <StyledDt>{t('학번')}</StyledDt>
-            <StyledDd>{form?.stdntNo}</StyledDd>
+            <StyledDd>{data?.stdntNo}</StyledDd>
           </dl>
           <dl>
             <StyledDt>{t('학년')}</StyledDt>
-            <StyledDd>{form?.grade}</StyledDd>
+            <StyledDd>{data?.grade}</StyledDd>
           </dl>
         </>
       ) : (
         <>
           <dl>
             <StyledDt>{t('사번')}</StyledDt>
-            <StyledDd>{form?.empNo}</StyledDd>
+            <StyledDd>{data?.empNo}</StyledDd>
           </dl>
           <dl>
             <StyledDt>{t('담당 과목')}</StyledDt>
-            <StyledDd>{form?.subject}</StyledDd>
+            <StyledDd>{data?.subject}</StyledDd>
           </dl>
         </>
       )}
