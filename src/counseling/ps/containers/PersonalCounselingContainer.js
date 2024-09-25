@@ -30,7 +30,7 @@ const PersonalCounselingContainer = ({ type }) => {
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const startDate = new Date(); // 시작 날짜
   const endDate = new Date(); // 종료 날짜
-  endDate.setDate(startDate.getDate() + 30);
+  endDate.setDate(startDate.getDate() + 60); // 오늘부터 2달까지 가능
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
 
   useEffect(() => {
@@ -52,6 +52,7 @@ const PersonalCounselingContainer = ({ type }) => {
       name: t('신청자명을 입력해주세요.'),
       email: t('신청자 이메일을 입력해주세요.'),
       mobile: t('신청자 연락처를 입력해주세요.'),
+      reason: t('상담 신청 사유를 입력해주세요.'),
     };
 
     if (!selectedDate) {
@@ -75,10 +76,9 @@ const PersonalCounselingContainer = ({ type }) => {
       return;
     }
 
-    // 상담 유형별 추가 데이터 설정
+    // 추가 데이터 설정
     const counselingData = {
       ...form,
-      // category: type.toUpperCase(), // 상담 유형 대문자로 설정
       rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
       rTime: selectedTime, // 상담 선택 시간
       reason: `(${type}) 신청`, // 상담 신청 이유
