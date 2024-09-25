@@ -21,5 +21,5 @@ export const apiGetCounselingInfo = (cNo) =>
 
 // 예약 신청
 export const apiApplyReservation = (formData) => {
-  return apiRequest('/apply', 'POST', formData);
+  return apiRequest('/counseling/apply', 'POST', formData);
 };

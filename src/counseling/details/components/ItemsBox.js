@@ -72,7 +72,7 @@ const formatDateTime = (rDateTime) => {
 };
 
 const ItemBox = ({ item, className, onCancel }) => {
-  const url = `/apply/${item?.rNo}`;
+  const url = `/counseling/details/${item?.rNo}`;
   const { t } = useTranslation();
 
   const { formattedDate, formattedStartTime, formattedEndTime } =
