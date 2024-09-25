@@ -1,38 +1,55 @@
 'use client';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { StyledDt } from '@/commons/components/Mypage/StyledDt';
+import { StyledDd } from '@/commons/components/Mypage/StyledDd';
 import { useTranslation } from 'next-i18next';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '@/member/constants/userType';
-import userStatus from '@/member/constants/userStatus';
-import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import FileUpload from '@/commons/components/FileUpload';
 
-const StyledFileUpload = styled(FileUpload)``;
+// StyledFileUpload 정의
+const StyledFileUpload = styled(FileUpload)`
+    display: flex; /* flexbox를 사용하여 이미지 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    border-radius: 50%; /* 원형 테두리 */
+    border: 2px solid ${({ theme }) => theme.colors.primary}; /* 테두리 색상 */
+    overflow: hidden; /* 이미지가 테두리 영역을 넘어가지 않도록 설정 */
+    width: 100px; /* 너비 */
+    height: 100px; /* 높이 */
+    background-color: ${({ theme }) => theme.colors.gray}; /* 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 
-// 마이페이지 - 회원정보수정페이지
+    img {
+        width: 100%; /* 이미지 너비 */
+        height: 100%; /* 이미지 높이 */
+        object-fit: cover; /* 이미지 비율 유지 */
+    }
+
+    &:hover {
+        border-color: ${({ theme }) => theme.colors.secondary}; /* 호버 시 테두리 색상 변화 */
+    }
+`;
+
+// 마이페이지 - 메인
 const FormBox = styled.form``;
 
-const ProfileForm = ({
+const ProfileInfo = ({
                        form,
                        errors,
-                       onSubmit,
-                       onChange,
-                       fileUploadCallback,
+                       fileUploadCallback
                      }) => {
   const { t } = useTranslation();
 
+  const FormBox = styled.form`
+  pointer-events: none; /* 전체 폼을 비활성화 (필요 시) */
+`;
+
   return (
-    <FormBox onSubmit={onSubmit} autoComplete="off">
+    <FormBox autoComplete="off">
       <dl>
-        <dt>{t('회원유형')}</dt>
-        <dd>{userType[form?.userType]}</dd>
-      </dl>
-      <dl>
-        <dt>{t('프로필_이미지')}</dt>
-        <dd>
+        <StyledDt>{t('프로필_이미지')}</StyledDt>
           <StyledFileUpload
             imageOnly={true}
             gid={form?.gid}
@@ -45,100 +62,77 @@ const ProfileForm = ({
           >
             {t('이미지_첨부')}
           </StyledFileUpload>
-        </dd>
       </dl>
       <dl>
-        <dt>{t('이메일')}</dt>
-        <dd>{form?.email}</dd>
+        <StyledDt>{t('회원유형')}</StyledDt>
+        <StyledDd>{userType[form?.userType]}</StyledDd>
       </dl>
-
       <dl>
-        <dt>{t('회원명')}</dt>
-        <dd>{form?.userName}</dd>
+        <StyledDt>{t('이메일')}</StyledDt>
+        <StyledDd>{form?.email}</StyledDd>
       </dl>
 
       <dl>
-        <dt>{t('휴대전화번호')}</dt>
-        <dd>{form?.mobile}</dd>
+        <StyledDt>{t('회원명')}</StyledDt>
+        <StyledDd>{form?.userName}</StyledDd>
       </dl>
 
       <dl>
-        <dt>{t('우편번호')}</dt>
-        <dd>{form?.zonecode}</dd>
+        <StyledDt>{t('휴대전화번호')}</StyledDt>
+        <StyledDd>{form?.mobile}</StyledDd>
       </dl>
 
       <dl>
-        <dt>{t('주소')}</dt>
-        <dd>{form?.address}</dd>
+        <StyledDt>{t('우편번호')}</StyledDt>
+        <StyledDd>{form?.zonecode}</StyledDd>
       </dl>
 
       <dl>
-        <dt>{t('나머지_주소')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="addresssub"
-            value={form?.addresssub ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.addresssub}</StyledMessage>
-        </dd>
+        <StyledDt>{t('주소')}</StyledDt>
+        <StyledDd>{form?.address}</StyledDd>
       </dl>
+
       <dl>
-        <dt>{t('생년월일')}</dt>
-        <dd>{form?.birth}</dd>
+        <StyledDt>{t('나머지_주소')}</StyledDt>
+        <StyledDd>{form?.addresssub}</StyledDd>
       </dl>
+
       <dl>
-        <dt>{t('성별')}</dt>
-        <dd>{form?.gender === 'FEMALE' ? t('여성') : t('남성')}</dd>
+        <StyledDt>{t('생년월일')}</StyledDt>
+        <StyledDd>{form?.birth}</StyledDd>
+      </dl>
+
+      <dl>
+        <StyledDt>{t('성별')}</StyledDt>
+        <StyledDd>{form?.gender === 'FEMALE' ? t('여성') : t('남성')}</StyledDd>
       </dl>
 
       {form?.userType === 'STUDENT' ? (
         <>
           <dl>
-            <dt>{t('학번')}</dt>
-            <dd>{form?.stdntNo}</dd>
+            <StyledDt>{t('학번')}</StyledDt>
+            <StyledDd>{form?.stdntNo}</StyledDd>
           </dl>
           <dl>
-            <dt>{t('학년')}</dt>
-            <dd>{form?.grade}</dd>
+            <StyledDt>{t('학년')}</StyledDt>
+            <StyledDd>{form?.grade}</StyledDd>
           </dl>
         </>
       ) : (
         <>
           <dl>
-            <dt>{t('사번')}</dt>
-            <dd>
-              <StyledInput
-                type="text"
-                name="empNo"
-                value={form?.empNo ?? ''}
-                onChange={onChange}
-              />
-              <StyledMessage variant="danger">{errors?.empNo}</StyledMessage>
-            </dd>
+            <StyledDt>{t('사번')}</StyledDt>
+            <StyledDd>{form?.empNo}</StyledDd>
           </dl>
           <dl>
-            <dt>{t('담당 과목')}</dt>
-            <dd>
-              <StyledInput
-                type="text"
-                name="empNo"
-                value={form?.subject ?? ''}
-                onChange={onChange}
-              />
-              <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
-            </dd>
+            <StyledDt>{t('담당 과목')}</StyledDt>
+            <StyledDd>{form?.subject}</StyledDd>
           </dl>
         </>
       )}
-
-      <StyledButton type="submit" variant="primary">
-        {t('회원정보 수정')}
-      </StyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
 };
 
-export default React.memo(ProfileForm);
+export default React.memo(ProfileInfo);
