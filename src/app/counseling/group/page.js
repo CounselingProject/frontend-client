@@ -3,6 +3,7 @@ import ProgramListContainer from '@/counseling/group/containers/ProgramListConta
 import React from 'react';
 import { FiClipboard } from 'react-icons/fi';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const GroupDes = styled.div`
   max-width: 1200px;
@@ -109,7 +110,7 @@ const GroupPage = () => {
           <FiClipboard /> 집단상담프로그램 목록
         </h3>
        
-        <ProgramListContainer />
+       <Link href={`/counseling/group/`}><ProgramListContainer /></Link> 
       </div>
     </GroupDes>
   );
