@@ -5,11 +5,15 @@ const Box = styled.div`
   background-color: ${({ color }) =>
     color === 'danger' ? '#f8d7da' : '#d1e7dd'};
   color: ${({ color }) => (color === 'danger' ? '#842029' : '#0f5132')};
-  padding: 10px;
+  padding: 5px;
   border: 1px solid
     ${({ color }) => (color === 'danger' ? '#f5c2c7' : '#badbcc')};
   border-radius: 4px;
   margin-bottom: 10px;
+
+  .pn {
+    font-size: 12px;
+  }
 `;
 
 const MessageBox = ({ color, messages }) => {
@@ -18,7 +22,7 @@ const MessageBox = ({ color, messages }) => {
       {Array.isArray(messages) ? (
         messages.map((msg, idx) => <p key={idx}>{msg}</p>)
       ) : (
-        <p>{messages}</p>
+        <p className="pn">{messages}</p>
       )}
     </Box>
   );
