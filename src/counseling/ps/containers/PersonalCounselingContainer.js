@@ -43,7 +43,7 @@ const PersonalCounselingContainer = ({ type }) => {
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const startDate = new Date(); // 시작 날짜
   const endDate = new Date(); // 종료 날짜
-  endDate.setDate(startDate.getDate() + 60); // 오늘부터 2달까지 가능
+  endDate.setDate(startDate.getDate() + 90); // 오늘부터 3달까지 가능
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
 
   useEffect(() => {
