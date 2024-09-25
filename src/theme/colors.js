@@ -17,7 +17,9 @@ const colors = {
 
   beige: '#faebd7',
   pastel_blue: '#aeeeee',
+  sky_blue_Dark: '#00afff',
   lightDarkMint: '#b2e0d4',
+  orange: '#ff8200',
 };
 
 export default colors;
