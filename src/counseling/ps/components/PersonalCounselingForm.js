@@ -53,7 +53,7 @@ const ReservationInfoBox = styled.dl`
 
   dd {
     width: 91%;
-    margin: 0;
+    margin: 7px 0 0 0;
   }
 `;
 
@@ -121,6 +121,7 @@ const PersonalCounselingForm = ({
                 type="text"
                 name="name"
                 value={form.name}
+                placeholder={t('예) 김이름')} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, name: e.target.value }))
                 }
@@ -137,6 +138,7 @@ const PersonalCounselingForm = ({
                 type="email"
                 name="email"
                 value={form.email}
+                placeholder={t('예) user01@test.org')} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, email: e.target.value }))
                 }
@@ -153,6 +155,7 @@ const PersonalCounselingForm = ({
                 type="tel"
                 name="mobile"
                 value={form.mobile}
+                placeholder={t('예) 010-1000-1000')} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, mobile: e.target.value }))
                 }
@@ -169,6 +172,9 @@ const PersonalCounselingForm = ({
                 type="text"
                 name="reason"
                 value={form.reason}
+                placeholder={t(
+                  '예) 교수 상담 - 수강 과목, 학교 생활 등 / 취업 상담 - 취업 연계, 인턴 등 / 심리 상담 - 범불안장애, 스트레스 등',
+                )} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, reason: e.target.value }))
                 }
@@ -185,6 +191,9 @@ const PersonalCounselingForm = ({
                 type="text"
                 name="category"
                 value={form.category}
+                placeholder={t(
+                  '개인 상담 유형 PROFESSOR(교수 상담), EMPLOYMENT(취업 상담), PSYCHOLOGICAL (심리 상담) 중 하나를 입력해주세요.',
+                )} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, category: e.target.value }))
                 }
