@@ -17,6 +17,7 @@ const StyledCalendar = styled(Calendar)`
   max-width: 100%;
   border: none;
 
+  /* < > 표시 */
   .react-calendar__navigation {
     display: flex;
     justify-content: space-between;
@@ -26,7 +27,7 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation button {
-    color: #ff3d00;
+    color: ${({ theme }) => theme.colors.blue};
     background: none;
     font-size: 1.5rem;
     font-weight: bold;
@@ -78,7 +79,6 @@ const StyledCalendar = styled(Calendar)`
     min-width: 44px;
     background: none;
     font-size: 1.2rem;
-    margin-top: 8px;
   }
 
   .react-calendar__month-view__weekdays {
