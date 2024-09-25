@@ -12,20 +12,22 @@ import FileUpload from '@/commons/components/FileUpload';
 
 const StyledFileUpload = styled(FileUpload)``;
 
-// 마이페이지 - 회원정보수정페이지
+// 마이페이지 - 메인
 const FormBox = styled.form``;
 
-const ProfileForm = ({
+const ProfileInfo = ({
                        form,
                        errors,
-                       onSubmit,
-                       onChange,
-                       fileUploadCallback,
+                       fileUploadCallback
                      }) => {
   const { t } = useTranslation();
 
+  const FormBox = styled.form`
+  pointer-events: none; /* 전체 폼을 비활성화 (필요 시) */
+`;
+
   return (
-    <FormBox onSubmit={onSubmit} autoComplete="off">
+    <FormBox autoComplete="off">
       <dl>
         <dt>{t('회원유형')}</dt>
         <dd>{userType[form?.userType]}</dd>
@@ -74,20 +76,14 @@ const ProfileForm = ({
 
       <dl>
         <dt>{t('나머지_주소')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="addresssub"
-            value={form?.addresssub ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.addresssub}</StyledMessage>
-        </dd>
+        <dd>{form?.addresssub}</dd>
       </dl>
+
       <dl>
         <dt>{t('생년월일')}</dt>
         <dd>{form?.birth}</dd>
       </dl>
+
       <dl>
         <dt>{t('성별')}</dt>
         <dd>{form?.gender === 'FEMALE' ? t('여성') : t('남성')}</dd>
@@ -108,37 +104,17 @@ const ProfileForm = ({
         <>
           <dl>
             <dt>{t('사번')}</dt>
-            <dd>
-              <StyledInput
-                type="text"
-                name="empNo"
-                value={form?.empNo ?? ''}
-                onChange={onChange}
-              />
-              <StyledMessage variant="danger">{errors?.empNo}</StyledMessage>
-            </dd>
+            <dd>{form?.empNo}</dd>
           </dl>
           <dl>
             <dt>{t('담당 과목')}</dt>
-            <dd>
-              <StyledInput
-                type="text"
-                name="empNo"
-                value={form?.subject ?? ''}
-                onChange={onChange}
-              />
-              <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
-            </dd>
+            <dd>{form?.subject}</dd>
           </dl>
         </>
       )}
-
-      <StyledButton type="submit" variant="primary">
-        {t('회원정보 수정')}
-      </StyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
 };
 
-export default React.memo(ProfileForm);
+export default React.memo(ProfileInfo);

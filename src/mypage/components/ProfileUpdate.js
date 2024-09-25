@@ -12,10 +12,10 @@ import FileUpload from '@/commons/components/FileUpload';
 
 const StyledFileUpload = styled(FileUpload)``;
 
-// 마이페이지 - 회원정보수정페이지
+// 마이페이지 - 회원 정보 수정
 const FormBox = styled.form``;
 
-const ProfileForm = ({
+const ProfileUpdate = ({
   form,
   errors,
   onSubmit,
@@ -190,4 +190,4 @@ const ProfileForm = ({
   );
 };
 
-export default React.memo(ProfileForm);
+export default React.memo(ProfileUpdate);
