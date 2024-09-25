@@ -64,6 +64,7 @@ const PersonalCounselingContainer = ({ type }) => {
       email: t('신청자 이메일을 입력해주세요.'),
       mobile: t('신청자 연락처를 입력해주세요.'),
       reason: t('상담 신청 사유를 입력해주세요.'),
+      category: t('개인 상담 종류를 입력하세요.'),
     };
 
     if (!selectedDate) {

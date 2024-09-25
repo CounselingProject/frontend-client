@@ -178,6 +178,22 @@ const PersonalCounselingForm = ({
               )}
             </dd>
           </dl>
+          <dl>
+            <dt>{t('개인 상담 구분')}</dt>
+            <dd>
+              <InfoBox
+                type="text"
+                name="category"
+                value={form.category}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, category: e.target.value }))
+                }
+              />
+              {errors.category && (
+                <MessageBox color="danger" messages={errors.category} />
+              )}
+            </dd>
+          </dl>
         </ReservationInfoBox>
         {errors.submit && (
           <MessageBox color="danger" messages={errors.submit} />
