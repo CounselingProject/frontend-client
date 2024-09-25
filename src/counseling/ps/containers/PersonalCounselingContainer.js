@@ -16,6 +16,7 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
+/* 페이지 로딩 메세지 */
 const LoadingMessage = styled.div`
   display: flex;
   justify-content: center;
