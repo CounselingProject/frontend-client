@@ -38,6 +38,28 @@ const TimeButton = styled.button`
 
 const ReservationInfoBox = styled.dl`
   font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+
+  & > dl {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    margin-bottom: 10px;
+  }
+
+  dt {
+    margin-right: 10px;
+    white-space: nowrap;
+  }
+
+  dd {
+    width: 94%;
+    margin: 0;
+  }
+`;
+
+const Title = styled.h2`
+  text-align: center; /* 가운데 정렬 */
 `;
 
 const PersonalCounselingForm = ({
@@ -79,7 +101,7 @@ const PersonalCounselingForm = ({
       />
       {errors.date && <MessageBox color="danger" messages={errors.date} />}
       <TimeTable>
-        <h2>{t('상담 시간 선택')}</h2>
+        <Title>{t('상담 시간 선택')}</Title>
         <div className="time-buttons">
           {times.map((time) => (
             <TimeButton
@@ -103,7 +125,7 @@ const PersonalCounselingForm = ({
                 value={form.name}
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, name: e.target.value }))
-                } // name 필드 업데이트
+                }
               />
               {errors.name && (
                 <MessageBox color="danger" messages={errors.name} />
@@ -119,7 +141,7 @@ const PersonalCounselingForm = ({
                 value={form.email}
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, email: e.target.value }))
-                } // email 필드 업데이트
+                }
               />
               {errors.email && (
                 <MessageBox color="danger" messages={errors.email} />
@@ -135,7 +157,7 @@ const PersonalCounselingForm = ({
                 value={form.mobile}
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, mobile: e.target.value }))
-                } // mobile 필드 업데이트
+                }
               />
               {errors.mobile && (
                 <MessageBox color="danger" messages={errors.mobile} />
