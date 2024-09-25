@@ -9,7 +9,8 @@ const Box = styled.div`
   border: 1px solid
     ${({ color }) => (color === 'danger' ? '#f5c2c7' : '#badbcc')};
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin: 10px;
+  width: 97.5%;
 
   .pn {
     font-size: 12px;
