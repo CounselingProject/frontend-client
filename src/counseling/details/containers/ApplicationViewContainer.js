@@ -12,7 +12,7 @@ const ViewWrapper = styled.div`
   padding-bottom: 80px;
 `;
 
-const ApplicationViewContainer = ({ setPageTitle }) => {
+const ApplicationViewContainer = ({ params, setPageTitle }) => {
   const [item, setItem] = useState(null);
   const { rNo } = params;
 

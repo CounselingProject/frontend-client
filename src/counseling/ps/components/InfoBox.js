@@ -11,9 +11,16 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-const InfoBox = ({ type, name, value, onChange }) => {
+const InfoBox = ({ type, name, value, onChange, placeholder }) => {
   return (
-    <Input type={type} name={name} value={value} onChange={onChange} required />
+    <Input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      required
+    />
   );
 };
 

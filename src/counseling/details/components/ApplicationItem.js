@@ -53,7 +53,7 @@ const DetailRow = styled.dl`
     text-align: right;
     font-weight: bold;
     color: #777;
-    font-size: ${medium};
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
