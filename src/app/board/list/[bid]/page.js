@@ -1,5 +1,7 @@
+import ListContainer from '@/board/containers/ListContainer';
+
 const ListPage = (props) => {
-  return <h1>게시판 목록</h1>;
+  return <ListContainer {...props} />;
 };
 
 export default ListPage;
