@@ -16,6 +16,16 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
+const LoadingMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.blue};
+  font-weight: bold;
+`;
+
 const PersonalCounselingContainer = ({ type }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -103,7 +113,7 @@ const PersonalCounselingContainer = ({ type }) => {
   }, []);
 
   if (isLoading) {
-    return <div>{t('로딩 중...')}</div>;
+    return <LoadingMessage>{t('상담 신청 페이지 로딩 중...')}</LoadingMessage>;
   }
 
   // 상담 유형별 제목 설정 -> 이거 안되는 거 같음
