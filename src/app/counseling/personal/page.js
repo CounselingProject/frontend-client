@@ -16,14 +16,14 @@ const PersonalContainer = styled.div`
   }
 
   .p2 {
-    margin-top: 10px;
+    margin-top: 40px;
     margin-left: 20px;
     text-align: left;
   }
 
   .counseling_list {
     list-style: none;
-    padding: 0;
+    padding: 40px 0;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -31,16 +31,16 @@ const PersonalContainer = styled.div`
 
   .ps1 {
     width: 250px;
-    height: 50px;
-    background: #a9bcf5;
-    color: black;
+    height: 250px;
+    color: white;
     padding: 10px;
-    border-radius: 3px;
+    border-radius: 50%;
     margin-right: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    font-size: 20px;
     text-decoration: none;
     cursor: pointer;
 
@@ -49,8 +49,21 @@ const PersonalContainer = styled.div`
     }
 
     &:hover {
-      background: #8faee0;
+      opacity: 0.9;
     }
+  }
+
+  /* 상담 버튼 별 색상 다르게 설정 */
+  .counseling_list :nth-child(1) {
+    background: ${({ theme }) => theme.colors.blue}; /* 교수 상담 */
+  }
+
+  .counseling_list :nth-child(2) {
+    background: ${({ theme }) => theme.colors.orange}; /* 취업 상담 */
+  }
+
+  .counseling_list :nth-child(3) {
+    background: ${({ theme }) => theme.colors.green}; /* 심리 상담 */
   }
 `;
 
@@ -67,13 +80,15 @@ const CounselingPage = () => {
       </h3>
 
       <ul className="counseling_list">
-        <Link className="ps1" href="/counseling/professor">
+        <Link className="ps1" href="/counseling/personal/professor">
           {t('교수 상담')}
         </Link>
-        <Link className="ps1" href="/counseling/employment">
+
+        <Link className="ps1" href="/counseling/personal/employment">
           {t('취업 상담')}
         </Link>
-        <Link className="ps1" href="/counseling/psychological">
+
+        <Link className="ps1" href="/counseling/personal/psychological">
           {t('심리 상담')}
         </Link>
       </ul>
