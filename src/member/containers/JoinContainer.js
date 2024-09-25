@@ -83,12 +83,15 @@ const JoinContainer = () => {
 
       for (const [field, message] of Object.entries(requiredFields)) {
         // form[field]가 존재하고, 문자열인지 확인 후 trim() 호출
-        if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
-            _errors[field] = _errors[field] ?? [];
-            _errors[field].push(message);
-            hasErrors = true;
+        if (
+          !form[field] ||
+          (typeof form[field] === 'string' && !form[field].trim())
+        ) {
+          _errors[field] = _errors[field] ?? [];
+          _errors[field].push(message);
+          hasErrors = true;
         }
-    }    
+      }
 
       if (!form.agree) {
         _errors.agree = [t('회원가입_약관에_동의하세요.')];
