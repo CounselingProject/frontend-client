@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import group from '../../../././../public/group.jpg';
 
-const P
 
 const Program = ({ item }) => {
   return (
