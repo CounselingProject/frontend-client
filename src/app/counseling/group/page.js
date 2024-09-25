@@ -1,4 +1,5 @@
 'use client';
+import ProgramListContainer from '@/counseling/group/containers/ProgramListContainer';
 import React from 'react';
 import { FiClipboard } from 'react-icons/fi';
 import styled from 'styled-components';
@@ -10,62 +11,62 @@ const GroupDes = styled.div`
   font-family: sans-serif;
 
   h1 {
-    font-size: 2.5em; 
-    margin-bottom: 20px; 
-    color: #333; 
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
   }
 
   h3 {
     font-size: 1.5em;
     color: #555;
-    margin: 10px 0; 
-    display: flex; 
-    align-items: center; 
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
   }
 
   h3 svg {
-    margin-right: 10px; 
-    color: skyblue; 
+    margin-right: 10px;
+    color: skyblue;
   }
 
   h4 {
-    font-size: 1.1em; 
-    color: #666; 
-    margin-bottom: 20px; 
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 20px;
   }
 
   .des_list {
-    list-style: none; 
+    list-style: none;
     padding: 0;
     margin: 0;
   }
 
   .cs1 {
-    background: #e0f7fa; 
-    color: #333; 
-    padding: 15px; 
-    border-radius: 5px; 
-    margin-bottom: 15px; 
-    display: flex; 
-    justify-content: space-between; 
+    background: #e0f7fa;
+    color: #333;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-    transition: background 0.3s; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
     width: 500px;
   }
 
   .cs1:hover {
-    background: #b2ebf2; 
+    background: #b2ebf2;
   }
 
   .cs1 span {
-    font-size: 0.9em; 
-    color: #777; 
+    font-size: 0.9em;
+    color: #777;
   }
 
   .des_list li {
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     align-items: center;
   }
 `;
@@ -103,6 +104,12 @@ const GroupPage = () => {
           </li>
           <li className="cs1">집단상담 프로그램 진행</li>
         </ul>
+
+        <h3>
+          <FiClipboard /> 집단상담프로그램 목록
+        </h3>
+       
+        <ProgramListContainer />
       </div>
     </GroupDes>
   );
