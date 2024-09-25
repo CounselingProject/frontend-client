@@ -34,6 +34,8 @@ const MainMenu = () => {
           <a href="/counseling/personal">{t('개인 상담')}</a>
           <a href="/counseling/group">{t('집단상담 프로그램')}</a>
           <a href="/counseling/details">{t('상담 이력')}</a>
+          <a href="/board/list/counselingboard">{t('상담 게시판')}</a>
+          <a href="/board/list/noticeboard">{t('공지사항')}</a>
         </div>
       </Menus>
     )
