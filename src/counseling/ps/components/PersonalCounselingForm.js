@@ -28,7 +28,6 @@ const TimeButton = styled.button`
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
 
   &:hover {
     background: ${({ theme }) => theme.colors.blue};
@@ -63,7 +62,6 @@ const Title = styled.h2`
 `;
 
 const PersonalCounselingForm = ({
-  counselingType,
   startDate,
   endDate,
   selectedDate,
