@@ -53,7 +53,7 @@ const ReservationInfoBox = styled.dl`
   }
 
   dd {
-    width: 94%;
+    width: 91%;
     margin: 0;
   }
 `;
@@ -117,7 +117,7 @@ const PersonalCounselingForm = ({
         {errors.time && <MessageBox color="danger" messages={errors.time} />}
         <ReservationInfoBox>
           <dl>
-            <dt>{t('신청자')}</dt>
+            <dt>{t('상담 신청자명')}</dt>
             <dd>
               <InfoBox
                 type="text"
@@ -133,7 +133,7 @@ const PersonalCounselingForm = ({
             </dd>
           </dl>
           <dl>
-            <dt>{t('이메일')}</dt>
+            <dt>{t('신청자 이메일')}</dt>
             <dd>
               <InfoBox
                 type="email"
@@ -149,7 +149,7 @@ const PersonalCounselingForm = ({
             </dd>
           </dl>
           <dl>
-            <dt>{t('연락처')}</dt>
+            <dt>{t('신청자 연락처')}</dt>
             <dd>
               <InfoBox
                 type="tel"
@@ -161,6 +161,22 @@ const PersonalCounselingForm = ({
               />
               {errors.mobile && (
                 <MessageBox color="danger" messages={errors.mobile} />
+              )}
+            </dd>
+          </dl>
+          <dl>
+            <dt>{t('상담 신청 사유')}</dt>
+            <dd>
+              <InfoBox
+                type="text"
+                name="reason"
+                value={form.reason}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, reason: e.target.value }))
+                }
+              />
+              {errors.reason && (
+                <MessageBox color="danger" messages={errors.reason} />
               )}
             </dd>
           </dl>

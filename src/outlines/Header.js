@@ -6,8 +6,8 @@ import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 const HeaderBox = styled.header`
   .site-top {
-    background: ${({ theme }) => theme.colors.lightDarkMint};
-    border-bottom: 1px solid #d5d5d5;
+    background: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.colors.white};
     height: 35px;
 
     div {
@@ -18,6 +18,7 @@ const HeaderBox = styled.header`
         line-height: 34px;
         margin-left: 10px;
         font-size: ${({ theme }) => theme.fontSizes.normal};
+        color: ${({ theme }) => theme.colors.white};
         cursor: pointer;
 
         &.on {
