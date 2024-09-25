@@ -101,7 +101,8 @@ const StyledCalendar = styled(Calendar)`
 const TitleCalendar = styled.h2`
   display: flex;
   align-items: center;
-  margin: 30px 0px 15px 30px;
+  margin: 0 0px 40px 30px;
+  justify-content: center;
 
   svg {
     margin-right: 7px;
