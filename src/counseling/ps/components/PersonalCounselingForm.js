@@ -1,12 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PersonalCounselingCalendarForm from './PersonalCounselingCalendarForm';
 import InfoBox from './InfoBox';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import MessageBox from '@/commons/components/MessageBox';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 
 const FormBox = styled.form`
   display: flex;
@@ -48,16 +47,15 @@ const PersonalCounselingForm = ({
   selectedDate,
   onCalendarClick,
   onSubmit,
+  form,
+  setForm,
+  selectedTime,
+  setSelectedTime,
+  errors,
+  setErrors,
+  submissionSuccess,
 }) => {
   const { t } = useTranslation();
-  const [selectedTime, setSelectedTime] = useState('');
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-  });
-  const [errors, setErrors] = useState({});
-  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   const times = [
     '09:00',
@@ -71,76 +69,8 @@ const PersonalCounselingForm = ({
     '17:00',
   ];
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const FormErrors = {};
-    let hasErrors = false;
-
-    // 필수 항목 검증
-    const requiredFields = {
-      name: t('신청자명을 입력해주세요.'),
-      email: t('신청자 이메일을 입력해주세요.'),
-      mobile: t('신청자 연락처를 입력해주세요.'),
-    };
-
-    if (!selectedDate) {
-      FormErrors.date = t('상담 신청 날짜를 선택해주세요.');
-      hasErrors = true;
-    }
-    if (!selectedTime) {
-      FormErrors.time = t('상담 신청 시간을 선택해주세요.');
-      hasErrors = true;
-    }
-
-    for (const [field, message] of Object.entries(requiredFields)) {
-      if (!form[field] || !form[field].trim()) {
-        FormErrors[field] = message;
-        hasErrors = true;
-      }
-    }
-
-    if (hasErrors) {
-      setErrors(FormErrors);
-      return;
-    }
-
-    // 상담 유형별 추가 데이터 설정
-    const counselingData = {
-      ...form,
-      category: counselingType.toUpperCase(), // 상담 유형 대문자로 설정
-      rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
-      rTime: selectedTime, // 상담 선택 시간
-      reason: `(${counselingType}) 신청`,
-      cNo: null, // 개인 상담이므로 집단 상담 번호는 null
-    };
-
-    try {
-      await onSubmit(counselingData);
-      setSubmissionSuccess(true);
-      setForm({ name: '', email: '', mobile: '' });
-      setSelectedTime('');
-      onCalendarClick(null);
-      setErrors({});
-    } catch (error) {
-      console.error('예약 신청 오류 : ', error);
-      setErrors({ submit: t('상담 예약에 실패했습니다.') });
-    }
-  };
-
-  const onTimeClick = (time) => {
-    setSelectedTime(time);
-    setErrors((prev) => ({ ...prev, time: null }));
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: null }));
-  };
-
   return (
-    <FormBox onSubmit={handleSubmit} autoComplete="off">
+    <FormBox autoComplete="off">
       <PersonalCounselingCalendarForm
         startDate={startDate}
         endDate={endDate}
@@ -156,7 +86,7 @@ const PersonalCounselingForm = ({
               type="button"
               key={time}
               isSelected={selectedTime === time}
-              onClick={() => onTimeClick(time)}
+              onClick={() => setSelectedTime(time)}
             >
               {time}
             </TimeButton>
@@ -171,7 +101,9 @@ const PersonalCounselingForm = ({
                 type="text"
                 name="name"
                 value={form.name}
-                onChange={onChange}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, name: e.target.value }))
+                } // name 필드 업데이트
               />
               {errors.name && (
                 <MessageBox color="danger" messages={errors.name} />
@@ -185,7 +117,9 @@ const PersonalCounselingForm = ({
                 type="email"
                 name="email"
                 value={form.email}
-                onChange={onChange}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, email: e.target.value }))
+                } // email 필드 업데이트
               />
               {errors.email && (
                 <MessageBox color="danger" messages={errors.email} />
@@ -199,7 +133,9 @@ const PersonalCounselingForm = ({
                 type="tel"
                 name="mobile"
                 value={form.mobile}
-                onChange={onChange}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, mobile: e.target.value }))
+                } // mobile 필드 업데이트
               />
               {errors.mobile && (
                 <MessageBox color="danger" messages={errors.mobile} />
@@ -210,7 +146,7 @@ const PersonalCounselingForm = ({
         {errors.submit && (
           <MessageBox color="danger" messages={errors.submit} />
         )}
-        <StyledButton type="submit" color="primary">
+        <StyledButton type="submit" color="primary" onClick={onSubmit}>
           {t('예약 하기')}
         </StyledButton>
         {submissionSuccess && (
