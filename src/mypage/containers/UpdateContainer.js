@@ -3,11 +3,11 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'next-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
-import ProfileInfo from '@/mypage/components/ProfileInfo';
+import ProfileUpdate from '../components/ProfileUpdate';
 import { updateMemberInfo } from '@/member/apis/apiInfo'; // apiRequest에서 updateMemberInfo 함수 가져오기  (경로 잘 못 됐었음)
 
-// 마이페이지 - 메인
-const InfoContainer = () => {
+// 마이페이지 - 회원정보 수정
+const UpdateContainer = () => {
   const { t } = useTranslation(); // 다국어 지원을 위한 useTranslation hook 사용
   const router = useRouter(); // 라우터를 사용해 페이지 이동 제어
 
@@ -118,7 +118,7 @@ const InfoContainer = () => {
   }, []);
 
   return (
-    <ProfileInfo
+    <ProfileUpdate
       form={form} // form 데이터
       errors={errors} // 에러 메시지
       onChange={onChange} // 입력값 변경 핸들러
@@ -128,35 +128,4 @@ const InfoContainer = () => {
   );
 };
 
-export default React.memo(InfoContainer); // 컴포넌트 최적화를 위해 memo 사용
-
-
-
-// 'use client';
-// import React, { useEffect, useState } from 'react';
-// import ProfileInfo from '../components/ProfileInfo'; // 프로필 정보를 표시하는 컴포넌트
-// import { getMemberInfo} from '@/member/apis/apiInfo'; // 회원 정보 조회 함수
-//
-// const InfoContainer = () => {
-//   const [memberInfo, setMemberInfo] = useState(null); // 회원 정보 상태
-//   const [loading, setLoading] = useState(true); // 로딩 상태
-//
-//   useEffect(() => {
-//     (async () => {
-//       try {
-//         const info = await getMemberInfo(); // 회원 정보 조회
-//         setMemberInfo(info); // 회원 정보를 상태에 저장
-//       } catch (err) {
-//         console.error(err); // 에러 로그 출력
-//       } finally {
-//         setLoading(false); // 로딩 완료
-//       }
-//     })();
-//   }, []); // 컴포넌트 마운트 시 한번만 실행
-//
-//   return (
-//     <ProfileInfo memberInfo={memberInfo} loading={loading} /> // ProfileInfo에 회원 정보와 로딩 상태 전달
-//   );
-// };
-//
-// export default React.memo(InfoContainer);
+export default React.memo(UpdateContainer); // 컴포넌트 최적화를 위해 memo 사용

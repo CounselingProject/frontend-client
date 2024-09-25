@@ -1,11 +1,11 @@
 'use client';
-
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import PersonalCounselingForm from './PersonalCounselingForm';
+import PersonalCounselingForm from '../components/PersonalCounselingForm';
 import styled from 'styled-components';
-import { apiApplyReservation } from '../../apis/apiCounseling';
+import dayjs from 'dayjs';
+import { apiApplyReservation } from '../apis/apiCounseling';
 
 const Container = styled.div`
   padding: 20px;
@@ -20,6 +20,14 @@ const PersonalCounselingContainer = ({ type }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(null); // 선택한 상담 신청 날짜
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+  });
+  const [selectedTime, setSelectedTime] = useState(''); // 선택한 상담 시간
+  const [errors, setErrors] = useState({});
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const startDate = new Date(); // 시작 날짜
   const endDate = new Date(); // 종료 날짜
   endDate.setDate(startDate.getDate() + 30);
@@ -33,7 +41,64 @@ const PersonalCounselingContainer = ({ type }) => {
     return () => clearTimeout(timer);
   }, [type]);
 
-  const handleCalendarClick = useCallback((date) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const FormErrors = {};
+    let hasErrors = false;
+
+    // 필수 항목 검증
+    const requiredFields = {
+      name: t('신청자명을 입력해주세요.'),
+      email: t('신청자 이메일을 입력해주세요.'),
+      mobile: t('신청자 연락처를 입력해주세요.'),
+    };
+
+    if (!selectedDate) {
+      FormErrors.date = t('상담 신청 날짜를 선택해주세요.');
+      hasErrors = true;
+    }
+    if (!selectedTime) {
+      FormErrors.time = t('상담 신청 시간을 선택해주세요.');
+      hasErrors = true;
+    }
+
+    for (const [field, message] of Object.entries(requiredFields)) {
+      if (!form[field] || !form[field].trim()) {
+        FormErrors[field] = message;
+        hasErrors = true;
+      }
+    }
+
+    if (hasErrors) {
+      setErrors(FormErrors);
+      return;
+    }
+
+    // 상담 유형별 추가 데이터 설정
+    const counselingData = {
+      ...form,
+      // category: type.toUpperCase(), // 상담 유형 대문자로 설정
+      rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
+      rTime: selectedTime, // 상담 선택 시간
+      reason: `(${type}) 신청`, // 상담 신청 이유
+      cNo: null, // 개인 상담이므로 집단 상담 번호는 null
+    };
+
+    try {
+      await apiApplyReservation(counselingData); // 예약 API 호출
+      setSubmissionSuccess(true);
+      setForm({ name: '', email: '', mobile: '' });
+      setSelectedTime('');
+      setSelectedDate(null);
+      setErrors({});
+    } catch (error) {
+      console.error('예약 신청 오류 : ', error);
+      setErrors({ submit: t('상담 예약에 실패했습니다.') });
+    }
+  };
+
+  const onCalendarClick = useCallback((date) => {
     setSelectedDate(date); // 선택한 상담 신청 날짜 설정
   }, []);
 
@@ -41,40 +106,33 @@ const PersonalCounselingContainer = ({ type }) => {
     return <div>{t('로딩 중...')}</div>;
   }
 
-  // 상담 유형별 제목 설정
+  // 상담 유형별 제목 설정 -> 이거 안되는 거 같음
   const counselingTitles = {
     professor: t('교수 상담 예약'),
     employment: t('취업 상담 예약'),
     psychological: t('심리 상담 예약'),
   };
 
-  if (!counselingTitles[type]) {
-    return <div>{t('존재하지 않는 상담입니다.')}</div>;
-  }
-
   return (
     <Container>
       <Title>{counselingTitles[type]}</Title>
       <PersonalCounselingForm
-        counselingType={type} // 상담 유형 구분
+        counselingType={type} // 상담 유형 구분 : 교수, 취업, 심리
         startDate={startDate} // 상담 신청 가능 시작 날짜
         endDate={endDate} // 상담 신청 가능 종료 날짜
-        selectedDate={selectedDate} // 선택한 상담 신청 날짜
-        onCalendarClick={handleCalendarClick}
-        onSubmit={async (formData) => {
-          try {
-            await apiApplyReservation(formData);
-            alert(t('상담 예약에 성공했습니다.'));
-            router.push('/counseling'); // 예약 후 메인 페이지로 이동
-          } catch (error) {
-            console.error('예약 신청 오류:', error);
-            alert(t('상담 예약에 실패했습니다.'));
-            throw error;
-          }
-        }}
+        selectedDate={selectedDate} // 선택한 날짜
+        onCalendarClick={onCalendarClick} // 날짜 선택
+        onSubmit={handleSubmit} // 제출
+        form={form} // 폼 데이터
+        setForm={setForm} // 폼 데이터 업데이트
+        selectedTime={selectedTime} // 선택한 시간
+        setSelectedTime={setSelectedTime} // 시간 업데이트
+        errors={errors} // 에러 메시지
+        setErrors={setErrors} // 에러 업데이트
+        submissionSuccess={submissionSuccess} // 제출 성공 여부
       />
     </Container>
   );
 };
 
-export default React.memo(PersonalCounselingContainer);
+export default PersonalCounselingContainer;
