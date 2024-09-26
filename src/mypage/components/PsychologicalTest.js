@@ -2,6 +2,7 @@
 import React from 'react';
 import psychologicalTestType from '@/psychologicalTest/constants/psycologicalTestType';
 import { useTranslation } from 'react-i18next';
+import { StyledH1} from '@/commons/components/Mypage/StyledH1';
 
 const PsychologicalTest = ({ items }) => {
   const { t } = useTranslation();
@@ -13,12 +14,6 @@ const PsychologicalTest = ({ items }) => {
       backgroundColor: '#f9f9f9',
       borderRadius: '8px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      marginBottom: '20px',
-      color: '#333',
     },
     item: {
       marginBottom: '15px',
@@ -37,7 +32,7 @@ const PsychologicalTest = ({ items }) => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>{t('심리 검사 결과')}</h1> {/* 타이틀을 i18n으로 감싸기 */}
+      <StyledH1>{t('심리 검사 결과')}</StyledH1> {/* 타이틀을 i18n으로 감싸기 */}
       <ul>
         {items.map((item, index) => {
           console.log(item);

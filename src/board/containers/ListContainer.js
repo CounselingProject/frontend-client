@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
-import { useTranslation } from 'react-i18next';
 import { BulletList } from 'react-content-loader';
 import { getBoard, getList } from '../apis/apiBoard';
 import Pagination from '@/commons/components/Pagination';
@@ -22,13 +21,13 @@ function getSkin(skin) {
 const ListContainer = ({ params, searchParams }) => {
   const { bid } = params;
   const { setMainTitle } = getCommonActions();
-  const { t } = useTranslation();
 
   const [board, setBoard] = useState(null);
 
   searchParams.page = searchParams.page ?? 1;
   searchParams.bid = bid;
   const [search, setSearch] = useState(searchParams);
+  const [form, setForm] = useState(searchParams);
   const [items, setItems] = useState(null);
   const [pagination, setPagination] = useState(null);
 
@@ -66,7 +65,20 @@ const ListContainer = ({ params, searchParams }) => {
     setSearch((search) => ({ ...search, page }));
   }, []);
 
-  if (!items || items.length === 0) {
+  const onChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  }, []);
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      setSearch((search) => ({ ...search, ...form }));
+    },
+    [form],
+  );
+
+  if (!board) {
     return <MyBulletListLoader />;
   }
 
@@ -74,8 +86,10 @@ const ListContainer = ({ params, searchParams }) => {
 
   return (
     <>
-      <List items={items} />
-      <Pagination pagination={pagination} onClick={onPageClick} />
+      <List items={items} onSubmit={onSubmit} onChange={onChange} form={form} />
+      {pagination && (
+        <Pagination pagination={pagination} onClick={onPageClick} />
+      )}
     </>
   );
 };

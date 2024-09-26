@@ -38,7 +38,7 @@ export const MypageStyledButton = styled.button`
     height = height ?? '38px';
     return css`
       color: #fff;
-      background-color: #004b5e;
+      background-color: ${theme.colors.green};
       border: ${border};
       font-size: ${theme.fontSizes[size] || '14px'};
       width: ${width};
