@@ -1,153 +1,59 @@
-'use client';
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import { FaRegCheckSquare, FaCheckSquare } from 'react-icons/fa';
-import classNames from 'classnames';
-import { getUserStates } from '@/commons/contexts/UserInfoContext';
-import {
-  StyledInput,
-  StyledTextarea,
-} from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
-import StyledMessage from '@/commons/components/StyledMessage';
-import FileUpload from '@/commons/components/FileUpload';
-import FileItems from '@/commons/components/FileItems';
+import { AiFillNotification } from 'react-icons/ai'; // 아이콘 import
 
-const FormBox = styled.form``;
-
-const CategoryTab = styled.span`
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  display: inline-block;
-  padding: 7px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &.on {
-    background: ${({ theme }) => theme.colors.black};
-    color: ${({ theme }) => theme.colors.white};
-  }
-
-  & + & {
-    margin-left: 5px;
-  }
-`;
-
-const DefaultForm = ({
-  form,
-  errors,
-  board,
-  onChange,
-  onClick,
-  onSubmit,
-  onFileDelete,
-}) => {
+const Item = ({ item, className }) => {
   const { t } = useTranslation();
-  const [editor, setEditor] = useState(null);
-  const { isAdmin } = getUserStates();
+  const { seq, subject, poster, viewCount, createdAt, notice } = item; // notice 속성 사용
 
-  const insertImageCallback = useCallback(
-    (files) => {
-      if (!files || files.length === 0) {
-        return;
-      }
-
-      const source = files.map((file) => file.fileUrl);
-
-      editor.execute('insertImage', { source });
-
-      const editorImages = form?.editorImages ?? [];
-      editorImages.push(...files);
-      onChange({ target: { name: 'editorImages', value: editorImages } });
-    },
-    [editor, form, onChange],
-  );
-  console.log('board', board);
   return (
-    <FormBox onSubmit={onSubmit} autoComplete="off">
-      {board?.category && (
-        <dl>
-          <dt>{t('분류')}</dt>
-          <dd>
-            {board.category.split('\n').map((c) => (
-              <CategoryTab
-                key={`category_${c}`}
-                className={classNames({ on: c === form?.category })}
-                onClick={() => onClick('category', c)}
-              >
-                {c.replace('\r')}
-              </CategoryTab>
-            ))}
-          </dd>
-        </dl>
-      )}
-      <dl>
-        <dt>{t('제목')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="subject"
-            value={form?.subject ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
-        </dd>
-      </dl>
-      <dl>
-        <dt>{t('작성자')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="poster"
-            value={form?.poster ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.poster}</StyledMessage>
-        </dd>
-      </dl>
-      {isAdmin && (
-        <dl>
-          <dt>{t('공지글')}</dt>
-          <dd>
-            <span onClick={() => onClick('notice', !Boolean(form?.notice))}>
-              {form?.notice ? <FaCheckSquare /> : <FaRegCheckSquare />}
-              {t('공지글로_등록하기')}
-            </span>
-          </dd>
-        </dl>
-      )}
-      <dl>
-        <dt>{t('내용')}</dt>
-        <dd>
-          {board?.useEditor ? (
-            <h1>에디터</h1>
-          ) : (
-            <StyledTextarea
-              name="content"
-              value={form?.content ?? ''}
-              onChange={onChange}
-            ></StyledTextarea>
-          )}
-          <FileUpload
-            imageOnly={true}
-            gid={form?.gid}
-            color="primary"
-            callback={insertImageCallback}
-          >
-            {t('이미지_첨부')}
-          </FileUpload>
-          {form?.editorImages && (
-            <FileItems files={form.editorImages} onDelete={onFileDelete} />
-          )}
-          <StyledMessage variant="danger">{errors?.content}</StyledMessage>
-        </dd>
-      </dl>
-      <StyledButton type="submit" variant="primary">
-        {form?.mode === 'update' ? t('수정하기') : t('작성하기')}
-      </StyledButton>
-      <StyledMessage variant="danger">{errors?.global}</StyledMessage>
-    </FormBox>
+    <li className={className}>
+      <span className="category">[{item.category}]</span> {/* 분류 표시 */}
+      <span className="subject">
+        {notice && <AiFillNotification style={{ marginRight: '5px', color: 'red' }} />} {/* 공지글 아이콘 */}
+        <Link href={`/board/view/${seq}`}>{subject}</Link>
+      </span>
+      <span className="view-count">{viewCount > 0 ? `${t('조회수')}: ${viewCount.toLocaleString()}` : ''}</span>
+      <span className="created-at">{format(createdAt, 'yyyy.MM.dd HH:mm')}</span> {/* 등록일 표시 */}
+      <span className="poster">{poster || item.email}</span> {/* 작성자 표시 (poster가 없으면 email 사용) */}
+    </li>
   );
 };
 
-export default React.memo(DefaultForm);
+const ListItem = styled(Item)`
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  margin: 5px 0; /* 항목 간 간격 */
+  padding: 10px; /* 여백 추가 */
+  background-color: #f9f9f9; /* 배경색 추가 */
+  border: 1px solid #ddd; /* 테두리 추가 */
+  border-radius: 5px; /* 둥근 모서리 */
+
+  .category, .subject, .view-count, .created-at, .poster {
+    flex: 1; /* 균등한 비율로 분배 */
+    text-align: center; /* 중앙 정렬 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+  }
+
+  .category {
+    font-weight: bold; /* 분류 강조 */
+    color: #007bff; /* 색상 변경 */
+    margin-right: 10px; /* 분류와 제목 간격 */
+    flex: 0 0 100px; /* 고정 너비 */
+  }
+
+  .view-count, .created-at, .poster {
+    flex: 0 0 150px; /* 고정 너비 */
+  }
+
+  .poster {
+    flex: 0 0 120px; /* 작성자 열의 고정 너비 */
+    color: #333; /* 색상 설정 */
+  }
+`;
+
+export default React.memo(ListItem);

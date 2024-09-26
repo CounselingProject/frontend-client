@@ -4,12 +4,11 @@ export const StyledButton = styled.button`
   ${({ variant, theme, size, width, height }) => {
     const border =
       variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
-    width = width ?? '100%';
+    width = width ?? '150px';
     height = height ?? '38px';
     return css`
       color: #fff;
-      background-color: ${theme.colors.green};
-      margin-top: 20px;
+      background-color: ${theme.colors[variant]};
       border: ${border};
       font-size: ${theme.fontSizes[size] || '14px'};
       width: ${width};
@@ -17,6 +16,7 @@ export const StyledButton = styled.button`
     `;
   }}
 
+  border-radius: 12px;
   letter-spacing: 0;
   cursor: pointer;
   &:focus {

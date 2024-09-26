@@ -5,40 +5,22 @@ import React, {
   useCallback,
 } from 'react';
 import { apiList } from '../apis/apiInfo';
-import apiStatus from '../apis/apiStatus';
-import ItemsBox from '../components/ItemsBox';
+import ApplicationList from '../components/ApplicationList';
+import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 import { useTranslation } from 'react-i18next';
-
-function getQueryString(searchParams) {
-  const qs = {};
-  if (searchParams.size > 0) {
-    for (const [k, v] of searchParams) {
-      qs[k] = v;
-    }
-  }
-  return qs;
-}
+import { produce } from 'immer';
+import { changeStatus } from '../apis/apiStatus';
 
 const ApplicationListContainer = ({ params, searchParams }) => {
 
-  const [search, setSearch] = useState(() => getQueryString(searchParams));
-  const [items, setItems] = useState([
-    {
-      rNo: 1,
-      status: 'APPLY',
-      counselingType: 'PERSONAL',
-      category: 'PROFESSOR',
-      counselingName: '상담명',
-      counselorName: '교수명',
-      counselorEmail: 'user99@test.org',
-      userName: '학생명',
-      email: 'user01@test.org',
-      rDateTime: '2024-09-24 14:00:00',
-      reason: '상담사유',
-      record: '상담일지',
-    },
-  ]);
+  searchParams.page = searchParams?.page ?? 1;
+  searchParams.sopt = searchParams?.sopt ?? 'ALL';
+  searchParams.skey = searchParams?.skey ?? '';
+  const [search, setSearch] = useState(searchParams);
+  const [searchTmp, setSearchTmp] = useState(searchParams);
+
+  const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
   const { rNo } = params;
 
@@ -56,33 +38,72 @@ const ApplicationListContainer = ({ params, searchParams }) => {
     })();
   }, [search, rNo]);
 
+  /* 검색 관련 함수 */
+  const onChangeSearch = useCallback((e) => {
+    setSearchTmp((search) => ({
+      ...search,
+      [e.target.name]: e.target.value,
+    }));
+  }, []);
+
+  const onSubmitSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log('searchTmp', searchTmp);
+      setSearch((search) => ({ ...search, ...searchTmp, page: 1 }));
+    },
+    [searchTmp],
+  );
+
+  const onToggle = useCallback((name, value) => {
+    setSearchTmp((search) => ({ ...search, [name]: value }));
+  }, []);
+
   /* 페이지 변경 함수 */
   const onChangePage = useCallback((p) => {
     setSearch((search) => ({ ...search, page: p }));
   }, []);
 
-  /* 예약취소 함수*/
-  const onCancel = useCallback((rNo) => {
-      if (!window.confirm(t('정말_취소하겠습니까'))) {
+  /* 진행상태 변경 함수*/
+  const onChangeStatus = useCallback((e, rno) => {
+    const status = e.target.value;
+    setItems(
+      produce((draft) =>
+        draft.forEach((item) => {
+          if (item.rno === rno) {
+            item.status = status;
+          }
+        }),
+      ),
+    );
+  }, []);
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!confirm(t('정말_변경하겠습니까?'))) {
         return;
       }
 
-      (async () => {
-        try {
-          const res = await apiStatus(rNo);
-          setItems((items) =>
-            items.map((item) => (item.rNo === rNo ? res : item)),
-          );
-        } catch (err) {
-          console.error(err);
-        }
-      })();
-    }, [t]);
+      changeStatus(items); // 상태 변경 처리
+    },
+    [items, t],
+  );
 
   return (
     <>
-      <ItemsBox items={items} onCancel={onCancel} />
-      {items?.length > 0 && (
+      <SearchBox
+        search={searchTmp}
+        onChange={onChangeSearch}
+        onSubmit={onSubmitSearch}
+        onToggle={onToggle}
+      />
+      <ApplicationList
+        items={items}
+        onChangeStatus={onChangeStatus}
+        onSubmit={onSubmit}
+      />
+      {pagination && (
         <Pagination onClick={onChangePage} pagination={pagination} />
       )}
     </>

@@ -67,7 +67,7 @@ const ProfileInfo = ({
               single={true}
               done={true}
               width={400}
-              color="primary"
+              color="green"
               imageUrl={data?.profileImage}
             >
               {t('이미지_첨부')}

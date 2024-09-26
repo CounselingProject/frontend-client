@@ -73,7 +73,7 @@ const ProfileUpdate = ({
               single={true}
               done={true}
               width={400}
-              color="primary"
+              color="green"
               imageUrl={form?.profileImage}
               callback={fileUploadCallback}
             >
@@ -212,7 +212,7 @@ const ProfileUpdate = ({
         </RightSection>
       </Container>
 
-      <MypageStyledButton type="submit" variant="primary">
+      <MypageStyledButton type="submit" variant="green">
         {t('회원정보 수정')}
       </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>

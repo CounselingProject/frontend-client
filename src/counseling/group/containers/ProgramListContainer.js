@@ -10,8 +10,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   div + div {
-    margin-left: 10px;
+    margin-left: 30px;
   }
+  
+
 `;
 
 const ProgramListContainer = ({ searchParams }) => {

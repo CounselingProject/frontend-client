@@ -1,3 +1,4 @@
+'use client';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import cookies from 'react-cookies';
@@ -7,60 +8,43 @@ import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import Image from 'next/image';
 
 const HeaderBox = styled.header`
-  .site-top {
-    background: ${({ theme }) => theme.colors.green};
-    color: ${({ theme }) => theme.colors.white};
-    height: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.white};
 
-    div {
-      text-align: right;
+  .logo-container {
+    display: flex;
+    align-items: center;
 
-      a {
-        display: inline-block;
-        line-height: 40px;
-        margin-left: 10px;
-        //font-size: ${({ theme }) => theme.fontSizes.normal}px;
-        font-size: 16px;
-        color: ${({ theme }) => theme.colors.white};
-        cursor: pointer;
+    .logo {
+      margin-right: 10px; /* 두 로고 사이 간격 */
+    }
+  }
 
-        &.on {
-          color: ${({ theme }) => theme.colors.primary};
-        }
+  .main-menu {
+    display: flex;
+    margin-right: auto; /* 메뉴를 왼쪽으로 정렬 */
+    a {
+      margin: 0 15px;
+      color: ${({ theme }) => theme.colors.white};
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
 
-  .logo-search {
-    div {
-      display: flex;
-      justify-content: space-between;
-      height: 150px;
-      align-items: center;
-
-      form {
-        display: flex;
-        height: 45px;
-        width: 380px;
-
-        button {
-          width: 45px;
-          background: ${({ theme }) => theme.colors.dark};
-          border: 0;
-          cursor: pointer;
-
-          svg {
-            color: ${({ theme }) => theme.colors.gray};
-            font-size: 1.75rem;
-          }
-        }
-
-        input[type='text'] {
-          flex-grow: 1;
-          border: 5px solid ${({ theme }) => theme.colors.dark};
-          padding: 0 10px;
-        }
-      }
+  .auth-links {
+    display: flex;
+    align-items: center;
+    
+    a {
+      margin-left: 10px;
+      color: ${({ theme }) => theme.colors.white};
     }
   }
 `;
@@ -87,30 +71,33 @@ const Header = () => {
   return (
     showHeader && (
       <HeaderBox>
-        <section className="site-top">
-          <div className="layout-width">
-            {isLogin ? (
-              <>
-                {/* 로그인 상태 */}
-                <a>
-                  {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
+        <div className="logo-container">
+        <a href="/" className="logo">
+            <Image src="/images/logo/logo1.png" alt="로고1" width={43} height={35} />
+          </a>
+          <a href="/" className="logo">
+            <Image src="/images/logo/logo3.png" alt="로고2" width={200} height={10} />
+          </a>
+        </div>
+        <div className="auth-links">
+          {isLogin ? (
+            <>
+              <span>{userInfo?.userName}({userInfo?.email}){t('님_로그인')}</span>
+              <a onClick={onLogout}>{t('로그아웃')}</a>
+              <a href="/mypage">{t('마이페이지')}</a>
+              {isAdmin && (
+                <a href={adminUrl} target="_blank">
+                  {t('사이트_관리')}
                 </a>
-                <a onClick={onLogout}>{t('로그아웃')}</a>
-                <a href="/mypage">{t('마이페이지')}</a>
-                {isAdmin && (
-                  <a href={adminUrl} target="_blank">
-                    {t('사이트_관리')}
-                  </a>
-                )}
-              </>
-            ) : (
-              <>
-                <a href="/member/join">{t('회원가입')}</a>
-                <a href="/member/login">{t('로그인')}</a>
-              </>
-            )}
-          </div>
-        </section>
+              )}
+            </>
+          ) : (
+            <>
+              <a href="/member/join">{t('회원가입')}</a>
+              <a href="/member/login">{t('로그인')}</a>
+            </>
+          )}
+        </div>
       </HeaderBox>
     )
   );
