@@ -23,6 +23,12 @@ const FormBox = styled.form`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; 
+  margin-top: 20px; `;
+
 const ProgramInfo = ({ item }) => {
   const { t } = useTranslation();
   if (!item) return null;
@@ -32,37 +38,35 @@ const ProgramInfo = ({ item }) => {
       <FormBox autoComplete="off">
         <h2>{item.counselingName}</h2>
         <dl>
-          <dt>{t('집단상담 프로그램 설명')}</dt>
+          <dt>{t('집단상담_프로그램_설명')}</dt>
           <dd dangerouslySetInnerHTML={{ __html: item.counselingDes }}></dd>
         </dl>
-        <dl>
-          <dt>{t('상담사명')}</dt>
-          <dd>{item.counselorName}</dd>
-        </dl>
+       
         <dl>
           <dt>{t('상담사_이메일')}</dt>
           <dd>{item.counselorEmail}</dd>
         </dl>
 
         <dl>
-          <dt>{t('집단상담 프로그램 신청 시작-종료일')}</dt>
+          <dt>{t('집단상담_프로그램_신청_시작_종료일')}</dt>
           <dd>
             {item.reservationSdate} ~ {item.reservationEdate}{' '}
           </dd>
         </dl>
 
         <dl>
-          <dt>{t('집단상담 프로그램 교육일')}</dt>
+          <dt>{t('집단상담_프로그램_교육일')}</dt>
           <dd>{item.counselingDate}</dd>
         </dl>
 
         <dl>
           <dt>{t('인원')}</dt>
-          <dd>{item.counselingLimit}</dd>
+          <dd>{item.counselingLimit}명</dd>
         </dl>
-
-        <StyledButton variant="primary">{t('신청하기')}</StyledButton>
-        <StyledButton >{t('닫기')}</StyledButton>
+        <ButtonContainer>
+        <StyledButton>{t('신청하기')}</StyledButton>
+        <StyledButton>{t('닫기')}</StyledButton>
+        </ButtonContainer>
       </FormBox>
     </>
   );
