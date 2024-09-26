@@ -9,18 +9,19 @@ import Image from 'next/image';
 const HeaderBox = styled.header`
   .site-top {
 
-    background: ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.white};
-    height: 35px;
+    height: 45px;
 
     div {
       text-align: right;
 
       a {
         display: inline-block;
-        line-height: 34px;
+        line-height: 40px;
         margin-left: 10px;
-        font-size: ${({ theme }) => theme.fontSizes.normal};
+        //font-size: ${({ theme }) => theme.fontSizes.normal}px;
+        font-size: 16px;
         color: ${({ theme }) => theme.colors.white};
         cursor: pointer;
 
@@ -72,6 +73,7 @@ const Header = () => {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
   } = getUserContext();
+
   const onLogout = useCallback(() => {
     setIsLogin(false);
     setIsAdmin(false);
@@ -88,10 +90,10 @@ const Header = () => {
             {isLogin ? (
               <>
                 {/* 로그인 상태 */}
-                <span>
+                <a>
                   {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
-                </span>
-                <span onClick={onLogout}>{t('로그아웃')}</span>
+                </a>
+                <a onClick={onLogout}>{t('로그아웃')}</a>
                 <a href="/mypage">{t('마이페이지')}</a>
               </>
             ) : (

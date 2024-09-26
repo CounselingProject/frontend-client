@@ -23,7 +23,7 @@ const LoadingMessage = styled.div`
   align-items: center;
   height: 100vh;
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.green};
   font-weight: bold;
 `;
 
@@ -97,14 +97,14 @@ const PersonalCounselingContainer = ({ type }) => {
       ...form,
       rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
       rTime: selectedTime, // 상담 선택 시간
-      reason: `개인 상담 신청`, // 상담 신청 이유
+      reason: form.reason, // 상담 신청 이유
       cNo: null, // 개인 상담이므로 집단 상담 번호는 null
     };
 
     try {
       await apiApplyReservation(counselingData); // 예약 API 호출
       setSubmissionSuccess(true);
-      setForm({ name: '', email: '', mobile: '' });
+      setForm({ name: '', email: '', mobile: '', reason: '', category: '' });
       setSelectedTime('');
       setSelectedDate(null);
       setErrors({});

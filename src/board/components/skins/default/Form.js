@@ -20,11 +20,13 @@ const DefaultForm = ({
   errors,
   board,
   onChange,
+  onClick,
   onSubmit,
   onFileDelete,
 }) => {
   const { t } = useTranslation();
   const [editor, setEditor] = useState(null);
+  const { isAdmin } = getUserStates();
 
   const insertImageCallback = useCallback(
     (files) => {
@@ -43,28 +45,43 @@ const DefaultForm = ({
     [editor, form, onChange],
   );
 
-  const { isAdmin } = getUserStates();
-
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <dl>
         <dt>{t('제목')}</dt>
         <dd>
-          <StyledInput type="text" name="subject" value={form?.subject ?? ''} />
+          <StyledInput
+            type="text"
+            name="subject"
+            value={form?.subject ?? ''}
+            onChange={onChange}
+          />
           <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
         </dd>
       </dl>
       <dl>
         <dt>{t('작성자')}</dt>
         <dd>
-          <StyledInput type="text" name="poster" value={form?.poster ?? ''} />
+          <StyledInput
+            type="text"
+            name="poster"
+            value={form?.poster ?? ''}
+            onChange={onChange}
+          />
           <StyledMessage variant="danger">{errors?.poster}</StyledMessage>
         </dd>
       </dl>
-      <dl>
-        <dt>{t('공지글')}</dt>
-        <dd></dd>
-      </dl>
+      {isAdmin && (
+        <dl>
+          <dt>{t('공지글')}</dt>
+          <dd>
+            <span onClick={() => onClick('notice', !Boolean(form?.notice))}>
+              {form?.notice ? <FaCheckSquare /> : <FaRegCheckSquare />}
+              {t('공지글로_등록하기')}
+            </span>
+          </dd>
+        </dl>
+      )}
       <dl>
         <dt>{t('내용')}</dt>
         <dd>
@@ -91,6 +108,10 @@ const DefaultForm = ({
           <StyledMessage variant="danger">{errors?.content}</StyledMessage>
         </dd>
       </dl>
+      <StyledButton type="submit" variant="primary">
+        {form?.mode === 'update' ? t('수정하기') : t('작성하기')}
+      </StyledButton>
+      <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
 };
