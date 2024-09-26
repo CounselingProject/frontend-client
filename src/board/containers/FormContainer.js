@@ -43,7 +43,7 @@ const FormContainer = ({ params }) => {
           const board = await getBoard(bid);
           if (board) {
             setBoard(board);
-            setMainTitle(`${board.bname$} ${t('글쓰기')}`);
+            setMainTitle(`${board.bname} ${t('글쓰기')}`);
           }
         } catch (err) {
           console.error(err);
@@ -69,7 +69,13 @@ const FormContainer = ({ params }) => {
   const Form = getSkin(skin);
 
   return (
-    <Form form={form} errors={errors} onChange={onChange} onSubmit={onSubmit} />
+    <Form
+      board={board}
+      form={form}
+      errors={errors}
+      onChange={onChange}
+      onSubmit={onSubmit}
+    />
   );
 };
 
