@@ -98,7 +98,6 @@ const PersonalCounselingContainer = ({ type }) => {
       rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
       rTime: selectedTime, // 상담 선택 시간
       reason: form.reason, // 상담 신청 이유
-      counseling_Type: form.type, // Form 데이터에 counselingType 추가
       cNo: null, // 개인 상담이므로 집단 상담 번호는 null
     };
 

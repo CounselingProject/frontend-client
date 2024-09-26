@@ -74,7 +74,6 @@ const PersonalCounselingForm = ({
   errors,
   setErrors,
   submissionSuccess,
-  counseling_Type, // 추가된 counselingType prop
 }) => {
   const { t } = useTranslation();
 
