@@ -81,8 +81,10 @@ const UpdateContainer = () => {
       const _errors = {}; // 에러 메시지 저장용 객체
 
       try {
+        const newForm = {...form};
+        newForm.professor = form.professor.seq;
         // 회원정보 수정 API 호출
-        await apiUpdateUser(form);
+        await apiUpdateUser(newForm);
 
         // 폼 초기값으로 리셋 (userInfo로 되돌림)
         setForm(userInfo);
@@ -113,7 +115,7 @@ const UpdateContainer = () => {
       return;
     }
     const file = files[0];
-    const profileImage = `${file.thumbUrl}?seq=${file.seq}&width=300&height=400`;
+    const profileImage = `${file.thumbUrl}?seq=${file.seq}&width=400&height=600`;
     setForm((form) => ({ ...form, profileImage }));
   }, []);
 

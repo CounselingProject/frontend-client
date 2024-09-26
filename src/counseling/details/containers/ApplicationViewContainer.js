@@ -25,7 +25,7 @@ const ApplicationViewContainer = ({ params, setPageTitle }) => {
       setItem(item);
     });
 
-  }, [rNo, setPageTitle]);
+  }, [rNo, setPageTitle, t]);
 
   /* 예약취소 함수*/
   const onCancel = useCallback((rNo) => {
