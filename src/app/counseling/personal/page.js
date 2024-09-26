@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const PersonalContainer = styled.div`
   display: flex;
@@ -16,54 +17,46 @@ const PersonalContainer = styled.div`
   }
 
   .p2 {
-    margin-top: 40px;
+    margin-top: 30px;
     margin-left: 20px;
     text-align: left;
   }
 
   .counseling_list {
     list-style: none;
-    padding: 40px 0;
+    padding: 20px 0;
     margin: 0;
     display: flex;
     justify-content: center;
   }
 
-  .ps1 {
-    width: 250px;
-    height: 250px;
-    color: white;
-    padding: 10px;
-    border-radius: 50%;
-    margin-right: 50px;
+  .counseling_item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 20px;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 0 20px;
+    width: 400px;
+    text-align: center;
     text-decoration: none;
-    cursor: pointer;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &:hover {
-      opacity: 0.9;
-    }
+    background-color: ${({ theme }) => theme.colors.lightDarkMint};
   }
 
-  /* 상담 버튼 별 색상 다르게 설정 */
-  .counseling_list :nth-child(1) {
-    background: ${({ theme }) => theme.colors.blue}; /* 교수 상담 */
+  .CounselingImage {
+    border-radius: 15px;
+    margin-bottom: 15px;
   }
 
-  .counseling_list :nth-child(2) {
-    background: ${({ theme }) => theme.colors.orange}; /* 취업 상담 */
-  }
-
-  .counseling_list :nth-child(3) {
-    background: ${({ theme }) => theme.colors.green}; /* 심리 상담 */
+  .counseling_text {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: ${({ theme }) => theme.colors.blue};
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
   }
 `;
 
@@ -80,17 +73,53 @@ const CounselingPage = () => {
       </h3>
 
       <ul className="counseling_list">
-        <Link className="ps1" href="/counseling/personal/professor">
-          {t('교수 상담')}
-        </Link>
+        <li>
+          <Link
+            href="/counseling/personal/professor"
+            className="counseling_item"
+          >
+            <Image
+              className="CounselingImage"
+              src={`/images/personalCounseling/PROFESSOR.png`}
+              alt="교수 상담"
+              width={350}
+              height={350}
+            />
+            <span className="counseling_text">{t('교수 상담 신청하기')}</span>
+          </Link>
+        </li>
 
-        <Link className="ps1" href="/counseling/personal/employment">
-          {t('취업 상담')}
-        </Link>
+        <li>
+          <Link
+            href="/counseling/personal/employment"
+            className="counseling_item"
+          >
+            <Image
+              className="CounselingImage"
+              src={`/images/personalCounseling/EMPLOYMENT.png`}
+              alt="취업 상담"
+              width={350}
+              height={350}
+            />
+            <span className="counseling_text">{t('취업 상담 신청하기')}</span>
+          </Link>
+        </li>
 
-        <Link className="ps1" href="/counseling/personal/psychological">
-          {t('심리 상담')}
-        </Link>
+        <li>
+          <Link
+            href="/counseling/personal/psychological"
+            className="counseling_item"
+          >
+            <Image
+              className="CounselingImage"
+              src={`/images/personalCounseling/PSYCHOLOGY.png`}
+              alt="심리 상담"
+              width={350}
+              height={350}
+            />
+            <span className="counseling_text">{t('심리 상담 신청하기')}</span>
+          </Link>
+        </li>
       </ul>
     </PersonalContainer>
   );
