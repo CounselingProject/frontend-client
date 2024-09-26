@@ -2,20 +2,12 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { FaRegCheckSquare, FaCheckSquare } from 'react-icons/fa';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 import {
-  ClassicEditor,
-  Bold,
-  Essentials,
-  Italic,
-  Mention,
-  Paragraph,
-  Undo,
-  Image,
-  ImageInsert,
-} from 'ckeditor5';
-
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
+  StyledInput,
+  StyledTextarea,
+} from '@/commons/components/inputs/StyledInput';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import FileUpload from '@/commons/components/FileUpload';
@@ -23,7 +15,14 @@ import FileItems from '@/commons/components/FileItems';
 
 const FormBox = styled.form``;
 
-const DefaultForm = ({ form, errors, onChange, onSubmit, onFileDelete }) => {
+const DefaultForm = ({
+  form,
+  errors,
+  board,
+  onChange,
+  onSubmit,
+  onFileDelete,
+}) => {
   const { t } = useTranslation();
   const [editor, setEditor] = useState(null);
 
@@ -44,8 +43,10 @@ const DefaultForm = ({ form, errors, onChange, onSubmit, onFileDelete }) => {
     [editor, form, onChange],
   );
 
+  const { isAdmin } = getUserStates();
+
   return (
-    <FormBox>
+    <FormBox onSubmit={onSubmit} autoComplete="off">
       <dl>
         <dt>{t('제목')}</dt>
         <dd>
@@ -54,33 +55,28 @@ const DefaultForm = ({ form, errors, onChange, onSubmit, onFileDelete }) => {
         </dd>
       </dl>
       <dl>
+        <dt>{t('작성자')}</dt>
+        <dd>
+          <StyledInput type="text" name="poster" value={form?.poster ?? ''} />
+          <StyledMessage variant="danger">{errors?.poster}</StyledMessage>
+        </dd>
+      </dl>
+      <dl>
+        <dt>{t('공지글')}</dt>
+        <dd></dd>
+      </dl>
+      <dl>
         <dt>{t('내용')}</dt>
         <dd>
-          <CKEditor
-            editor={ClassicEditor}
-            config={{
-              toolbar: {
-                items: ['undo', 'redo', '|', 'bold', 'italic'],
-              },
-              plugins: [
-                Bold,
-                Essentials,
-                Italic,
-                Mention,
-                Paragraph,
-                Undo,
-                Image,
-                ImageInsert,
-              ],
-            }}
-            data={form?.content ?? ''}
-            onReady={(editor) => setEditor(editor)}
-            onChange={(_, editor) => {
-              onChange({
-                target: { name: 'content', value: editor.getData() },
-              });
-            }}
-          />
+          {board?.useEditor ? (
+            <h1>에디터</h1>
+          ) : (
+            <StyledTextarea
+              name="content"
+              value={form?.content ?? ''}
+              onChange={onChange}
+            ></StyledTextarea>
+          )}
           <FileUpload
             imageOnly={true}
             gid={form?.gid}
@@ -92,9 +88,7 @@ const DefaultForm = ({ form, errors, onChange, onSubmit, onFileDelete }) => {
           {form?.editorImages && (
             <FileItems files={form.editorImages} onDelete={onFileDelete} />
           )}
-          <StyledMessage variant="danger">
-            {errors?.counselingDes}
-          </StyledMessage>
+          <StyledMessage variant="danger">{errors?.content}</StyledMessage>
         </dd>
       </dl>
     </FormBox>
