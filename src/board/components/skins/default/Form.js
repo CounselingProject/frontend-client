@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FaRegCheckSquare, FaCheckSquare } from 'react-icons/fa';
+import classNames from 'classnames';
 import { getUserStates } from '@/commons/contexts/UserInfoContext';
 import {
   StyledInput,
@@ -14,6 +15,23 @@ import FileUpload from '@/commons/components/FileUpload';
 import FileItems from '@/commons/components/FileItems';
 
 const FormBox = styled.form``;
+
+const CategoryTab = styled.span`
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.on {
+    background: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  & + & {
+    margin-left: 5px;
+  }
+`;
 
 const DefaultForm = ({
   form,
@@ -44,20 +62,46 @@ const DefaultForm = ({
     },
     [editor, form, onChange],
   );
-
+  console.log('board', board);
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
+      {board?.category && (
+        <dl>
+          <dt>{t('분류')}</dt>
+          <dd>
+            {board.category.split('\n').map((c) => (
+              <CategoryTab
+                key={`category_${c}`}
+                className={classNames({ on: c === form?.category })}
+                onClick={() => onClick('category', c)}
+              >
+                {c.replace('\r')}
+              </CategoryTab>
+            ))}
+          </dd>
+        </dl>
+      )}
       <dl>
         <dt>{t('제목')}</dt>
         <dd>
-          <StyledInput type="text" name="subject" value={form?.subject ?? ''} />
+          <StyledInput
+            type="text"
+            name="subject"
+            value={form?.subject ?? ''}
+            onChange={onChange}
+          />
           <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
         </dd>
       </dl>
       <dl>
         <dt>{t('작성자')}</dt>
         <dd>
-          <StyledInput type="text" name="poster" value={form?.poster ?? ''} />
+          <StyledInput
+            type="text"
+            name="poster"
+            value={form?.poster ?? ''}
+            onChange={onChange}
+          />
           <StyledMessage variant="danger">{errors?.poster}</StyledMessage>
         </dd>
       </dl>
@@ -66,7 +110,8 @@ const DefaultForm = ({
           <dt>{t('공지글')}</dt>
           <dd>
             <span onClick={() => onClick('notice', !Boolean(form?.notice))}>
-              {form?.notice ? <FaRegCheckSquare /> : <FaCheckSquare />}
+              {form?.notice ? <FaCheckSquare /> : <FaRegCheckSquare />}
+              {t('공지글로_등록하기')}
             </span>
           </dd>
         </dl>
@@ -100,6 +145,7 @@ const DefaultForm = ({
       <StyledButton type="submit" variant="primary">
         {form?.mode === 'update' ? t('수정하기') : t('작성하기')}
       </StyledButton>
+      <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
 };
