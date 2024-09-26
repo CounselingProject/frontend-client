@@ -71,8 +71,34 @@ const TestContainer = ({ params }) => {
         }
       })();
     },
-    [form, items, t],
+    [form, items, t, router],
   );
+
+  // 검사 타입에 따른 제목과 설명 정의
+  const testDetails = {
+    COMPULSION: {
+      title: '강박증 자가진단',
+      description: '각 문항을 읽고, 자신의 경험과 일치하거나 자신을 잘 나타내면 "그렇다"에, 그렇지 않으면 “아니다”에 체크해 주십시오.',
+    },
+    EVASION: {
+      title: '사회 공포/회피 자가진단',
+      description: '각 문항을 읽고, 오늘을 포함하여 지난 한 달간의 자신을 가장 잘 나타내는 곳에 체크해 주십시오.',
+    },
+    STRESS: {
+      title: '스트레스 자가진단',
+      description: '각 문항을 읽고, 오늘을 포함하여 지난 한 달간의 자신을 가장 잘 나타내는 곳에 체크해 주십시오.',
+    },
+    INTERNET_ADDICTION: {
+      title: '인터넷 중독 자가진단',
+      description: '다음 문항에서 인터넷이란 컴퓨터, 스마트폰을 이용한 모든 활동을 뜻합니다. 당신의 행동을 나타내는 곳에 체크해 주십시오. ',
+    },
+    EATING_DISORDER: {
+      title: '섭식장애 자가진단',
+      description: '각 문항을 읽고, 자신의 상태를 가장 잘 나타낸다고 생각되는 곳에 체크해 주십시오.',
+    },
+  };
+
+  const { title, description } = testDetails[testType] || { title: '', description: '' };
 
   return (
     <TestForm
@@ -81,6 +107,8 @@ const TestContainer = ({ params }) => {
       errors={errors}
       onClick={onClick}
       onSubmit={onSubmit}
+      title={title}
+      description={description}
     />
   );
 };
