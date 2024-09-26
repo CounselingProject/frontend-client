@@ -95,7 +95,8 @@ const ProfileUpdate = ({
             <>
               <dl>
                 <StyledDt>{t('지도교수')}</StyledDt>
-                <StyledDd>{form?.professor.userName}</StyledDd>
+                {/* 지도교수가 없을 경우 "지도교수 없음" 출력 */}
+                <StyledDd>{form?.professor?.userName || t('지도교수 없음')}</StyledDd>
               </dl>
               <dl>
                 <StyledDt>{t('학번')}</StyledDt>
