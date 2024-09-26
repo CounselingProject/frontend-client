@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { applyProgram } from '../apis/apiApply';
+import { useRouter } from 'next/navigation';
 
 const FormBox = styled.div`
   padding: 20px;
@@ -51,16 +53,43 @@ const ButtonContainer = styled.div`
 
 const ProgramInfo = ({ item, onClose }) => {
   const { t } = useTranslation();
+  const router = useRouter();
+
   // 집단 예약 신청하기
-  const onApply = useCallback((item) => {
-    
-    const [rdate, rtime] = item.counselingDate.split(' ');
-    const form = {
-      category: 'GROUP',
-      rdate,
-      rtime,
-    };
-  }, []);
+  const onApply = useCallback(
+    (item) => {
+      if (item.applicantsCount >= item.counselingLimit) {
+        alert(t('신청이_마감되었습니다.'));
+        return;
+      }
+
+      if (!confirm(t('정말_신청하겠습니까?'))) {
+        return;
+      }
+
+      const [rdate, rtime] = item.counselingDate.split(' ');
+      const form = {
+        category: 'GROUP',
+        rdate,
+        rtime,
+        cno: item?.cno,
+        reason: item?.counselingName,
+      };
+
+      (async () => {
+        try {
+          await applyProgram(form);
+
+          // 집단 상담 프로그램 신청 완료 후 목록 이동
+          onClose();
+          router.replace('/counseling/group');
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    },
+    [t, router, onClose],
+  );
 
   return (
     item && (
@@ -93,9 +122,11 @@ const ProgramInfo = ({ item, onClose }) => {
           <dd>{item.counselingLimit}명</dd>
         </dl>
         <ButtonContainer>
-          <StyledButton type="button" onClick={() => onApply(item)}>
-            {t('신청하기')}
-          </StyledButton>
+          {item.applicantsCount < item.counselingLimit && (
+            <StyledButton type="button" onClick={() => onApply(item)}>
+              {t('신청하기')}
+            </StyledButton>
+          )}
           <StyledButton type="button" onClick={onClose}>
             {t('닫기')}
           </StyledButton>
