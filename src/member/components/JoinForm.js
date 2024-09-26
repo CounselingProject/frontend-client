@@ -4,13 +4,20 @@ import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { MemberStyledInput } from '@/commons/components/inputs/StyledInput';
+import { MypageStyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '../constants/userType';
 import userStatus from '../constants/userStatus';
+import { StyledDt } from '@/commons/components/Mypage/StyledDt';
+import { StyledH1 } from '@/commons/components/Mypage/StyledH1';
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+    display: flex;
+    flex-direction: column; /* 자식 요소를 세로 방향으로 배치 */
+    align-items: center; /* 자식 요소를 가로 가운데 정렬 */
+    width: 100%; /* FormBox의 너비 설정 */
+`;
 
 const JoinForm = ({
   form,
@@ -25,8 +32,9 @@ const JoinForm = ({
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
+      <StyledH1>{t('회원가입')}</StyledH1>
       <dl>
-        <dt>{t('가입유형')}</dt>
+        <StyledDt>{t('가입유형')}</StyledDt>
         <dd>
           {Object.keys(userType)
             .filter((k) => k != 'ADMIN')
@@ -46,9 +54,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('이메일')}</dt>
+        <StyledDt>{t('이메일')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="email"
             value={form?.email ?? ''}
@@ -58,9 +66,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('비밀번호')}</dt>
+        <StyledDt>{t('비밀번호')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="password"
             name="password"
             value={form?.password ?? ''}
@@ -70,9 +78,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('비밀번호_확인')}</dt>
+        <StyledDt>{t('비밀번호_확인')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="password"
             name="confirmPassword"
             value={form?.confirmPassword ?? ''}
@@ -84,9 +92,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('회원명')}</dt>
+        <StyledDt>{t('회원명')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="userName"
             value={form?.userName ?? ''}
@@ -96,9 +104,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('휴대전화번호')}</dt>
+        <StyledDt>{t('휴대전화번호')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="mobile"
             value={form?.mobile ?? ''}
@@ -108,9 +116,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('우편번호')}</dt>
+        <StyledDt>{t('우편번호')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="zonecode"
             value={form?.zonecode ?? ''}
@@ -120,9 +128,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('주소')}</dt>
+        <StyledDt>{t('주소')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="address"
             value={form?.address ?? ''}
@@ -132,9 +140,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('나머지_주소')}</dt>
+        <StyledDt>{t('나머지_주소')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="addresssub"
             value={form?.addresssub ?? ''}
@@ -144,9 +152,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('생년월일')}</dt>
+        <StyledDt>{t('생년월일')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="date"
             name="birth"
             value={form?.birth ?? ''}
@@ -156,7 +164,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{t('성별')}</dt>
+        <StyledDt>{t('성별')}</StyledDt>
         <dd>
           <span onClick={() => onToggle('gender', 'FEMALE')}>
             {form?.gender === 'FEMALE' ? (
@@ -178,7 +186,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</dt>
+        <StyledDt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</StyledDt>
         <dd>
           {form?.userType === 'STUDENT' ? (
             <>
@@ -230,9 +238,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</dt>
+        <StyledDt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="deptNm"
             value={form?.deptNm ?? ''}
@@ -242,11 +250,11 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>
+        <StyledDt>
           {form?.userType === 'COUNSELOR' ? t('부서번호') : t('학과번호')}
-        </dt>
+        </StyledDt>
         <dd>
-          <StyledInput
+          <MemberStyledInput
             type="text"
             name="deptNo"
             value={form?.deptNo ?? ''}
@@ -258,9 +266,9 @@ const JoinForm = ({
       {form?.userType === 'STUDENT' ? (
         <>
           <dl>
-            <dt>{t('학번')}</dt>
+            <StyledDt>{t('학번')}</StyledDt>
             <dd>
-              <StyledInput
+              <MemberStyledInput
                 type="text"
                 name="stdntNo"
                 value={form?.stdntNo ?? ''}
@@ -270,9 +278,9 @@ const JoinForm = ({
             </dd>
           </dl>
           <dl>
-            <dt>{t('학년')}</dt>
+            <StyledDt>{t('학년')}</StyledDt>
             <dd>
-              <StyledInput
+              <MemberStyledInput
                 type="text"
                 name="grade"
                 value={form?.grade ?? ''}
@@ -282,29 +290,31 @@ const JoinForm = ({
             </dd>
           </dl>
           <dl>
-            <dt>{t('지도교수')}</dt>
+            <StyledDt>{t('지도교수')}</StyledDt>
             <dd>
-              <StyledInput
+              <MemberStyledInput
                 type="text"
                 name="skey"
                 value={skey}
                 onChange={onChange}
               />
-              <select
-                name="professor"
-                value={form?.professor}
-                onChange={onChange}
-              >
-                {professors && professors.length > 0 ? (
-                  professors.map(({ seq, userName, deptNm }) => (
-                    <option key={seq} value={seq}>
-                      {userName}({deptNm})
-                    </option>
-                  ))
-                ) : (
-                  <option value="">{t('교수를_선택하세요')}</option>
-                )}
-              </select>
+              <div>
+                <select
+                  name="professor"
+                  value={form?.professor}
+                  onChange={onChange}
+                >
+                  {professors && professors.length > 0 ? (
+                    professors.map(({ seq, userName, deptNm }) => (
+                      <option key={seq} value={seq}>
+                        {userName}({deptNm})
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">{t('교수를_선택하세요')}</option>
+                  )}
+                </select>
+              </div>
               <StyledMessage variant="danger">
                 {errors?.professor}
               </StyledMessage>
@@ -314,9 +324,9 @@ const JoinForm = ({
       ) : (
         <>
           <dl>
-            <dt>{t('사번')}</dt>
+            <StyledDt>{t('사번')}</StyledDt>
             <dd>
-              <StyledInput
+              <MemberStyledInput
                 type="text"
                 name="empNo"
                 value={form?.empNo ?? ''}
@@ -326,9 +336,9 @@ const JoinForm = ({
             </dd>
           </dl>
           <dl>
-            <dt>{t('담당과목')}</dt>
+            <StyledDt>{t('담당과목')}</StyledDt>
             <dd>
-              <StyledInput
+              <MemberStyledInput
                 type="text"
                 name="subject"
                 value={form?.subject ?? ''}
@@ -348,9 +358,9 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <StyledButton type="submit" variant="primary">
+      <MypageStyledButton type="submit" variant="primary">
         {t('회원가입')}
-      </StyledButton>
+      </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );

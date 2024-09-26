@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import ProfileUpdate from '../components/ProfileUpdate';
 import { updateMemberInfo } from '@/member/apis/apiInfo'; // apiRequest에서 updateMemberInfo 함수 가져오기  (경로 잘 못 됐었음)
-
+import { apiUser} from '@/member/apis/apiLogin';
 // 마이페이지 - 회원정보 수정
 const UpdateContainer = () => {
   const { t } = useTranslation(); // 다국어 지원을 위한 useTranslation hook 사용
@@ -87,7 +87,9 @@ const UpdateContainer = () => {
         await apiUpdateUser(newForm);
 
         // 폼 초기값으로 리셋 (userInfo로 되돌림)
-        setForm(userInfo);
+        const user = await apiUser();
+        setForm(user);
+        setUserInfo(user);
 
         // 수정 완료 후 마이페이지로 이동
         router.replace('/mypage');

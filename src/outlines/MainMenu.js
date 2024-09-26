@@ -8,13 +8,14 @@ const Menus = styled.nav`
   background: ${({ theme }) => theme.colors.white};
   .inner {
     display: flex;
+    justify-content: center; /* 가운데 정렬 */
     height: 45px;
     margin-top: 10px;
     margin-bottom: 10px;
     a {
       line-height: 45px;
-      //font-size: ${({ theme }) => theme.fontSizes.mediumLarge};
-      font-size: 20px;
+      font-size: 17px;
+      font-weight: bold;
       color: ${({ theme }) => theme.colors.black};
       padding: 0 35px;
     }
@@ -41,6 +42,7 @@ const MainMenu = () => {
 
           <a href="/counseling/group">{t('집단상담 프로그램')}</a>
           <a href="/counseling/details">{t('상담 이력')}</a>
+          <a href="/board/list/freetalk">{t('자유 게시판')}</a>
 
         </div>
       </Menus>

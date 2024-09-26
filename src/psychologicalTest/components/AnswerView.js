@@ -19,7 +19,7 @@ const Title = styled.h2`
 `;
 
 const Result = styled.p`
-  font-size: 1rem; /* 내용 크기 */
+  font-size: 1.15rem; /* 내용 크기 */
   color: #555; /* 텍스트 색깔 */
   line-height: 1.5; /* 줄 간격 */
 `;
