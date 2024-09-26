@@ -9,6 +9,7 @@ import DefaultForm from '../components/skins/default/Form';
 import ReviewForm from '../components/skins/review/Form';
 
 import { Instagram } from 'react-content-loader';
+import { formatISO } from 'date-fns';
 
 const MyInstagramLoader = () => <Instagram />;
 
@@ -31,7 +32,9 @@ const FormContainer = ({ params }) => {
   const [board, setBoard] = useState(null);
   const [form, setForm] = useState({
     gid: Date.now() + '',
-    mode: bid ? 'update' : 'register',
+    mode: bid ? 'register' : 'update',
+    poster: userInfo?.userName,
+    seq,
   });
   const [errors, setErrors] = useState({});
 
@@ -54,6 +57,10 @@ const FormContainer = ({ params }) => {
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  }, []);
+
+  const onClick = useCallback((name, value) => {
+    setForm((form) => ({ ...form, [name]: value }));
   }, []);
 
   const onSubmit = useCallback((e) => {

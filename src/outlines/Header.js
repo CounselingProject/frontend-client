@@ -72,6 +72,7 @@ const Header = () => {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
   } = getUserContext();
+
   const onLogout = useCallback(() => {
     setIsLogin(false);
     setIsAdmin(false);
