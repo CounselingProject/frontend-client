@@ -260,7 +260,7 @@ const TestForm = ({ items, form, errors, onClick, onSubmit, title, description }
       )}
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
       <ButtonContainer>
-        <StyledButton type="submit" variant="primary">
+        <StyledButton type="submit" variant="green">
           {t('제출하기')}
         </StyledButton>
       </ButtonContainer>

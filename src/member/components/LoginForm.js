@@ -71,7 +71,7 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
             <StyledMessage variant="danger">{errors?.password}</StyledMessage>
           </dd>
         </dl>
-        <MypageStyledButton type="submit" variant="primary">
+        <MypageStyledButton type="submit" variant="green">
           {t('로그인')}
         </MypageStyledButton>
         <StyledMessage variant="danger">{errors?.global}</StyledMessage>
