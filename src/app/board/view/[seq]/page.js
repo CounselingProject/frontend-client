@@ -1,5 +1,7 @@
-const ViewPage = (props) => {
-  return <h1>게시판 보기</h1>;
+import ViewContainer from '@/board/containers/ViewContainer';
+
+const ViewPage = ({ params }) => {
+  return <ViewContainer params={params} />;
 };
 
 export default ViewPage;

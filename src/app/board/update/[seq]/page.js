@@ -1,5 +1,7 @@
-const UpdatePage = (props) => {
-  return <h1>글수정</h1>;
+import FormContainer from '@/board/containers/FormContainer';
+
+const UpdatePage = ({ params }) => {
+  return <FormContainer params={params} />;
 };
 
 export default UpdatePage;
