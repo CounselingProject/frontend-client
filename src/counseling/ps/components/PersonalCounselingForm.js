@@ -74,6 +74,7 @@ const PersonalCounselingForm = ({
   errors,
   setErrors,
   submissionSuccess,
+  counseling_Type, // 추가된 counselingType prop
 }) => {
   const { t } = useTranslation();
 
@@ -185,7 +186,7 @@ const PersonalCounselingForm = ({
             </dd>
           </dl>
           <dl>
-            <dt>{t('개인 상담 구분')}</dt>
+            <dt>{t('개인 상담 종류')}</dt>
             <dd>
               <InfoBox
                 type="text"
