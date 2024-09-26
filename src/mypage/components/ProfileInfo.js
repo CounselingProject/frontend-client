@@ -54,7 +54,7 @@ const ProfileInfo = ({
   const { t } = useTranslation();
 
   // memberInfo.data가 존재하는지 확인하고, 데이터를 접근하도록 변경
-  const data = memberInfo?.data;
+  const data = memberInfo;
 
   return (
     <FormBox autoComplete="off">
