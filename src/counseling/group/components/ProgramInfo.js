@@ -62,6 +62,7 @@ const ProgramInfo = ({ item }) => {
         </dl>
 
         <StyledButton variant="primary">{t('신청하기')}</StyledButton>
+        <StyledButton >{t('닫기')}</StyledButton>
       </FormBox>
     </>
   );
