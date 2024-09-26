@@ -64,7 +64,7 @@ const Title = styled.span`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #357abd;
+    background-color: #004d44; /* hover 시 색상 변경 */
   }
 `;
 
