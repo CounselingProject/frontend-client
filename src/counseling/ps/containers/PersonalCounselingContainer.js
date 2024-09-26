@@ -36,7 +36,7 @@ const PersonalCounselingContainer = ({ type }) => {
     email: '', // 신청자 이메일 기본값
     mobile: '', // 신청자 연락처 기본값
     reason: '', // 상담 신청 사유 기본값
-    catoegory: '', // 개인 상담 구분 기본값
+    category: '', // 개인 상담 종류 기본값
   });
   const [selectedTime, setSelectedTime] = useState(''); // 선택한 상담 시간
   const [errors, setErrors] = useState({});
@@ -104,7 +104,13 @@ const PersonalCounselingContainer = ({ type }) => {
     try {
       await apiApplyReservation(counselingData); // 예약 API 호출
       setSubmissionSuccess(true);
-      setForm({ name: '', email: '', mobile: '', reason: '', category: '' });
+      setForm({
+        name: '',
+        email: '',
+        mobile: '',
+        reason: '',
+        category: '',
+      });
       setSelectedTime('');
       setSelectedDate(null);
       setErrors({});
