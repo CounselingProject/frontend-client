@@ -7,7 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import { t } from 'i18next';
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+  max-width: 800px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 20px; /* 내부 여백 */
+  background-color: #f9f9f9; /* 배경색 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+`;
 
 const ItemBox = ({ no, item, answers, className, onClick }) => {
   const { questionId, questionText, testType } = item;
