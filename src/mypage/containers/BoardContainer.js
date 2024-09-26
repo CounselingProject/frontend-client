@@ -1,3 +1,4 @@
+// BoardContainer.js
 'use client';
 import React, {
   useLayoutEffect,
@@ -50,6 +51,7 @@ const BoardContainer = ({ searchParams }) => {
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />
       )}
+
     </>
   );
 };
