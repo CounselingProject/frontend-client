@@ -32,3 +32,17 @@ export const getList = (bid, search) => {
 
   return requestData(url);
 };
+
+// 내가 쓴 게시글 조회
+export const getMyList = (search) => {
+  search = search ?? {};
+  let qs = Object.entries(search)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&');
+
+  qs = qs ? `?${qs}` : qs;
+
+  const url = `/board/mylist${qs}`;
+
+  return requestData(url);
+};
