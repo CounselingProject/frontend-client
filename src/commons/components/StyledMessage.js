@@ -17,11 +17,17 @@ const MessageBox = styled.div`
   }
 `;
 
-export default function StyledMessage({ children }) {
+export default function StyledMessage({ children, variant, className }) {
   if (!children) return;
 
   const messages = Array.isArray(children) ? children : [children];
   return messages.map((message) => (
-    <MessageBox key={Date.now() + '_' + message}>{message}</MessageBox>
+    <MessageBox
+      key={Date.now() + '_' + message}
+      variant={variant}
+      className={className}
+    >
+      {message}
+    </MessageBox>
   ));
 }
