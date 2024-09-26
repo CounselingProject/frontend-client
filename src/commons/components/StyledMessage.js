@@ -6,9 +6,10 @@ const MessageBox = styled.div`
     const color = theme.colors[variant];
     const size = theme.fontSizes.extraSmall;
     return css`
-      box-shadow: 2px 2px 10px ${color};
+      //box-shadow: 2px 2px 10px ${color};
       color: ${color};
       font-size: ${size}px;
+        margin-top: 2px;
     `;
   }}
 

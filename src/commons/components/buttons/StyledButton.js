@@ -34,14 +34,17 @@ export const MypageStyledButton = styled.button`
   ${({ variant, theme, size, width, height }) => {
     const border =
       variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
-    width = width ?? '98%';
+    //width = width ?? '53%';
     height = height ?? '38px';
     return css`
+      margin-top: 15px;
       color: #fff;
       background-color: ${theme.colors.green};
       border: ${border};
       font-size: ${theme.fontSizes[size] || '14px'};
-      width: ${width};
+      //width: ${width};
+      max-width: 800px; /* 최대 너비를 설정하여 입력 필드의 크기를 조절할 수 있음 */
+      min-width: 700px;
       height: ${height};
     `;
   }}
