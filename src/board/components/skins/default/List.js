@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import ListItem from './ListItem';
 import SearchForm from './SearchForm';
+import Link from 'next/link';
 
 const ListItems = styled.ul``;
 
@@ -12,6 +13,7 @@ const DefaultList = ({ items, form, onChange, onSubmit }) => {
   return (
     <>
       <SearchForm form={form} onChange={onChange} onSubmit={onSubmit} />
+      <Link href={`/board/write/${form.bid}`}>{t('글쓰기')}</Link>
       <ListItems>
         {items && items.length > 0 ? (
           items.map((item) => (
