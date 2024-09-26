@@ -22,23 +22,22 @@ const ListItem = styled.div`
   }
 
   .div.title {
-  font-size:30px;
+    font-size: 30px;
   }
 `;
 
 const Title = styled.div`
-  font-size: 1.5rem; 
-  font-weight: bold; 
+  font-size: 1.5rem;
+  font-weight: bold;
   margin: 10px 10px;
 `;
-
 
 const StyledImage = styled(Image)`
   border-radius: 10px 10px 0 0;
   margin: 0 auto;
 `;
 
-const Program = ({ item, onChange }) => {
+const Program = ({ item, onApply }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
@@ -46,7 +45,7 @@ const Program = ({ item, onChange }) => {
     <>
       {visible && (
         <Modal visible={visible}>
-          <ProgramInfo item={item} />
+          <ProgramInfo item={item} onClose={() => setVisible(false)} />
         </Modal>
       )}
       <ListItem onClick={() => setVisible(true)}>

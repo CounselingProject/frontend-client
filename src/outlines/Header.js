@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +41,7 @@ const HeaderBox = styled.header`
   .auth-links {
     display: flex;
     align-items: center;
-    
+
     a {
       margin-left: 10px;
       color: ${({ theme }) => theme.colors.white};
@@ -50,12 +50,17 @@ const HeaderBox = styled.header`
 `;
 
 const Header = () => {
+  const [login, setLogin] = useState(false);
   const { t } = useTranslation();
   const { showHeader } = getCommonStates();
   const {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
   } = getUserContext();
+
+  useEffect(() => {
+    setLogin(isLogin);
+  }, [isLogin]);
 
   const onLogout = useCallback(() => {
     setIsLogin(false);
@@ -72,17 +77,29 @@ const Header = () => {
     showHeader && (
       <HeaderBox>
         <div className="logo-container">
-        <a href="/" className="logo">
-            <Image src="/images/logo/logo1.png" alt="로고1" width={43} height={35} />
+          <a href="/" className="logo">
+            <Image
+              src="/images/logo/logo1.png"
+              alt="로고1"
+              width={43}
+              height={35}
+            />
           </a>
           <a href="/" className="logo">
-            <Image src="/images/logo/logo3.png" alt="로고2" width={200} height={10} />
+            <Image
+              src="/images/logo/logo3.png"
+              alt="로고2"
+              width={200}
+              height={10}
+            />
           </a>
         </div>
         <div className="auth-links">
-          {isLogin ? (
+          {login ? (
             <>
-              <span>{userInfo?.userName}({userInfo?.email}){t('님_로그인')}</span>
+              <span>
+                {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
+              </span>
               <a onClick={onLogout}>{t('로그아웃')}</a>
               <a href="/mypage">{t('마이페이지')}</a>
               {isAdmin && (
