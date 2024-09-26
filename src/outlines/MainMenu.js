@@ -9,15 +9,20 @@ const Menus = styled.nav`
   .inner {
     display: flex;
     height: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     a {
       line-height: 45px;
-      fontsize: ${({ theme }) => theme.fontSizes.mediumLarge}px;
+      //font-size: ${({ theme }) => theme.fontSizes.mediumLarge};
+      font-size: 20px;
       color: ${({ theme }) => theme.colors.black};
       padding: 0 35px;
     }
     a.on,
     a:hover {
-      background: ${({ theme }) => theme.colors.gray};
+      background: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.green};
+      font-weight: bold; /* 글자 두껍게 */
     }
   }
 `;
