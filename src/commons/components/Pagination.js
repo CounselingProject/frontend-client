@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   max-width: 450px;
   min-width: 100px;
-  margin: 20px auto;
+  margin: 30px auto;
   align-items: center;
   justify-content: center;
 
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
     line-height: 33px;
     text-align: center;
     font-size: 1.15rem;
-    border: 1px solid #005d4f;
+    border: 1px solid ${({ theme }) => theme.colors.green};
     border-radius: 2.5px;
     cursor: pointer;
   }
@@ -34,11 +34,10 @@ const Wrapper = styled.div`
   }
 
   .page.on {
-    background: #005d4f;
+    background: ${({ theme }) => theme.colors.green};
     color: #fff;
   }
 `;
-
 const Pagination = ({ pagination, onClick }) => {
   const { page, pages, prevRangePage, nextRangePage, totalPages } = pagination;
 
