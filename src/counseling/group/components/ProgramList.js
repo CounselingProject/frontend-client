@@ -8,10 +8,10 @@ import Modal from '@/commons/components/Modal';
 import ProgramInfo from './ProgramInfo';
 
 const ListItem = styled.div`
-   width: 23%; 
+  width: 23%;
   display: flex;
-  flex-direction: column;  
-  margin: 20px 0; 
+  flex-direction: column;
+  margin: 20px 0;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,6 @@ const ListItem = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-  
   border-radius: 10px 10px 0 0;
   margin-bottom: 10px;
 `;
@@ -37,9 +36,6 @@ const Program = ({ item, onChange }) => {
       {visible && (
         <Modal visible={visible}>
           <ProgramInfo item={item} />
-          <button type="button" onClick={() => setVisible(false)}>
-            닫기
-          </button>
         </Modal>
       )}
       <ListItem onClick={() => setVisible(true)}>
