@@ -41,6 +41,7 @@ const MainMenu = () => {
 
           <a href="/counseling/group">{t('집단상담 프로그램')}</a>
           <a href="/counseling/details">{t('상담 이력')}</a>
+          <a href="/board/list/freetalk">{t('자유 게시판')}</a>
 
         </div>
       </Menus>
