@@ -7,6 +7,7 @@ import Image from 'next/image';
 import group from '../../../././../public/group.jpg';
 import ProgramListContainer from '@/counseling/group/containers/ProgramListContainer';
 import { FiClipboard } from 'react-icons/fi';
+import ProgramList from './ProgramList';
 
 const GroupDes = styled.div`
   max-width: 1200px;
@@ -75,7 +76,7 @@ const GroupDes = styled.div`
   }
 `;
 
-const ProgramLList = () => {
+const Program = () => {
   return (
     <GroupDes>
       <div>
@@ -112,7 +113,7 @@ const ProgramLList = () => {
         <h3>
           <FiClipboard /> 집단상담프로그램 목록
         </h3>
-        <ProgramListContainer />
+       <ProgramListContainer />
       
       </div>
     </GroupDes>
@@ -121,4 +122,4 @@ const ProgramLList = () => {
 
 
 
-export default React.memo(ProgramLList);
+export default React.memo(Program);

@@ -10,8 +10,6 @@ const ProgramListContainer = ({ searchParams }) => {
   const [items, setItems] = useState(null);
   const [pagination, setPagination] = useState(null);
   const [search, setSearch] = useState(searchParams);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState();
 
   useEffect(() => {
     (async () => {
