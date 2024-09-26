@@ -24,7 +24,7 @@ const options = {
 
 const items = [
   { image: '/images/banner/banner1.png', link: '/', alt: '배너1' },
-  { image: '/images/banner/banner2.jpg', link: '/', alt: '배너2' },
+  { image: '/images/banner/banner2.png', link: '/', alt: '배너2' },
 ];
 
 const StyleSlideBanner = styled(SlideBanner)`
