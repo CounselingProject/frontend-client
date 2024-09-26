@@ -3,31 +3,53 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { useRouter } from 'next/router';
 
 const FormBox = styled.form`
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
   dl {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     margin-bottom: 15px;
 
     dt {
-      width: 200px;
       font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 1rem;
+      color: #555;
     }
 
     dd {
-      flex-grow: 1;
-      max-width: 100%;
-      padding: 5px;
+      font-size: 1rem;
+      color: #333;
+      margin-left: 0;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
-  gap: 10px; 
-  margin-top: 20px; `;
+  justify-content: center; 
+  gap: 15px; 
+  margin-top: 30px;
+`;
+
 
 const ProgramInfo = ({ item }) => {
   const { t } = useTranslation();

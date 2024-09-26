@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 
 const customStyles = {
   content: {
+    position: 'absolute',
     top: '50%',
     left: '50%',
     right: 'auto',
