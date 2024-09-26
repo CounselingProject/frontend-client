@@ -16,21 +16,34 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
+/* 페이지 로딩 메세지 */
+const LoadingMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.blue};
+  font-weight: bold;
+`;
+
 const PersonalCounselingContainer = ({ type }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(null); // 선택한 상담 신청 날짜
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    mobile: '',
+    name: '', // 상담 신청자명 기본값
+    email: '', // 신청자 이메일 기본값
+    mobile: '', // 신청자 연락처 기본값
+    reason: '', // 상담 신청 사유 기본값
+    catoegory: '', // 개인 상담 구분 기본값
   });
   const [selectedTime, setSelectedTime] = useState(''); // 선택한 상담 시간
   const [errors, setErrors] = useState({});
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const startDate = new Date(); // 시작 날짜
   const endDate = new Date(); // 종료 날짜
-  endDate.setDate(startDate.getDate() + 30);
+  endDate.setDate(startDate.getDate() + 90); // 오늘부터 3달까지 가능
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
 
   useEffect(() => {
@@ -52,6 +65,10 @@ const PersonalCounselingContainer = ({ type }) => {
       name: t('신청자명을 입력해주세요.'),
       email: t('신청자 이메일을 입력해주세요.'),
       mobile: t('신청자 연락처를 입력해주세요.'),
+      reason: t('상담 신청 사유를 입력해주세요.'),
+      category: t(
+        '개인 상담 종류 PROFESSOR(교수 상담), EMPLOYMENT(취업 상담), PSYCHOLOGICAL (심리 상담) 중 하나를 입력하세요.',
+      ),
     };
 
     if (!selectedDate) {
@@ -75,13 +92,12 @@ const PersonalCounselingContainer = ({ type }) => {
       return;
     }
 
-    // 상담 유형별 추가 데이터 설정
+    // 추가 데이터 설정
     const counselingData = {
       ...form,
-      // category: type.toUpperCase(), // 상담 유형 대문자로 설정
       rDate: dayjs(selectedDate).format('YYYY-MM-DD'), // 상담 선택 날짜
       rTime: selectedTime, // 상담 선택 시간
-      reason: `(${type}) 신청`, // 상담 신청 이유
+      reason: `개인 상담 신청`, // 상담 신청 이유
       cNo: null, // 개인 상담이므로 집단 상담 번호는 null
     };
 
@@ -103,19 +119,11 @@ const PersonalCounselingContainer = ({ type }) => {
   }, []);
 
   if (isLoading) {
-    return <div>{t('로딩 중...')}</div>;
+    return <LoadingMessage>{t('상담 신청 페이지 로딩 중...')}</LoadingMessage>;
   }
-
-  // 상담 유형별 제목 설정 -> 이거 안되는 거 같음
-  const counselingTitles = {
-    professor: t('교수 상담 예약'),
-    employment: t('취업 상담 예약'),
-    psychological: t('심리 상담 예약'),
-  };
 
   return (
     <Container>
-      <Title>{counselingTitles[type]}</Title>
       <PersonalCounselingForm
         counselingType={type} // 상담 유형 구분 : 교수, 취업, 심리
         startDate={startDate} // 상담 신청 가능 시작 날짜

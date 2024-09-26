@@ -16,19 +16,18 @@ const StyledCalendar = styled(Calendar)`
   width: 100%;
   max-width: 100%;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
+  /* < > 표시 */
   .react-calendar__navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    padding: 0 170px;
+    padding: 30px 170px;
+    margin: 3px;
   }
 
   .react-calendar__navigation button {
-    color: #ff3d00;
+    color: ${({ theme }) => theme.colors.blue};
     background: none;
     font-size: 1.5rem;
     font-weight: bold;
@@ -43,7 +42,6 @@ const StyledCalendar = styled(Calendar)`
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
-    color: #ff3d00;
   }
 
   /* 날짜 스타일 */
@@ -72,7 +70,7 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__tile:hover {
-    background: ${({ theme }) => theme.colors.sky_blue_Dark};
+    background: ${({ theme }) => theme.colors.green};
   }
 
   .react-calendar__navigation button {
@@ -81,7 +79,6 @@ const StyledCalendar = styled(Calendar)`
     min-width: 44px;
     background: none;
     font-size: 1.2rem;
-    margin-top: 8px;
   }
 
   .react-calendar__month-view__weekdays {
@@ -90,6 +87,11 @@ const StyledCalendar = styled(Calendar)`
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.blue};
     padding: 0.7em;
+    margin-bottom: 0;
+  }
+
+  .react-calendar__month-view__days__day {
+    padding: 20px 10px;
   }
 
   .react-calendar__month-view__days__day--weekend {

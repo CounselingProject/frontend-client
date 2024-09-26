@@ -7,6 +7,7 @@ import { StyledDd } from '@/commons/components/Mypage/StyledDd';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
+import userType from '@/member/constants/userType';
 import FileUpload from '@/commons/components/FileUpload';
 
 // StyledFileUpload 정의
@@ -63,7 +64,7 @@ const ProfileUpdate = ({
       </dl>
       <dl>
         <StyledDt>{t('회원유형')}</StyledDt>
-        <StyledDd>{form?.userType}</StyledDd>
+        <StyledDd>{userType[form?.userType]}</StyledDd>
       </dl>
       <dl>
         <StyledDt>{t('이메일')}</StyledDt>
