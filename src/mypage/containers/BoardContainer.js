@@ -2,121 +2,55 @@
 'use client';
 import React, {
   useLayoutEffect,
-  useEffect,
   useState,
+  useEffect,
   useCallback,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import MyPosts from '../components/MyPosts';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
-import { listBoardData} from '@/member/apis/apiBoardinfo';
-import Loading from '@/commons/Loading';
-import { useRouter } from 'next/navigation';
-import apiBoard from '@/board/apis/apiBoard';
+import MyPosts from '../components/MyPosts';
+import { getMyList } from '@/board/apis/apiBoard';
 import Pagination from '@/commons/components/Pagination';
-import List from '@/board/components/skins/default/List';
 
-function getQueryString(query) {
-  const qs = { limit: 10, page: 1 };
-  for (const key in query) {
-    if (query.hasOwnProperty(key)) {
-      qs[key] = query[key];
-    }
-  }
-  return qs;
-}
+import { BulletList } from 'react-content-loader';
 
-const BoardContainer = () => {
+const MyBulletListLoader = () => <BulletList />;
+
+const BoardContainer = ({ searchParams }) => {
   const { t } = useTranslation();
   const { setMainTitle } = getCommonActions();
-  const router = useRouter();
-
-  // 상태 관리
-  const [search, setSearch] = useState(() => getQueryString(router.query));
-
   const [items, setItems] = useState(null);
-  const [board, setBoard] = useState(null);
   const [pagination, setPagination] = useState(null);
-
+  searchParams.page = searchParams?.page ?? 1;
+  const [search, setSearch] = useState(searchParams);
   useLayoutEffect(() => {
-    setMainTitle(t('마이페이지'));
+    setMainTitle(t('내가_작성한_게시글'));
   }, [setMainTitle, t]);
 
   useEffect(() => {
-
-    const fetchData = async () => {
+    (async () => {
       try {
-        const { items, pagination } = await listBoardData(search);
-
-        setItems(items);
-        setPagination(pagination);
-        console.log(items)
+        const data = await getMyList(search);
+        if (data) {
+          setItems(data.items);
+          setPagination(data.pagination);
+        }
       } catch (err) {
         console.error(err);
       }
-    };
-
-    fetchData();
+    })();
   }, [search]);
 
-  const onChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setSearch((prevSearch) => {
-        const updatedSearch = { ...prevSearch, [name]: value };
-        router.push({ pathname: router.pathname, query: updatedSearch });
-        return updatedSearch;
-      });
-    },
-    [router],
-  );
-
-  const onSubmitSearch = useCallback(
-    (e) => {
-      e.preventDefault();
-      setSearch((prevSearch) => {
-        const updatedSearch = { ...prevSearch, page: 1 };
-        router.push({ pathname: router.pathname, query: updatedSearch });
-        return updatedSearch;
-      });
-    },
-    [router],
-  );
-
-  const onChangePage = useCallback(
-    (p) => {
-      setSearch((prevSearch) => {
-        const updatedSearch = { ...prevSearch, page: p };
-        router.push({ pathname: router.pathname, query: updatedSearch });
-        window.location.hash = '#root';
-        return updatedSearch;
-      });
-    },
-    [router],
-  );
-
-  const handleRowClick = useCallback(
-    (seq) => {
-      router.push(`/board/view/${seq}`);
-    },
-    [router],
-  );
-
-  if (!items) {
-    return <Loading />;
-  }
+  const onPageClick = useCallback((page) => {
+    setSearch((search) => ({ ...search, page }));
+  }, []);
 
   return (
     <>
-      <MyPosts
-        items={items}
-        search={search}
-        onChange={onChange}
-        onSubmit={onSubmitSearch}
-        onRowClick={handleRowClick}
-        pagination={pagination} // 페이지네이션 데이터 전달
-      />
-
+      <MyPosts items={items} />
+      {pagination && (
+        <Pagination pagination={pagination} onClick={onPageClick} />
+      )}
 
     </>
   );

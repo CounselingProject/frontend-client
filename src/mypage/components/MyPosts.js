@@ -1,94 +1,55 @@
-// MyPosts.js
+'use client';
 import React from 'react';
-import BoardList from '@/board/components/skins/default/List';
-import Pagination from '@/commons/components/Pagination';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+import ListItem from '@/board/components/skins/default/ListItem';
 
-const Wrapper = styled.div`
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h1`
-  font-size: 24px;
+const ColumnHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
   font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
+  padding: 10px 0;
+  border-bottom: 2px solid #ddd; /* 상단바와 리스트 구분선 */
+  background-color: #f0f0f0; /* 상단바 배경색 */
 `;
 
-const SearchForm = styled.form`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+const ListItems = styled.ul`
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 패딩 제거 */
+  margin: 0; /* 마진 제거 */
 `;
 
-const SearchInput = styled.input`
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-right: 10px;
-  font-size: 16px;
-`;
-
-const SearchButton = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
-
-
-const MyPosts = ({ items, search, onChange, onSubmit, onRowClick, pagination }) => {
+const MyPosts = ({ items }) => {
+  const { t } = useTranslation();
   return (
-    <Wrapper>
-      <Title>내가 쓴 게시글</Title>
+    <>
+      <ColumnHeader>
+        <span style={{ flex: '0 0 100px', textAlign: 'center' }}>
+          {t('분류')}
+        </span>
+        <span style={{ flex: '1', textAlign: 'center' }}>{t('제목')}</span>
+        <span style={{ flex: '0 0 100px', textAlign: 'center' }}>
+          {t('조회수')}
+        </span>
+        <span style={{ flex: '0 0 150px', textAlign: 'center' }}>
+          {t('등록일')}
+        </span>
+        <span style={{ flex: '0 0 120px', textAlign: 'center' }}>
+          {t('작성자')}
+        </span>
+        {/* 작성자 추가 */}
+      </ColumnHeader>
+      <ListItems>
+        {items && items.length > 0 ? (
+          items.map((item) => (
+            <ListItem key={`board_item_${item.seq}`} item={item} />
+          ))
+        ) : (
+          <li className="no-data">{t('조회된_게시글이_없습니다.')}</li>
+        )}
+      </ListItems>
+    </>
 
-      {/* 검색 폼 */}
-      <SearchForm onSubmit={onSubmit}>
-        <SearchInput
-          type="text"
-          name="search"
-          value={search.search || ''}
-          onChange={onChange}
-          placeholder="검색어를 입력하세요"
-        />
-        <SearchButton type="submit">검색</SearchButton>
-      </SearchForm>
-
-      {/* 게시글 목록 */}
-
-      <BoardList
-        items={items}
-        onRowClick={onRowClick}
-      />
-
-
-      {/* 페이지네이션 */}
-      {pagination && (
-        <PaginationContainer>
-          <Pagination pagination={pagination} onClick={onRowClick} />
-        </PaginationContainer>
-      )}
-    </Wrapper>
   );
 };
 
