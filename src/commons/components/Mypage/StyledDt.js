@@ -6,4 +6,5 @@ export const StyledDt = styled.dt`
     font-weight: bold;
     margin-top: 0.8rem;
     margin-bottom: 0.5rem;
+    color: ${({ theme }) => theme.colors.green};
 `;

@@ -24,7 +24,7 @@ const InfoContainer = () => {
   // 상태가 업데이트된 후 값을 확인하는 useEffect
   useEffect(() => {
     if (memberInfo) {
-      //console.log('Updated memberInfo:', memberInfo); // 상태가 변경된 후 출력
+      console.log('Updated memberInfo:', memberInfo); // 상태가 변경된 후 출력
     }
   }, [memberInfo]); // memberInfo가 변경될 때마다 실행
 
