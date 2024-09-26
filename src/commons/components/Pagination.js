@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   max-width: 450px;
   min-width: 100px;
-  margin: 20px auto;
+  margin: 30px auto;
   align-items: center;
   justify-content: center;
 
@@ -38,7 +38,6 @@ const Wrapper = styled.div`
     color: #fff;
   }
 `;
-
 const Pagination = ({ pagination, onClick }) => {
   const { page, pages, prevRangePage, nextRangePage, totalPages } = pagination;
 

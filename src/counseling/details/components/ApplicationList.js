@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 30px auto;
 `;
 
 const StyledThead = styled.thead`
@@ -56,7 +56,11 @@ const StyledTd = styled.td`
   }
 `;
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
   const { t } = useTranslation();
@@ -118,51 +122,56 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     record,
                   },
                   i,
-                ) => (
-                  <tr key={`item_${rno}`}>
-                    <StyledTd>{rno}</StyledTd>
-                    <StyledTd>{format(rDateTime, 'yyyy.MM.dd')}</StyledTd>
-                    <StyledTd>{format(rDateTime, 'HH:mm')}~</StyledTd>
-                    <StyledTd>{userName}</StyledTd>
-                    <StyledTd>
-                      {counselingType
-                        ? counselingTypes.GROUP
-                        : counselingTypes.PERSONAL}
-                    </StyledTd>
-                    <StyledTd>
-                      {category && personalCategory[category]}
-                    </StyledTd>
-                    <StyledTd>{counselingName}</StyledTd>
-                    <StyledTd>
-                      {counselorName}({counselorEmail})
-                    </StyledTd>
-                    <StyledTd>
-                      {(status === 'APPLY' && statuses.APPLY) ||
-                        (status === 'CANCEL' && statuses.CANCEL) ||
-                        (status === 'DONE' && statuses.DONE)}
-                    </StyledTd>
-                    <StyledTd>
-                      <button
-                        type="button"
-                        className="cancel"
-                        onClick={() => onChangeStatus(rno)}
-                      >
-                        {t('예약취소')}
-                      </button>
-                    </StyledTd>
-                    <StyledTd>
-                      <button
-                        type="button"
-                        className="record"
-                        onClick={() =>
-                          isStudent ? onReview(rno) : onRecord(record)
-                        }
-                      >
-                        {t('작성하기')}
-                      </button>
-                    </StyledTd>
-                  </tr>
-                ),
+                ) => {
+                  const endTime = addHours(rDateTime, 1);
+                  return (
+                    <tr key={`item_${rno}`}>
+                      <StyledTd>{rno}</StyledTd>
+                      <StyledTd>{format(rDateTime, 'yyyy.MM.dd')}</StyledTd>
+                      <StyledTd>
+                        {format(rDateTime, 'HH:mm')}~{format(endTime, 'HH:mm')}
+                      </StyledTd>
+                      <StyledTd>{userName}</StyledTd>
+                      <StyledTd>
+                        {counselingType
+                          ? counselingTypes.GROUP
+                          : counselingTypes.PERSONAL}
+                      </StyledTd>
+                      <StyledTd>
+                        {category && personalCategory[category]}
+                      </StyledTd>
+                      <StyledTd>{counselingName}</StyledTd>
+                      <StyledTd>
+                        {counselorName}({counselorEmail})
+                      </StyledTd>
+                      <StyledTd>
+                        {(status === 'APPLY' && statuses.APPLY) ||
+                          (status === 'CANCEL' && statuses.CANCEL) ||
+                          (status === 'DONE' && statuses.DONE)}
+                      </StyledTd>
+                      <StyledTd>
+                        <button
+                          type="button"
+                          className="cancel"
+                          onClick={() => onChangeStatus(rno)}
+                        >
+                          {t('예약취소')}
+                        </button>
+                      </StyledTd>
+                      <StyledTd>
+                        <button
+                          type="button"
+                          className="record"
+                          onClick={() =>
+                            isStudent ? onReview(rno) : onRecord(record)
+                          }
+                        >
+                          {t('작성하기')}
+                        </button>
+                      </StyledTd>
+                    </tr>
+                  );
+                },
               )
             ) : (
               <tr>
