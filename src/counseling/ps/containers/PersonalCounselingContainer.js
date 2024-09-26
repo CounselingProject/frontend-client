@@ -23,7 +23,7 @@ const LoadingMessage = styled.div`
   align-items: center;
   height: 100vh;
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.green};
   font-weight: bold;
 `;
 

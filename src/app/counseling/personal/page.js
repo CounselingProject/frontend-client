@@ -52,7 +52,7 @@ const PersonalContainer = styled.div`
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: ${({ theme }) => theme.colors.blue};
+    background-color: ${({ theme }) => theme.colors.green};
     color: white;
     border-radius: 5px;
     text-decoration: none;
