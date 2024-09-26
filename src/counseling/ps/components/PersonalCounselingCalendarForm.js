@@ -27,7 +27,7 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation button {
-    color: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.colors.green};
     background: none;
     font-size: 1.5rem;
     font-weight: bold;
@@ -52,7 +52,7 @@ const StyledCalendar = styled(Calendar)`
     &:hover,
     &:focus,
     &.react-calendar__tile--active {
-      background: ${({ theme }) => theme.colors.blue};
+      background: ${({ theme }) => theme.colors.green};
       color: ${({ theme }) => theme.colors.white};
     }
   }
@@ -65,17 +65,17 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__tile--active {
     // 날짜 선택 시 색상
-    background: ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.white};
   }
 
   .react-calendar__tile:hover {
-    background: ${({ theme }) => theme.colors.green};
+    background: ${({ theme }) => theme.colors.blue};
   }
 
   .react-calendar__navigation button {
     // N월 글자 색상
-    color: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.colors.green};
     min-width: 44px;
     background: none;
     font-size: 1.2rem;
@@ -85,7 +85,7 @@ const StyledCalendar = styled(Calendar)`
     text-align: center;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.white};
-    background: ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.colors.green};
     padding: 0.7em;
     margin-bottom: 0;
   }
@@ -96,7 +96,7 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__month-view__days__day--weekend {
     // 주말 날짜 색상
-    color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.blue};
   }
 `;
 
