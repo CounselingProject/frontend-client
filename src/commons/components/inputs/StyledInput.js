@@ -28,7 +28,7 @@ export const MemberStyledInput = styled.input`
     border: 1px solid ${({ theme }) => theme.colors.gray};
     padding: 10px;
     width: 100%;
-    max-width: 800px; /* 최대 너비를 설정하여 입력 필드의 크기를 조절할 수 있음 */
+    max-width: 800px; /* 최대 너비를 설정하여 입력 필드의 크기를 조절할 수 있음. */
     min-width: 700px;
     height: 40px;
     font-size: 14px;
