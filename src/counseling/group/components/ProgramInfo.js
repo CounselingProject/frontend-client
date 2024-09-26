@@ -1,10 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 
-const FormBox = styled.form`
+const FormBox = styled.div`
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
@@ -49,12 +49,21 @@ const ButtonContainer = styled.div`
   margin-top: 30px;
 `;
 
-const ProgramInfo = ({ item, onSubmit, onClose }) => {
+const ProgramInfo = ({ item, onClose }) => {
   const { t } = useTranslation();
-  if (!item) return null;
+  // 집단 예약 신청하기
+  const onApply = useCallback((item) => {
+    
+    const [rdate, rtime] = item.counselingDate.split(' ');
+    const form = {
+      category: 'GROUP',
+      rdate,
+      rtime,
+    };
+  }, []);
 
   return (
-    <>
+    item && (
       <FormBox autoComplete="off">
         <h2>{item.counselingName}</h2>
         <dl>
@@ -84,11 +93,15 @@ const ProgramInfo = ({ item, onSubmit, onClose }) => {
           <dd>{item.counselingLimit}명</dd>
         </dl>
         <ButtonContainer>
-          <StyledButton type="submit">{t('신청하기')}</StyledButton>
-          <StyledButton type="button">{t('닫기')}</StyledButton>
+          <StyledButton type="button" onClick={() => onApply(item)}>
+            {t('신청하기')}
+          </StyledButton>
+          <StyledButton type="button" onClick={onClose}>
+            {t('닫기')}
+          </StyledButton>
         </ButtonContainer>
       </FormBox>
-    </>
+    )
   );
 };
 
