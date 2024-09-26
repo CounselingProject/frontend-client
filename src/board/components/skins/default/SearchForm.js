@@ -9,6 +9,10 @@ import { StyledButton } from '@/commons/components/buttons/StyledButton';
 
 const FormBox = styled.form`
   display: flex;
+  justify-content: center; /* 중앙 정렬 추가 */
+  align-items: center; /* 수직 중앙 정렬 추가 */
+  margin: 20px 0; /* 상하 여백 추가 */
+
   select {
     width: 120px;
   }
@@ -19,6 +23,7 @@ const FormBox = styled.form`
 
   input[type='text'] {
     flex-grow: 1;
+    margin-left: 10px; /* 검색어 입력창과 버튼 간의 간격 추가 */
   }
 `;
 

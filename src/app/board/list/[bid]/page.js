@@ -1,11 +1,14 @@
 import ListContainer from '@/board/containers/ListContainer';
+import { OuterBox } from '@/commons/components/LayoutBox';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 
 const ListPage = (props) => {
   return (
-    <MemberOnlyContainer>
-      <ListContainer {...props} />
-    </MemberOnlyContainer>
+    <OuterBox>
+      <MemberOnlyContainer>
+        <ListContainer {...props} />
+      </MemberOnlyContainer>
+    </OuterBox>
   );
 };
 
