@@ -50,6 +50,7 @@ const FormContainer = ({ params }) => {
           if (data) {
             setForm((form) => ({ ...form, ...data, mode: 'update' }));
             setBoard(data.board);
+            setMainTitle(data.subject);
           }
         } catch (err) {
           console.error(err);
