@@ -8,13 +8,14 @@ const Menus = styled.nav`
   background: ${({ theme }) => theme.colors.white};
   .inner {
     display: flex;
+    justify-content: center; /* 가운데 정렬 */
     height: 45px;
     margin-top: 10px;
     margin-bottom: 10px;
     a {
       line-height: 45px;
-      //font-size: ${({ theme }) => theme.fontSizes.mediumLarge};
-      font-size: 20px;
+      font-size: 17px;
+      font-weight: bold;
       color: ${({ theme }) => theme.colors.black};
       padding: 0 35px;
     }
