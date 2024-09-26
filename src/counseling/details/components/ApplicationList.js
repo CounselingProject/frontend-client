@@ -7,6 +7,9 @@ import counselingTypes from '../../constants/counselingType';
 import personalCategory from '../../constants/personalCategory';
 import statuses from '../../constants/status';
 import Modal from '@/commons/components/Modal';
+import { getUserStates } from '../../../commons/contexts/UserInfoContext';
+import { useRouter } from 'next/navigation';
+
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -59,6 +62,9 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [record, setRecord] = useState(null);
+  const { isStudent } = getUserStates();
+
+  const router = useRouter();
 
   const onClose = useCallback(() => {
     setVisible(false);
@@ -68,6 +74,13 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
     setRecord(record);
     setVisible(true);
   }, []);
+
+  const onReview = useCallback(
+    (rno) => {
+      router.push(`/board/write/review?num1=${rno}`);
+    },
+    [router],
+  );
 
   return (
     <>
@@ -85,7 +98,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
               <StyledTh>상담사명</StyledTh>
               <StyledTh>진행상태</StyledTh>
               <StyledTh>예약취소</StyledTh>
-              <StyledTh>상담일지</StyledTh>
+              <StyledTh>{isStudent ? '상담후기' : '상담일지'}</StyledTh>
             </tr>
           </StyledThead>
           <tbody>
@@ -124,9 +137,9 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                       {counselorName}({counselorEmail})
                     </StyledTd>
                     <StyledTd>
-                      {(status === "APPLY" && statuses.APPLY) ||
-                        (status === "CANCEL" && statuses.CANCEL) ||
-                        (status === "DONE" && statuses.DONE)}
+                      {(status === 'APPLY' && statuses.APPLY) ||
+                        (status === 'CANCEL' && statuses.CANCEL) ||
+                        (status === 'DONE' && statuses.DONE)}
                     </StyledTd>
                     <StyledTd>
                       <button
@@ -138,15 +151,15 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                       </button>
                     </StyledTd>
                     <StyledTd>
-                      {record && (
-                        <button
-                          type="button"
-                          className="record"
-                          onClick={() => onRecord(record)}
-                        >
-                          {t('작성하기')}
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        className="record"
+                        onClick={() =>
+                          isStudent ? onReview(rno) : onRecord(record)
+                        }
+                      >
+                        {t('작성하기')}
+                      </button>
                     </StyledTd>
                   </tr>
                 ),
