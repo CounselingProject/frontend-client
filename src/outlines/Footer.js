@@ -34,7 +34,7 @@ const Footer = () => {
   return (
     showFooter && (
       <FooterContainer>
-        <h2>우리 기관의 이름</h2>
+        <h3>COPYRIGHT 2020 BY EWHA WOMANS UNIVERSITY. ALL RIGHTS RESERVED.</h3>
         <FooterLinks>
           <a href="/#">소개</a>
           <a href="/#">서비스</a>
@@ -42,7 +42,7 @@ const Footer = () => {
           <a href="/#">개인정보처리방침</a>
         </FooterLinks>
         <FooterInfo>
-          © 2024 우리 기관. 모든 권리 보유. | 주소: 서울특별시 어딘가 | 전화: 123-456-7890
+        03760 서울특별시 서대문구 이화여대길 52 이화여자대학교   T. 02-3277-2114
         </FooterInfo>
       </FooterContainer>
     )
