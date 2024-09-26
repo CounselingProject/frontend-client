@@ -4,7 +4,7 @@ import StudentOnlyContainer from '@/member/containers/StudentOnlyContainer';
 
 const TestPage = ({ params }) => {
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div style={{ marginBottom: '40px', marginTop: '40px' }}>
       <StudentOnlyContainer>
         <TestContainer params={params} />
       </StudentOnlyContainer>
