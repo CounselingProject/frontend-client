@@ -1,9 +1,10 @@
-import classNames from 'classnames';
+'use client'
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import Image from 'next/image';
 import group from '../../../././../public/group.jpg';
+import ProgramInfo from './ProgramInfo';
 
 const ListItem = styled.li`
   width: 300px
@@ -45,7 +46,7 @@ const StyledProgram = styled(Program)`
   height: 100px;
 `;
 
-const ProgramList = ({ items }) => {
+const ProgramList = ({ items =[],  }) => {
   return (
     items &&
     items.length > 0 &&
