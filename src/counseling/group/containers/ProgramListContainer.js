@@ -1,9 +1,18 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Pagination from '@/commons/components/Pagination';
 import { apiList } from '../apis/apiInfo';
 import ProgramList from '../components/ProgramList';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  div + div {
+    margin-left: 10px;
+  }
+`;
 
 const ProgramListContainer = ({ searchParams }) => {
   const { t } = useTranslation();
@@ -34,7 +43,9 @@ const ProgramListContainer = ({ searchParams }) => {
   }
   return (
     <>
-      <ProgramList items={items} />
+      <Wrapper>
+        <ProgramList items={items} />
+      </Wrapper>
       <Pagination pagination={pagination} onClick={onPageClick} />
     </>
   );
