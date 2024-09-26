@@ -46,6 +46,7 @@ export const MypageStyledButton = styled.button`
       max-width: 800px; /* 최대 너비를 설정하여 입력 필드의 크기를 조절할 수 있음 */
       min-width: 700px;
       height: ${height};
+      
     `;
   }}
   letter-spacing: 0;
@@ -58,7 +59,7 @@ export const MypageStyledButton = styled.button`
 
   // 호버 시 배경 색상 변경
   &:hover {
-    background-color: #006a7f; /* 원하는 색상으로 변경 */
+    background-color: #005d4f; /* 원하는 색상으로 변경 */
     opacity: 0.9; /* 살짝 투명하게 효과 추가 가능 */
   }
 `;
