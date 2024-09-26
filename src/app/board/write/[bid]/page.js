@@ -1,11 +1,14 @@
 import FormContainer from '@/board/containers/FormContainer';
+import { OuterBox } from '@/commons/components/LayoutBox';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 
 const WritePage = ({ params }) => {
   return (
-    <MemberOnlyContainer>
-      <FormContainer params={params} />
-    </MemberOnlyContainer>
+    <OuterBox>
+      <MemberOnlyContainer>
+        <FormContainer params={params} />
+      </MemberOnlyContainer>
+    </OuterBox>
   );
 };
 
