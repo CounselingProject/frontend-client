@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
+import { StyledDt } from '@/commons/components/Mypage/StyledDt';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 const FormBox = styled.form``;
 
@@ -12,7 +13,7 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <dl>
-        <dt>{t('이메일')}</dt>
+        <StyledDt>{t('이메일')}</StyledDt>
         <dd>
           <StyledInput
             type="text"
@@ -24,7 +25,7 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
         </dd>
       </dl>
       <dl>
-        <dt>{t('비밀번호')}</dt>
+        <StyledDt>{t('비밀번호')}</StyledDt>
         <dd>
           <StyledInput
             type="password"
