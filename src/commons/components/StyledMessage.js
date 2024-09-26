@@ -1,7 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const MessageBox = styled.div``;
+const MessageBox = styled.div`
+  ${({ variant, theme }) => {
+    const color = theme.colors[variant];
+    const size = theme.fontSizes.extraSmall;
+    return css`
+      box-shadow: 2px 2px 10px ${color};
+      color: ${color};
+      font-size: ${size}px;
+    `;
+  }}
+
+  & + & {
+    margin-top: 5px;
+  }
+`;
 
 export default function StyledMessage({ children }) {
   if (!children) return;
