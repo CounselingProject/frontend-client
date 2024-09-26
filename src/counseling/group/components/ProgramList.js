@@ -8,7 +8,7 @@ import Modal from '@/commons/components/Modal';
 import ProgramInfo from './ProgramInfo';
 
 const ListItem = styled.div`
-  width: 23%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   margin: 20px 0;
@@ -20,11 +20,22 @@ const ListItem = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+
+  .div.title {
+  font-size:30px;
+  }
 `;
+
+const Title = styled.div`
+  font-size: 1.5rem; 
+  font-weight: bold; 
+  margin: 10px 10px;
+`;
+
 
 const StyledImage = styled(Image)`
   border-radius: 10px 10px 0 0;
-  margin-bottom: 10px;
+  margin: 0 auto;
 `;
 
 const Program = ({ item, onChange }) => {
@@ -41,11 +52,11 @@ const Program = ({ item, onChange }) => {
       <ListItem onClick={() => setVisible(true)}>
         <StyledImage src={group} alt="그룹이미지" width={250} height={250} />
         <div> {item.editorImages}</div>
-        <div classNames="title">{item.counselingName} </div>
+        <Title>{item.counselingName} </Title>
         <div>
           신청일 : {item.reservationSdate} ~ {item.reservationEdate}
         </div>
-        <div> 참여일 : {item.counselingDate} </div>
+        <div> 참여일 : {item.counselingDate}</div>
       </ListItem>
     </>
   );

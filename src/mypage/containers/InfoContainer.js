@@ -1,12 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import ProfileInfo from '../components/ProfileInfo'; // 프로필 정보를 표시하는 컴포넌트
-import { getMemberInfo } from '@/member/apis/apiInfo'; // 회원 정보 조회 함수
+//import { getMemberInfo } from '@/member/apis/apiInfo'; // 회원 정보 조회 함수
+import { getUserStates} from '@/commons/contexts/UserInfoContext';
 
 const InfoContainer = () => {
   const [memberInfo, setMemberInfo] = useState({}); // 회원 정보 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
-
+  const { userInfo } = getUserStates();
+  console.log(userInfo);
+  useEffect(() => {
+    setMemberInfo(userInfo);
+  }, [userInfo]);
+  /*
   useEffect(() => {
     (async () => {
       try {
@@ -27,9 +33,10 @@ const InfoContainer = () => {
       console.log('Updated memberInfo:', memberInfo); // 상태가 변경된 후 출력
     }
   }, [memberInfo]); // memberInfo가 변경될 때마다 실행
+  */
 
   return (
-    <ProfileInfo memberInfo={memberInfo} loading={loading} /> // ProfileInfo에 회원 정보와 로딩 상태 전달
+    <ProfileInfo memberInfo={userInfo} loading={loading} /> // ProfileInfo에 회원 정보와 로딩 상태 전달
   );
 };
 

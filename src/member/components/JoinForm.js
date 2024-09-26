@@ -5,11 +5,12 @@ import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
 import { MemberStyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { MypageStyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '../constants/userType';
 import userStatus from '../constants/userStatus';
 import { StyledDt } from '@/commons/components/Mypage/StyledDt';
+import { StyledH1 } from '@/commons/components/Mypage/StyledH1';
 
 const FormBox = styled.form`
     display: flex;
@@ -31,6 +32,7 @@ const JoinForm = ({
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
+      <StyledH1>{t('회원가입')}</StyledH1>
       <dl>
         <StyledDt>{t('가입유형')}</StyledDt>
         <dd>
@@ -236,7 +238,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <dt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</dt>
+        <StyledDt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -296,21 +298,23 @@ const JoinForm = ({
                 value={skey}
                 onChange={onChange}
               />
-              <select
-                name="professor"
-                value={form?.professor}
-                onChange={onChange}
-              >
-                {professors && professors.length > 0 ? (
-                  professors.map(({ seq, userName, deptNm }) => (
-                    <option key={seq} value={seq}>
-                      {userName}({deptNm})
-                    </option>
-                  ))
-                ) : (
-                  <option value="">{t('교수를_선택하세요')}</option>
-                )}
-              </select>
+              <div>
+                <select
+                  name="professor"
+                  value={form?.professor}
+                  onChange={onChange}
+                >
+                  {professors && professors.length > 0 ? (
+                    professors.map(({ seq, userName, deptNm }) => (
+                      <option key={seq} value={seq}>
+                        {userName}({deptNm})
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">{t('교수를_선택하세요')}</option>
+                  )}
+                </select>
+              </div>
               <StyledMessage variant="danger">
                 {errors?.professor}
               </StyledMessage>
@@ -354,9 +358,9 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <StyledButton type="submit" variant="primary">
+      <MypageStyledButton type="submit" variant="primary">
         {t('회원가입')}
-      </StyledButton>
+      </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
