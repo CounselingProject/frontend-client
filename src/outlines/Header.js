@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 const HeaderBox = styled.header`
   .site-top {
-
     background: ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.white};
     height: 45px;
@@ -81,11 +80,14 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
+  // 관리자 URL
+  const adminUrl =
+    process.env.NEXT_PUBLIC_ADMIN_URL + '?token=' + cookies.load('token');
+
   return (
     showHeader && (
       <HeaderBox>
         <section className="site-top">
-       
           <div className="layout-width">
             {isLogin ? (
               <>
@@ -95,6 +97,11 @@ const Header = () => {
                 </a>
                 <a onClick={onLogout}>{t('로그아웃')}</a>
                 <a href="/mypage">{t('마이페이지')}</a>
+                {isAdmin && (
+                  <a href={adminUrl} target="_blank">
+                    {t('사이트_관리')}
+                  </a>
+                )}
               </>
             ) : (
               <>
