@@ -5,21 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { getUserStates } from '@/commons/contexts/UserInfoContext';
 const SubMenuBox = styled.aside`
   min-height: 650px;
-  background: ${({ theme }) => theme.colors.black};
+    background: white; 
   a {
     display: block;
-    background: ${({ theme }) => theme.colors.gray};
+    background: white;
     color: ${({ theme }) => theme.colors.black};
     font-size: ${({ theme }) => theme.fontSizes.medium}px;
-    padding: 15px 20px;
+    padding: 24px 10px 23px 20px;
+    border-bottom: 1px solid #e3e3e3;
   }
   a:hover {
-    background: ${({ theme }) => theme.colors.black};
-    color: ${({ theme }) => theme.colors.white};
+      background: #015252;
+      color: ${({ theme }) => theme.colors.white};
   }
-  a + a {
-    border-top: 1px solid ${({ theme }) => theme.colors.black};
-  }
+  //a + a {
+  //    border-bottom: 1px solid #e3e3e3;
+  //}
 `;
 
 const Submenus = () => {
@@ -28,11 +29,11 @@ const Submenus = () => {
 
   return (
     <SubMenuBox>
-      <a href={"/mypage"}>{t('마이페이지')}</a>
+      <a href={'/mypage'}>{t('마이페이지')}</a>
       <a href="/mypage/info">{t('개인정보 수정')}</a>
+      {isStudent && <a href="/mypage/test">{t('온라인 심리검사')}</a>}
+      {isProfessor && <a href="/mypage/mystudent">{t('담당 학생')}</a>}
       <a href="/mypage/board">{t('내가 작성한 게시글')}</a>
-      {isStudent && <a href='/mypage/test'>{t('온라인 심리검사')}</a>}
-      {isProfessor && <a href='/mypage/mystudent'>{t('담당 학생')}</a>}
     </SubMenuBox>
   );
 };

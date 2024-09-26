@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { StyledDt } from '@/commons/components/Mypage/StyledDt';
 import { StyledDd } from '@/commons/components/Mypage/StyledDd';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { MypageStyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '@/member/constants/userType';
 import FileUpload from '@/commons/components/FileUpload';
@@ -181,9 +181,9 @@ const ProfileUpdate = ({
         </>
       )}
 
-      <StyledButton type="submit" variant="primary">
+      <MypageStyledButton type="submit" variant="primary">
         {t('회원정보 수정')}
-      </StyledButton>
+      </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
