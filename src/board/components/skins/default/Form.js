@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FaRegCheckSquare, FaCheckSquare } from 'react-icons/fa';
+import classNames from 'classnames';
 import { getUserStates } from '@/commons/contexts/UserInfoContext';
 import {
   StyledInput,
@@ -14,6 +15,23 @@ import FileUpload from '@/commons/components/FileUpload';
 import FileItems from '@/commons/components/FileItems';
 
 const FormBox = styled.form``;
+
+const CategoryTab = styled.span`
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.on {
+    background: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  & + & {
+    margin-left: 5px;
+  }
+`;
 
 const DefaultForm = ({
   form,
@@ -44,9 +62,25 @@ const DefaultForm = ({
     },
     [editor, form, onChange],
   );
-
+  console.log('board', board);
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
+      {board?.category && (
+        <dl>
+          <dt>{t('분류')}</dt>
+          <dd>
+            {board.category.split('\n').map((c) => (
+              <CategoryTab
+                key={`category_${c}`}
+                className={classNames({ on: c === form?.category })}
+                onClick={() => onClick('category', c)}
+              >
+                {c.replace('\r')}
+              </CategoryTab>
+            ))}
+          </dd>
+        </dl>
+      )}
       <dl>
         <dt>{t('제목')}</dt>
         <dd>
