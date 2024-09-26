@@ -4,7 +4,7 @@ export const StyledButton = styled.button`
   ${({ variant, theme, size, width, height }) => {
     const border =
       variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
-    width = width ?? '100%';
+    width = width ?? '250px';
     height = height ?? '38px';
     return css`
       color: #fff;
