@@ -17,8 +17,8 @@ const ListItem = styled.li`
   margin: 1%;
   padding: 20px;
   min-height: 500px;
-  background-color: #dee6ff;
-  border: 2px solid #dee6ff;
+  background-color: #e2f7e2;
+  border: 2px solid #e2f7e2;
   border-radius: 8px;
   text-align: center;
   transition: transform 0.3s;
@@ -57,7 +57,7 @@ const Title = styled.span`
   display: inline-block;
   margin-top: 35px;
   padding: 10px 20px;
-  background-color: ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme }) => theme.colors.green};
   color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
   border-radius: 5px;
