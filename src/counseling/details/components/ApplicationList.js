@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import counselingTypes from '../../constants/counselingType';
 import personalCategory from '../../constants/personalCategory';
 import statuses from '../../constants/status';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import Modal from '@/commons/components/Modal';
 const StyledTable = styled.table`
   width: 100%;
@@ -85,6 +84,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
               <StyledTh>상담명</StyledTh>
               <StyledTh>상담사명</StyledTh>
               <StyledTh>진행상태</StyledTh>
+              <StyledTh>예약취소</StyledTh>
               <StyledTh>상담일지</StyledTh>
             </tr>
           </StyledThead>
@@ -113,8 +113,8 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     <StyledTd>{userName}</StyledTd>
                     <StyledTd>
                       {counselingType
-                        ? counselingTypes[counselingType]
-                        : t('개인상담')}
+                        ? counselingTypes.GROUP
+                        : counselingTypes.PERSONAL}
                     </StyledTd>
                     <StyledTd>
                       {category && personalCategory[category]}
@@ -124,21 +124,27 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                       {counselorName}({counselorEmail})
                     </StyledTd>
                     <StyledTd>
-                      <select
-                        value={status}
-                        onChange={(e) => onChangeStatus(e, rno)}
+                      {(status === "APPLY" && statuses.APPLY) ||
+                        (status === "CANCEL" && statuses.CANCEL) ||
+                        (status === "DONE" && statuses.DONE)}
+                    </StyledTd>
+                    <StyledTd>
+                      <button
+                        type="button"
+                        className="cancel"
+                        onClick={() => onChangeStatus(rno)}
                       >
-                        {Object.keys(statuses).map((s) => (
-                          <option key={`status_${i}_${s}`} value={s}>
-                            {statuses[s]}
-                          </option>
-                        ))}
-                      </select>
+                        {t('예약취소')}
+                      </button>
                     </StyledTd>
                     <StyledTd>
                       {record && (
-                        <button type="button" className="record" onClick={() => onRecord(record)}>
-                          {t('조회')}
+                        <button
+                          type="button"
+                          className="record"
+                          onClick={() => onRecord(record)}
+                        >
+                          {t('작성하기')}
                         </button>
                       )}
                     </StyledTd>
@@ -152,9 +158,6 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
             )}
           </tbody>
         </StyledTable>
-        <StyledButton type="submit" variant="primary">
-          {t('변경하기')}
-        </StyledButton>
       </FormBox>
       {visible && record && (
         <Modal onClose={onClose} width={500}>
