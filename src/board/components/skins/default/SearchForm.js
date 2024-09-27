@@ -50,7 +50,7 @@ const SearchForm = ({ form, onSubmit, onChange }) => {
         name="skey"
         value={form?.skey ?? ''}
         onChange={onChange}
-        placeholder={t('검색어를_입력하세요.')}
+        placeholder={t('검색어를_입력하세요')}
       />
       <StyledButton type="submit" variant="green">
         {t('검색하기')}

@@ -43,7 +43,7 @@ const ViewContainer = ({ params }) => {
 
   const onDelete = useCallback(
     (seq) => {
-      if (!confirm(t('정말_삭제하겠습니까?'))) {
+      if (!confirm(t('정말_삭제하겠습니까'))) {
         return;
       }
 
