@@ -118,7 +118,6 @@ const ReviewView = ({ item, onDelete }) => {
         }}
       ></div>
       <div className="links">
-        <Link href={`/board/write/${board.bid}`}>{t('글쓰기')}</Link>
         {showEdit && <Link href={`/board/update/${seq}`}>{t('글수정')}</Link>}
         {showDelete && (
           <button type="button" onClick={() => onDelete(seq)}>
