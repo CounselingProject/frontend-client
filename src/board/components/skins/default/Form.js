@@ -35,8 +35,10 @@ const CategoryTab = styled.span`
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  background: ${({ theme, active }) => (active ? theme.colors.black : theme.colors.white)};
-  color: ${({ theme, active }) => (active ? theme.colors.white : theme.colors.black)};
+  background: ${({ theme, active }) =>
+    active ? theme.colors.black : theme.colors.white};
+  color: ${({ theme, active }) =>
+    active ? theme.colors.white : theme.colors.black};
   transition: background 0.3s, color 0.3s, transform 0.3s;
 
   &:hover {
@@ -91,8 +93,8 @@ const DefaultForm = ({
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>게시글 작성</h1> {/* 제목 추가 */}
-      
+      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>게시글 작성</h1>{' '}
+      {/* 제목 추가 */}
       {board?.category && (
         <StyledDl>
           <dt>{t('분류')}</dt>
@@ -142,7 +144,9 @@ const DefaultForm = ({
           <dt>{t('공지글')}</dt>
           <dd>
             <span onClick={() => onClick('notice', !Boolean(form?.notice))}>
-              <AiFillNotification style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+              <AiFillNotification
+                style={{ marginRight: '5px', verticalAlign: 'middle' }}
+              />
               {form?.notice ? <FaCheckSquare /> : <FaRegCheckSquare />}
               {t('공지글로_등록하기')}
             </span>
@@ -165,7 +169,7 @@ const DefaultForm = ({
           <FileUpload
             imageOnly={true}
             gid={form?.gid}
-            color="primary"
+            color="green"
             callback={insertImageCallback}
           >
             {t('이미지_첨부')}
@@ -176,7 +180,7 @@ const DefaultForm = ({
           <StyledMessage variant="danger">{errors?.content}</StyledMessage>
         </dd>
       </StyledDl>
-      <StyledButton type="submit" variant="primary">
+      <StyledButton type="submit" variant="green">
         {form?.mode === 'update' ? t('수정하기') : t('작성하기')}
       </StyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>

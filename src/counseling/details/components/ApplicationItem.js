@@ -117,20 +117,10 @@ const formatDateTime = (rDateTime) => {
   return { formattedDate, formattedStartTime, formattedEndTime };
 };
 
-const formatMobileNumber = (mobile) => {
-  if (mobile && mobile.length === 11) {
-    return `${mobile.slice(0, 3)}-${mobile.slice(3, 7)}-${mobile.slice(7)}`;
-  }
-  return mobile;
-};
-
 const ApplicationItem = ({ item, onCancel }) => {
   const { t } = useTranslation();
   const {
-    member: { mobile },
-  } = item;
-  const {
-    rNo,
+    rno,
     status,
     counselingType,
     category,
@@ -151,10 +141,10 @@ const ApplicationItem = ({ item, onCancel }) => {
     <Wrapper>
       <Section>
         <SectionTitle>{t('상담신청_정보')}</SectionTitle>
-        {rNo && (
+        {rno && (
           <DetailRow>
             <dt>{t('신청_번호')}</dt>
-            <dd>{rNo}번</dd>
+            <dd>{rno}번</dd>
           </DetailRow>
         )}
         {formattedDate && (
@@ -183,10 +173,10 @@ const ApplicationItem = ({ item, onCancel }) => {
             <dd>{category}</dd>
           </DetailRow>
         )}
-        {cName && (
+        {counselingName && (
           <DetailRow>
             <dt>{t('상담명')}</dt>
-            <dd>{cName}</dd>
+            <dd>{counselingName}</dd>
           </DetailRow>
         )}
         {counselorName && (

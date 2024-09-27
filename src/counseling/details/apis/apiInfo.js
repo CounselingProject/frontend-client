@@ -15,4 +15,4 @@ export const apiList = (search) => {
 };
 
 // 상세 조회
-export const apiGet = (rNo) => requestData(`/counseling/apply${rNo}`);
+export const apiGet = (rno) => requestData(`/counseling/apply/${rno}`);
