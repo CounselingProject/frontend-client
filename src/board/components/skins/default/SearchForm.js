@@ -14,16 +14,23 @@ const FormBox = styled.form`
   margin: 20px 0; /* 상하 여백 추가 */
 
   select {
-    width: 120px;
+    width: 140px; /* 선택박스 너비 조정 */
+    font-size: 14px; /* 선택박스 글자 크기 설정 */
+    margin-right: 10px; /* 선택박스와 입력창 간 간격 추가 */
   }
 
   button {
-    width: 130px;
+    width: 140px; /* 버튼 너비 조정 */
+    font-size: 14px; /* 버튼 글자 크기 설정 */
+    margin-left: 10px; /* 입력창과 버튼 간 간격 추가 */
+    border-radius: 0; /* 네모 모양으로 만들기 */
   }
 
   input[type='text'] {
-    flex-grow: 1;
+    flex-grow: 1; /* 가용 공간에 맞춰 늘어남 */
     margin-left: 10px; /* 검색어 입력창과 버튼 간의 간격 추가 */
+    font-size: 14px; /* 입력창 글자 크기 설정 */
+    width: 300px; /* 입력창 너비 조정 */
   }
 `;
 
@@ -45,7 +52,7 @@ const SearchForm = ({ form, onSubmit, onChange }) => {
         onChange={onChange}
         placeholder={t('검색어를_입력하세요.')}
       />
-      <StyledButton type="submit" variant="black">
+      <StyledButton type="submit" variant="green">
         {t('검색하기')}
       </StyledButton>
     </FormBox>
