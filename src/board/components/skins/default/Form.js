@@ -118,7 +118,7 @@ const DefaultForm = ({
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <Title>
-        {form?.mode === 'update' ? t('게시글 수정') : t('게시글 작성')}
+        {form?.mode === 'update' ? t('게시글_수정') : t('게시글_작성')}
       </Title>
       {board?.category && (
         <StyledDl>
@@ -146,7 +146,7 @@ const DefaultForm = ({
             name="subject"
             value={form?.subject ?? ''}
             onChange={onChange}
-            placeholder={t('제목을 입력하세요')}
+            placeholder={t('제목을_입력하세요')}
           />
           <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
         </dd>
@@ -159,7 +159,7 @@ const DefaultForm = ({
             name="poster"
             value={form?.poster ?? ''}
             onChange={onChange}
-            placeholder={t('작성자를 입력하세요')}
+            placeholder={t('작성자를_입력하세요')}
           />
           <StyledMessage variant="danger">{errors?.poster}</StyledMessage>
         </dd>
@@ -197,7 +197,7 @@ const DefaultForm = ({
               name="content"
               value={form?.content ?? ''}
               onChange={onChange}
-              placeholder={t('내용을 입력하세요')}
+              placeholder={t('내용을_입력하세요')}
             />
           )}
           <FileUpload
