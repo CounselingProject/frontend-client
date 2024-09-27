@@ -62,7 +62,6 @@ const DefaultForm = ({
     },
     [editor, form, onChange],
   );
-  console.log('board', board);
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       {board?.category && (

@@ -4,12 +4,11 @@ export const StyledButton = styled.button`
   ${({ variant, theme, size, width, height }) => {
     const border =
       variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
-    width = width ?? '250px';
+    width = width ?? '150px';
     height = height ?? '38px';
     return css`
       color: #fff;
       background-color: ${theme.colors.green};
-      margin-top: 20px;
       border: ${border};
       font-size: ${theme.fontSizes[size] || '14px'};
       width: ${width};
@@ -17,6 +16,7 @@ export const StyledButton = styled.button`
     `;
   }}
 
+  border-radius: 12px;
   letter-spacing: 0;
   cursor: pointer;
   &:focus {
@@ -46,7 +46,6 @@ export const MypageStyledButton = styled.button`
       max-width: 800px; /* 최대 너비를 설정하여 입력 필드의 크기를 조절할 수 있음 */
       min-width: 700px;
       height: ${height};
-      
     `;
   }}
   letter-spacing: 0;

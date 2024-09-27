@@ -22,31 +22,29 @@ const ListItem = styled.div`
   }
 
   .div.title {
-  font-size:30px;
+    font-size: 30px;
   }
 `;
 
 const Title = styled.div`
-  font-size: 1.5rem; 
-  font-weight: bold; 
+  font-size: 1.5rem;
+  font-weight: bold;
   margin: 10px 10px;
 `;
-
 
 const StyledImage = styled(Image)`
   border-radius: 10px 10px 0 0;
   margin: 0 auto;
 `;
 
-const Program = ({ item, onChange }) => {
-  const { t } = useTranslation();
+const Program = ({ item }) => {
   const [visible, setVisible] = useState(false);
-
+  console.log('item', item);
   return (
     <>
       {visible && (
         <Modal visible={visible}>
-          <ProgramInfo item={item} />
+          <ProgramInfo item={item} onClose={() => setVisible(false)} />
         </Modal>
       )}
       <ListItem onClick={() => setVisible(true)}>
@@ -57,6 +55,11 @@ const Program = ({ item, onChange }) => {
           신청일 : {item.reservationSdate} ~ {item.reservationEdate}
         </div>
         <div> 참여일 : {item.counselingDate}</div>
+        <div>
+          신청현황: {item.applicantsCount.toLocaleString()}명/
+          {item.counselingLimit.toLocaleString()}명
+          {item.applicantsCount >= item.counselingLimit && '(신청마감)'}
+        </div>
       </ListItem>
     </>
   );

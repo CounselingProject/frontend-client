@@ -358,7 +358,7 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <MypageStyledButton type="submit" variant="primary">
+      <MypageStyledButton type="submit" variant="green">
         {t('회원가입')}
       </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>

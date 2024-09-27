@@ -13,73 +13,73 @@ import { StyledH1 } from '@/commons/components/Mypage/StyledH1';
 
 // 전체 레이아웃을 위한 스타일드 컴포넌트
 const Container = styled.div`
-    display: flex; /* 좌우로 나누기 위해 flexbox 사용 */
-    justify-content: space-between; /* 좌우 공간을 고르게 분배 */
-    gap: 20px; /* 두 섹션 간의 간격 */
+  display: flex; /* 좌우로 나누기 위해 flexbox 사용 */
+  justify-content: space-between; /* 좌우 공간을 고르게 분배 */
+  gap: 20px; /* 두 섹션 간의 간격 */
 `;
 
 const LeftSection = styled.div`
-    flex: 1; /* 왼쪽 섹션 크기 조정 */
+  flex: 1; /* 왼쪽 섹션 크기 조정 */
 `;
 
 const RightSection = styled.div`
-    flex: 1; /* 오른쪽 섹션 크기 조정 */
+  flex: 1; /* 오른쪽 섹션 크기 조정 */
 `;
 
 // StyledFileUpload 정의
 const StyledFileUpload = styled(FileUpload)`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid ${({ theme }) => theme.colors.white};
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    background-color: ${({ theme }) => theme.colors.white};
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid ${({ theme }) => theme.colors.white};
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-    &:hover {
-        border-color: ${({ theme }) => theme.colors.white};
-    }
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const FormBox = styled.form``;
 
 const ProfileUpdate = ({
-                         form,
-                         errors,
-                         onSubmit,
-                         onChange,
-                         fileUploadCallback,
-                       }) => {
+  form,
+  errors,
+  onSubmit,
+  onChange,
+  fileUploadCallback,
+}) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <StyledH1>{t('개인정보_수정')}</StyledH1>
+      <StyledH1>{t('개인정보 수정')}</StyledH1>
 
-          <dl>
-            <StyledDt>{t('프로필_이미지')}</StyledDt>
-            <StyledFileUpload
-              imageOnly={true}
-              gid={form?.gid}
-              single={true}
-              done={true}
-              width={400}
-              color="primary"
-              imageUrl={form?.profileImage}
-              callback={fileUploadCallback}
-            >
-              {t('이미지_첨부')}
-            </StyledFileUpload>
-          </dl>
+      <dl>
+        <StyledDt>{t('프로필 이미지')}</StyledDt>
+        <StyledFileUpload
+          imageOnly={true}
+          gid={form?.gid}
+          single={true}
+          done={true}
+          width={400}
+          color="green"
+          imageUrl={form?.profileImage}
+          callback={fileUploadCallback}
+        >
+          {t('이미지 첨부')}
+        </StyledFileUpload>
+      </dl>
       <Container>
         <LeftSection>
           <dl>
@@ -96,7 +96,9 @@ const ProfileUpdate = ({
               <dl>
                 <StyledDt>{t('지도교수')}</StyledDt>
                 {/* 지도교수가 없을 경우 "지도교수 없음" 출력 */}
-                <StyledDd>{form?.professor?.userName || t('지도교수 없음')}</StyledDd>
+                <StyledDd>
+                  {form?.professor?.userName || t('지도교수 없음')}
+                </StyledDd>
               </dl>
               <dl>
                 <StyledDt>{t('학번')}</StyledDt>
@@ -127,7 +129,9 @@ const ProfileUpdate = ({
                   value={form?.subject ?? ''}
                   onChange={onChange}
                 />
-                <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
+                <StyledMessage variant="danger">
+                  {errors?.subject}
+                </StyledMessage>
               </dl>
             </>
           )}
@@ -145,7 +149,9 @@ const ProfileUpdate = ({
         <RightSection>
           <dl>
             <StyledDt>{t('성별')}</StyledDt>
-            <StyledDd>{form?.gender === 'FEMALE' ? t('여성') : t('남성')}</StyledDd>
+            <StyledDd>
+              {form?.gender === 'FEMALE' ? t('여성') : t('남성')}
+            </StyledDd>
           </dl>
           <dl>
             <StyledDt>{t('비밀번호')}</StyledDt>
@@ -158,7 +164,7 @@ const ProfileUpdate = ({
             <StyledMessage variant="danger">{errors?.password}</StyledMessage>
           </dl>
           <dl>
-            <StyledDt>{t('비밀번호_확인')}</StyledDt>
+            <StyledDt>{t('비밀번호 확인')}</StyledDt>
             <StyledInput
               type="password"
               name="confirmPassword"
@@ -200,7 +206,7 @@ const ProfileUpdate = ({
             <StyledMessage variant="danger">{errors?.address}</StyledMessage>
           </dl>
           <dl>
-            <StyledDt>{t('세부_주소')}</StyledDt>
+            <StyledDt>{t('세부 주소')}</StyledDt>
             <StyledInput
               type="text"
               name="addresssub"
@@ -212,11 +218,10 @@ const ProfileUpdate = ({
         </RightSection>
       </Container>
 
-      <MypageStyledButton type="submit" variant="primary">
+      <MypageStyledButton type="submit" variant="green">
         {t('회원정보 수정')}
       </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
-
     </FormBox>
   );
 };

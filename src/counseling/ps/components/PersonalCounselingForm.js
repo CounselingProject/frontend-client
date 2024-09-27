@@ -207,7 +207,7 @@ const PersonalCounselingForm = ({
         {errors.submit && (
           <MessageBox color="danger" messages={errors.submit} />
         )}
-        <StyledButton type="submit" color="primary" onClick={onSubmit}>
+        <StyledButton type="submit" color="green" onClick={onSubmit}>
           {t('예약 하기')}
         </StyledButton>
         {submissionSuccess && (
