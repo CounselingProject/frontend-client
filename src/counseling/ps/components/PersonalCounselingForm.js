@@ -22,8 +22,8 @@ const TimeButton = styled.button`
   color: ${({ isSelected }) => (isSelected ? '#ffffff' : '#005d4f')};
   border: 1px solid ${({ theme }) => theme.colors.green};
   border-radius: 5px;
-  width: 130px;
-  padding: 10px 35px;
+  width: 110px;
+  padding: 10px 20px;
   margin: 5px 5px 20px 20px;
   font-size: 1.2rem;
   font-weight: bold;

@@ -26,18 +26,27 @@ const RightSection = styled.div`
   flex: 1; /* 오른쪽 섹션 크기 조정 */
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center; /* 버튼을 가운데 정렬 */
+  margin-top: 20px; /* 버튼과 위 요소들 간의 간격 */
+`;
+
+
 // StyledFileUpload 정의
 const StyledFileUpload = styled(FileUpload)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.colors.white};
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* flexbox를 사용하여 이미지 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    border-radius: 50%; /* 원형 테두리 */
+    border: 2px solid ${({ theme }) => theme.colors.green}; /* 테두리 색상 */
+    overflow: hidden; /* 이미지가 테두리 영역을 넘어가지 않도록 설정 */
+    width: 200px; /* 너비 */
+    height: 200px; /* 높이 */
+    background-color: ${({ theme }) => theme.colors.white}; /* 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    margin-top: 5px;
+    margin-bottom: 15px;
 
   img {
     width: 100%;
@@ -46,26 +55,36 @@ const StyledFileUpload = styled(FileUpload)`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.white};
+    border-color: ${({ theme }) => theme.colors.green};
   }
 `;
 
 const FormBox = styled.form``;
 
+// dl 태그 대신 사용할 DlContainer
+const DlContainer = styled.dl`
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+`;
+
 const ProfileUpdate = ({
-  form,
-  errors,
-  onSubmit,
-  onChange,
-  fileUploadCallback,
-}) => {
+                         form,
+                         errors,
+                         onSubmit,
+                         onChange,
+                         fileUploadCallback,
+                       }) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <StyledH1>{t('개인정보 수정')}</StyledH1>
 
-      <dl>
+      {/* DlContainer로 변경 */}
+      <DlContainer>
         <StyledDt>{t('프로필 이미지')}</StyledDt>
         <StyledFileUpload
           imageOnly={true}
@@ -79,7 +98,8 @@ const ProfileUpdate = ({
         >
           {t('이미지 첨부')}
         </StyledFileUpload>
-      </dl>
+      </DlContainer>
+
       <Container>
         <LeftSection>
           <dl>
@@ -95,7 +115,6 @@ const ProfileUpdate = ({
             <>
               <dl>
                 <StyledDt>{t('지도교수')}</StyledDt>
-                {/* 지도교수가 없을 경우 "지도교수 없음" 출력 */}
                 <StyledDd>
                   {form?.professor?.userName || t('지도교수 없음')}
                 </StyledDd>
@@ -144,15 +163,15 @@ const ProfileUpdate = ({
             <StyledDt>{t('생년월일')}</StyledDt>
             <StyledDd>{form?.birth}</StyledDd>
           </dl>
-        </LeftSection>
-
-        <RightSection>
           <dl>
             <StyledDt>{t('성별')}</StyledDt>
             <StyledDd>
               {form?.gender === 'FEMALE' ? t('여성') : t('남성')}
             </StyledDd>
           </dl>
+        </LeftSection>
+
+        <RightSection>
           <dl>
             <StyledDt>{t('비밀번호')}</StyledDt>
             <StyledInput
@@ -164,7 +183,7 @@ const ProfileUpdate = ({
             <StyledMessage variant="danger">{errors?.password}</StyledMessage>
           </dl>
           <dl>
-            <StyledDt>{t('비밀번호 확인')}</StyledDt>
+            <StyledDt>{t('비밀번호_확인')}</StyledDt>
             <StyledInput
               type="password"
               name="confirmPassword"
@@ -218,9 +237,11 @@ const ProfileUpdate = ({
         </RightSection>
       </Container>
 
-      <MypageStyledButton type="submit" variant="green">
-        {t('회원정보 수정')}
-      </MypageStyledButton>
+      <ButtonWrapper>
+        <MypageStyledButton type="submit" variant="green">
+          {t('회원정보 수정')}
+        </MypageStyledButton>
+      </ButtonWrapper>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );

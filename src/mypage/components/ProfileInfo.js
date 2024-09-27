@@ -32,10 +32,12 @@ const StyledFileUpload = styled(FileUpload)`
   border-radius: 50%; /* 원형 테두리 */
   border: 2px solid ${({ theme }) => theme.colors.green}; /* 테두리 색상 */
   overflow: hidden; /* 이미지가 테두리 영역을 넘어가지 않도록 설정 */
-  width: 100px; /* 너비 */
-  height: 100px; /* 높이 */
+  width: 200px; /* 너비 */
+  height: 200px; /* 높이 */
   background-color: ${({ theme }) => theme.colors.white}; /* 배경색 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  margin-top: 5px;
+  margin-bottom: 15px;
 
   img {
     width: 100%; /* 이미지 너비 */
@@ -43,6 +45,16 @@ const StyledFileUpload = styled(FileUpload)`
     object-fit: cover; /* 이미지 비율 유지 */
   }
 `;
+
+// dl 태그 대신 사용할 DlContainer
+const DlContainer = styled.dl`
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+`;
+
 
 // 마이페이지 - 메인
 const FormBox = styled.form``;
@@ -56,7 +68,7 @@ const ProfileInfo = ({ memberInfo, errors }) => {
   return (
     <FormBox autoComplete="off">
       <StyledH1>{t('마이페이지')}</StyledH1>
-      <dl>
+      <DlContainer>
         <StyledDt>{t('프로필 이미지')}</StyledDt>
         <StyledFileUpload
           imageOnly={true}
@@ -69,7 +81,8 @@ const ProfileInfo = ({ memberInfo, errors }) => {
         >
           {t('이미지 첨부')}
         </StyledFileUpload>
-      </dl>
+      </DlContainer>
+
       <Container>
         <LeftSection>
           <dl>
