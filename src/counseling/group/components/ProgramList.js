@@ -37,10 +37,9 @@ const StyledImage = styled(Image)`
   margin: 0 auto;
 `;
 
-const Program = ({ item, onApply }) => {
-  const { t } = useTranslation();
+const Program = ({ item }) => {
   const [visible, setVisible] = useState(false);
-
+  console.log('item', item);
   return (
     <>
       {visible && (
@@ -56,6 +55,11 @@ const Program = ({ item, onApply }) => {
           신청일 : {item.reservationSdate} ~ {item.reservationEdate}
         </div>
         <div> 참여일 : {item.counselingDate}</div>
+        <div>
+          신청현황: {item.applicantsCount.toLocaleString()}명/
+          {item.counselingLimit.toLocaleString()}명
+          {item.applicantsCount >= item.counselingLimit && '(신청마감)'}
+        </div>
       </ListItem>
     </>
   );
