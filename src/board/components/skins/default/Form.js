@@ -130,7 +130,7 @@ const DefaultForm = ({
           <FileUpload
             imageOnly={true}
             gid={form?.gid}
-            color="primary"
+            color="green"
             callback={insertImageCallback}
           >
             {t('이미지_첨부')}
@@ -141,7 +141,7 @@ const DefaultForm = ({
           <StyledMessage variant="danger">{errors?.content}</StyledMessage>
         </dd>
       </dl>
-      <StyledButton type="submit" variant="primary">
+      <StyledButton type="submit" variant="green">
         {form?.mode === 'update' ? t('수정하기') : t('작성하기')}
       </StyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>

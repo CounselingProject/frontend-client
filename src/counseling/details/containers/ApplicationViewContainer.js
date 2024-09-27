@@ -14,36 +14,35 @@ const ViewWrapper = styled.div`
 
 const ApplicationViewContainer = ({ params, setPageTitle }) => {
   const [item, setItem] = useState(null);
-  const { rNo } = params;
+  const { rno } = params;
 
   const { t } = useTranslation();
 
   useEffect(() => {
-
-    apiGet(rNo).then((item) => {
+    apiGet(rno).then((item) => {
       setPageTitle(`${t('상담신청_정보')}`);
       setItem(item);
     });
-
-  }, [rNo, setPageTitle, t]);
+  }, [rno, setPageTitle, t]);
 
   /* 예약취소 함수*/
-  const onCancel = useCallback((rNo) => {
-    if (!window.confirm(t('정말_취소하겠습니까'))) {
-      return;
-    }
-
-    (async () => {
-      try {
-        const res = await apiStatus(rNo);
-        setItems((items) =>
-          items.map((item) => (item.rNo === rNo ? res : item)),
-        );
-      } catch (err) {
-        console.error(err);
+  const onCancel = useCallback(
+    (rno) => {
+      if (!window.confirm(t('정말_취소하겠습니까'))) {
+        return;
       }
-    })();
-  }, [t]);
+
+      (async () => {
+        try {
+          const res = await apiStatus(rno);
+          setItem(res);
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    },
+    [t],
+  );
 
   return (
     <ViewWrapper>

@@ -102,6 +102,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
               <StyledTh>상담사명</StyledTh>
               <StyledTh>진행상태</StyledTh>
               <StyledTh>예약취소</StyledTh>
+              <StyledTh>신청상세</StyledTh>
               <StyledTh>{isStudent ? '상담후기' : '상담일지'}</StyledTh>
             </tr>
           </StyledThead>
@@ -157,6 +158,11 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                         >
                           {t('예약취소')}
                         </button>
+                      </StyledTd>
+                      <StyledTd>
+                        <a href={`/counseling/details/${rno}`}>
+                          {t('조회하기')}
+                        </a>
                       </StyledTd>
                       <StyledTd>
                         <button
