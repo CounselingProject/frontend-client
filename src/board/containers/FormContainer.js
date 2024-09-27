@@ -90,9 +90,9 @@ const FormContainer = ({ params }) => {
       const _errors = {};
       let hasErrors = false;
       const requiredFields = {
-        subject: t('제목을_입력하세요.'),
-        poster: t('작성자를_입력하세요.'),
-        content: t('내용을_입력하세요.'),
+        subject: t('제목을_입력하세요'),
+        poster: t('작성자를_입력하세요'),
+        content: t('내용을_입력하세요'),
       };
 
       for (const [field, message] of Object.entries(requiredFields)) {
