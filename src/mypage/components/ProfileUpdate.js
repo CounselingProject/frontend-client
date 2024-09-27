@@ -39,7 +39,7 @@ const StyledFileUpload = styled(FileUpload)`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.green};
   overflow: hidden;
   width: 100px;
   height: 100px;
@@ -53,26 +53,36 @@ const StyledFileUpload = styled(FileUpload)`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.white};
+    border-color: ${({ theme }) => theme.colors.green};
   }
 `;
 
 const FormBox = styled.form``;
 
+// dl 태그 대신 사용할 DlContainer
+const DlContainer = styled.dl`
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+`;
+
 const ProfileUpdate = ({
-  form,
-  errors,
-  onSubmit,
-  onChange,
-  fileUploadCallback,
-}) => {
+                         form,
+                         errors,
+                         onSubmit,
+                         onChange,
+                         fileUploadCallback,
+                       }) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <StyledH1>{t('개인정보 수정')}</StyledH1>
 
-      <dl>
+      {/* DlContainer로 변경 */}
+      <DlContainer>
         <StyledDt>{t('프로필 이미지')}</StyledDt>
         <StyledFileUpload
           imageOnly={true}
@@ -86,7 +96,8 @@ const ProfileUpdate = ({
         >
           {t('이미지 첨부')}
         </StyledFileUpload>
-      </dl>
+      </DlContainer>
+
       <Container>
         <LeftSection>
           <dl>
@@ -102,7 +113,6 @@ const ProfileUpdate = ({
             <>
               <dl>
                 <StyledDt>{t('지도교수')}</StyledDt>
-                {/* 지도교수가 없을 경우 "지도교수 없음" 출력 */}
                 <StyledDd>
                   {form?.professor?.userName || t('지도교수 없음')}
                 </StyledDd>
@@ -160,7 +170,6 @@ const ProfileUpdate = ({
         </LeftSection>
 
         <RightSection>
-
           <dl>
             <StyledDt>{t('비밀번호')}</StyledDt>
             <StyledInput
