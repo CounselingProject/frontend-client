@@ -100,13 +100,13 @@ const Header = () => {
               <span>
                 {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
               </span>
-              <a onClick={onLogout}>{t('로그아웃')}</a>
               <a href="/mypage">{t('마이페이지')}</a>
               {isAdmin && (
                 <a href={adminUrl} target="_blank">
                   {t('사이트_관리')}
                 </a>
               )}
+              <a onClick={onLogout}>{t('로그아웃')}</a>
             </>
           ) : (
             <>

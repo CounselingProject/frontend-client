@@ -86,6 +86,13 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
     [router],
   );
 
+  const onReviewList = useCallback(
+    (rno) => {
+      router.push(`/board/list/review?num1=${rno}`);
+    },
+    [router],
+  );
+
   return (
     <>
       <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -172,7 +179,16 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                             isStudent ? onReview(rno) : onRecord(record)
                           }
                         >
-                          {t('작성하기')}
+                          {t('작성')}
+                        </button>
+                        <button
+                          type="button"
+                          className="record"
+                          onClick={() =>
+                            isStudent ? onReviewList(rno) : onRecord(record)
+                          }
+                        >
+                          {t('조회')}
                         </button>
                       </StyledTd>
                     </tr>
