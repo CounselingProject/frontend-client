@@ -58,7 +58,7 @@ const ListItem = styled(Item)`
   .category {
     font-weight: bold; /* 분류 강조 */
     color: #007bff; /* 색상 변경 */
-    margin-right: 10px; /* 분류와 제목 간격 */
+    margin-right: 30px; /* 분류와 제목 간격 */
     flex: 0 0 100px; /* 고정 너비 */
   }
 
