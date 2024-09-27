@@ -41,18 +41,18 @@ const UpdateContainer = () => {
     const _errors = {};
     let hasErrors = false;
     const requiredFields = {
-      userName: t('회원명을_입력하세요.'), // 필수 항목 메시지
-      zonecode: t('우편번호를_입력하세요.'),
-      address: t('주소를_입력하세요.'),
+      userName: t('회원명을_입력하세요'), // 필수 항목 메시지
+      zonecode: t('우편번호를_입력하세요'),
+      address: t('주소를_입력하세요'),
       // birth: t('생년월일을_입력하세요.'),
     };
 
     // 학생일 경우 추가 필드 검증
     if (form?.userType === 'STUDENT') {
-      requiredFields.stdntNo = t('학번을_입력하세요.');
-      requiredFields.grade = t('학년을_입력하세요.');
+      requiredFields.stdntNo = t('학번을_입력하세요');
+      requiredFields.grade = t('학년을_입력하세요');
     } else {
-      requiredFields.empNo = t('사번을_입력하세요.');
+      requiredFields.empNo = t('사번을_입력하세요');
     }
 
     // 필수 필드가 비어있는지 확인

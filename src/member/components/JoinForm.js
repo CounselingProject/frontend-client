@@ -26,6 +26,7 @@ const LeftAlignedDl = styled.dl`
     max-width: 700px;
 `;
 
+
 const JoinForm = ({
                     form,
                     errors,
@@ -40,8 +41,6 @@ const JoinForm = ({
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <StyledH1>{t('회원가입')}</StyledH1>
-
-      {/* 가입유형 */}
       <LeftAlignedDl>
         <StyledDt>{t('가입유형')}</StyledDt>
         <dd>
@@ -62,8 +61,6 @@ const JoinForm = ({
             ))}
         </dd>
       </LeftAlignedDl>
-
-      {/* 이메일 */}
       <dl>
         <StyledDt>{t('이메일')}</StyledDt>
         <dd>
@@ -76,8 +73,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.email}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 비밀번호 */}
       <dl>
         <StyledDt>{t('비밀번호')}</StyledDt>
         <dd>
@@ -90,8 +85,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.password}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 비밀번호 확인 */}
       <dl>
         <StyledDt>{t('비밀번호_확인')}</StyledDt>
         <dd>
@@ -106,8 +99,6 @@ const JoinForm = ({
           </StyledMessage>
         </dd>
       </dl>
-
-      {/* 회원명 */}
       <dl>
         <StyledDt>{t('회원명')}</StyledDt>
         <dd>
@@ -120,8 +111,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.userName}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 휴대전화번호 */}
       <dl>
         <StyledDt>{t('휴대전화번호')}</StyledDt>
         <dd>
@@ -134,8 +123,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.mobile}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 우편번호 */}
       <dl>
         <StyledDt>{t('우편번호')}</StyledDt>
         <dd>
@@ -148,8 +135,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.zonecode}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 주소 */}
       <dl>
         <StyledDt>{t('주소')}</StyledDt>
         <dd>
@@ -162,8 +147,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.address}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 나머지 주소 */}
       <dl>
         <StyledDt>{t('나머지_주소')}</StyledDt>
         <dd>
@@ -176,8 +159,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.addresssub}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 생년월일 */}
       <dl>
         <StyledDt>{t('생년월일')}</StyledDt>
         <dd>
@@ -190,8 +171,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 성별 */}
       <LeftAlignedDl>
         <StyledDt>{t('성별')}</StyledDt>
         <dd>
@@ -214,8 +193,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.gender}</StyledMessage>
         </dd>
       </LeftAlignedDl>
-
-      {/* 재학상태/재직상태 */}
       <LeftAlignedDl>
         <StyledDt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</StyledDt>
         <dd>
@@ -268,8 +245,6 @@ const JoinForm = ({
           )}
         </dd>
       </LeftAlignedDl>
-
-      {/* 학과명/부서명 */}
       <dl>
         <StyledDt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</StyledDt>
         <dd>
@@ -282,8 +257,6 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.deptNm}</StyledMessage>
         </dd>
       </dl>
-
-      {/* 학과번호/부서번호 */}
       <dl>
         <StyledDt>
           {form?.userType === 'COUNSELOR' ? t('부서번호') : t('학과번호')}
@@ -298,10 +271,8 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.deptNo}</StyledMessage>
         </dd>
       </dl>
-
       {form?.userType === 'STUDENT' ? (
         <>
-          {/* 학번 */}
           <dl>
             <StyledDt>{t('학번')}</StyledDt>
             <dd>
@@ -314,12 +285,93 @@ const JoinForm = ({
               <StyledMessage variant="danger">{errors?.stdntNo}</StyledMessage>
             </dd>
           </dl>
+          <dl>
+            <StyledDt>{t('학년')}</StyledDt>
+            <dd>
+              <MemberStyledInput
+                type="text"
+                name="grade"
+                value={form?.grade ?? ''}
+                onChange={onChange}
+              />
+              <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
+            </dd>
+          </dl>
+          <dl>
+            <StyledDt>{t('지도교수')}</StyledDt>
+            <dd>
+              <MemberStyledInput
+                type="text"
+                name="skey"
+                value={skey}
+                onChange={onChange}
+              />
+              <div>
+                <select
+                  name="professor"
+                  value={form?.professor}
+                  onChange={onChange}
+                >
+                  {professors && professors.length > 0 ? (
+                    professors.map(({ seq, userName, deptNm }) => (
+                      <option key={seq} value={seq}>
+                        {userName}({deptNm})
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">{t('교수를_선택하세요')}</option>
+                  )}
+                </select>
+              </div>
+              <StyledMessage variant="danger">
+                {errors?.professor}
+              </StyledMessage>
+            </dd>
+          </dl>
         </>
-      ) : null}
-
-      <MypageStyledButton type="submit">{t('가입하기')}</MypageStyledButton>
+      ) : (
+        <>
+          <dl>
+            <StyledDt>{t('사번')}</StyledDt>
+            <dd>
+              <MemberStyledInput
+                type="text"
+                name="empNo"
+                value={form?.empNo ?? ''}
+                onChange={onChange}
+              />
+              <StyledMessage variant="danger">{errors?.empNo}</StyledMessage>
+            </dd>
+          </dl>
+          <dl>
+            <StyledDt>{t('담당과목')}</StyledDt>
+            <dd>
+              <MemberStyledInput
+                type="text"
+                name="subject"
+                value={form?.subject ?? ''}
+                onChange={onChange}
+              />
+              <StyledMessage variant="danger">{errors?.subject}</StyledMessage>
+            </dd>
+          </dl>
+        </>
+      )}
+      <div
+        className="agree"
+        suppressHydrationWarning
+        onClick={() => onToggle('agree', !Boolean(form?.agree))}
+      >
+        {form?.agree ? <FaCheckSquare /> : <FaRegCheckSquare />}
+        {t('약관에_동의')}
+      </div>
+      <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
+      <MypageStyledButton type="submit" variant="green">
+        {t('회원가입')}
+      </MypageStyledButton>
+      <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
 };
 
-export default JoinForm;
+export default React.memo(JoinForm);

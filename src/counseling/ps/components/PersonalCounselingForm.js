@@ -173,7 +173,7 @@ const PersonalCounselingForm = ({
                 name="reason"
                 value={form.reason}
                 placeholder={t(
-                  '예) 교수 상담 - 수강 과목, 학교 생활 등 / 취업 상담 - 취업 연계, 인턴 등 / 심리 상담 - 범불안장애, 스트레스 등',
+                  '예) 교수 상담 - 수강 과목, 장학금, 학교 생활 등 / 취업 상담 - 자기소개서, 취업 연계, 인턴 등 / 심리 상담 - 범불안장애, 스트레스, 대인 공포증, 인터넷 및 스파트폰 중독 등',
                 )} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, reason: e.target.value }))
@@ -192,7 +192,7 @@ const PersonalCounselingForm = ({
                 name="category"
                 value={form.category}
                 placeholder={t(
-                  '개인 상담 유형 PROFESSOR(교수 상담), EMPLOYMENT(취업 상담), PSYCHOLOGICAL (심리 상담) 중 하나를 입력해주세요.',
+                  '개인 상담 유형 교수 상담의 경우에는 PROFESSOR , 취업 상담의 경우에는 EMPLOYMENT , 심리 상담의 경우에는 PSYCHOLOGICAL 로 입력해주세요.',
                 )} // 기본 텍스트 추가
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, category: e.target.value }))
