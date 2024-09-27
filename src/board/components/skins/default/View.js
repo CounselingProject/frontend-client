@@ -18,9 +18,9 @@ const StyledView = styled.div`
 const PostInfo = styled.div`
   display: flex; /* flexbox로 정렬 */
   justify-content: space-between; /* 양 끝 정렬 */
-  font-size: 16px; /* 기본 글자 크기 */
-  color: #555; /* 텍스트 색상 */
-  margin-bottom: 20px; /* 아래 여백 */
+  font-size: 14px; /* 기본 글자 크기를 줄임 */
+  color: #777; /* 텍스트 색상 (회색) */
+  margin-bottom: 15px; /* 아래 여백 */
 `;
 
 const Subject = styled.h2`
@@ -30,6 +30,12 @@ const Subject = styled.h2`
   color: #333; /* 제목 색상 */
   border-bottom: 2px solid #005d4f; /* 하단 테두리 */
   padding-bottom: 10px; /* 아래 여백 */
+`;
+
+const Divider = styled.div`
+  height: 2px; /* 구분선 높이 */
+  background-color: #e0e0e0; /* 구분선 색상 */
+  margin: 11px 0; /* 위 아래 여백 */
 `;
 
 const Content = styled.div`
@@ -93,24 +99,26 @@ const DefaultView = ({ item, onDelete }) => {
 
   return (
     <StyledView>
+      <Subject>
+        {category && `[${category}] `}
+        {subject}
+      </Subject>
       <PostInfo>
         <div>
-          {t('작성자')}: {poster}
-          {email && ` (${email})`}
+          <span>
+          {poster}
+          </span>
+          <span style={{ marginLeft: '15px' }}>
+            {format(createdAt, 'yyyy.MM.dd HH:mm')}
+          </span>
         </div>
         <div>
           <span>
             {t('조회수')}: {viewCount.toLocaleString()}
           </span>
-          <span style={{ marginLeft: '15px' }}>
-            {t('작성일시')}: {format(createdAt, 'yyyy.MM.dd HH:mm')}
-          </span>
         </div>
       </PostInfo>
-      <Subject>
-        {category && `[${category}] `}
-        {subject}
-      </Subject>
+      <Divider /> {/* 구분선 추가 */}
       <Content
         dangerouslySetInnerHTML={{
           __html: editorView ? content : content.replace(/\n/g, '<br />'),
