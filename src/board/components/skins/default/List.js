@@ -64,7 +64,7 @@ const DefaultList = ({ items, form, onChange, onSubmit }) => {
 
   return (
     <>
-      <Title>{t('게시판 목록')}</Title> {/* 제목 추가 */}
+      <Title>{t('자유_게시판')}</Title> {/* 제목 추가 */}
       <MenuBar>
         <SearchForm form={form} onChange={onChange} onSubmit={onSubmit} />
       </MenuBar>
