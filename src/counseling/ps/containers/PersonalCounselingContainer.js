@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { apiApplyReservation } from '../apis/apiCounseling';
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 10px;
 `;
 
 const Title = styled.h1`
