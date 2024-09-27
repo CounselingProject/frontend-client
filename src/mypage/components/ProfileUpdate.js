@@ -183,7 +183,7 @@ const ProfileUpdate = ({
             <StyledMessage variant="danger">{errors?.password}</StyledMessage>
           </dl>
           <dl>
-            <StyledDt>{t('비밀번호 확인')}</StyledDt>
+            <StyledDt>{t('비밀번호_확인')}</StyledDt>
             <StyledInput
               type="password"
               name="confirmPassword"
