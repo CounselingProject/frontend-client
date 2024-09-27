@@ -26,6 +26,13 @@ const RightSection = styled.div`
   flex: 1; /* 오른쪽 섹션 크기 조정 */
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center; /* 버튼을 가운데 정렬 */
+  margin-top: 20px; /* 버튼과 위 요소들 간의 간격 */
+`;
+
+
 // StyledFileUpload 정의
 const StyledFileUpload = styled(FileUpload)`
   display: flex;
@@ -144,15 +151,16 @@ const ProfileUpdate = ({
             <StyledDt>{t('생년월일')}</StyledDt>
             <StyledDd>{form?.birth}</StyledDd>
           </dl>
-        </LeftSection>
-
-        <RightSection>
           <dl>
             <StyledDt>{t('성별')}</StyledDt>
             <StyledDd>
               {form?.gender === 'FEMALE' ? t('여성') : t('남성')}
             </StyledDd>
           </dl>
+        </LeftSection>
+
+        <RightSection>
+
           <dl>
             <StyledDt>{t('비밀번호')}</StyledDt>
             <StyledInput
@@ -218,9 +226,11 @@ const ProfileUpdate = ({
         </RightSection>
       </Container>
 
-      <MypageStyledButton type="submit" variant="green">
-        {t('회원정보 수정')}
-      </MypageStyledButton>
+      <ButtonWrapper>
+        <MypageStyledButton type="submit" variant="green">
+          {t('회원정보 수정')}
+        </MypageStyledButton>
+      </ButtonWrapper>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
