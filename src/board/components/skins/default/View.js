@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { FaEye } from "react-icons/fa"; // 아이콘 임포트
 
 const StyledView = styled.div`
   max-width: 800px; /* 최대 너비 설정 */
@@ -18,9 +19,20 @@ const StyledView = styled.div`
 const PostInfo = styled.div`
   display: flex; /* flexbox로 정렬 */
   justify-content: space-between; /* 양 끝 정렬 */
-  font-size: 16px; /* 기본 글자 크기 */
-  color: #555; /* 텍스트 색상 */
-  margin-bottom: 20px; /* 아래 여백 */
+  font-size: 14px; /* 기본 글자 크기를 줄임 */
+  color: #777; /* 텍스트 색상 (회색) */
+  margin-bottom: 15px; /* 아래 여백 */
+  align-items: center; /* 아이템 수직 중앙 정렬 */
+`;
+
+const StyledEyeIcon = styled(FaEye)`
+  margin-right: 5px; /* 아이콘과 숫자 사이의 간격 */
+  font-size: 20px; /* 아이콘 크기 조정 */
+`;
+
+const ViewCount = styled.span`
+  display: flex; /* flexbox로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
 `;
 
 const Subject = styled.h2`
@@ -30,6 +42,12 @@ const Subject = styled.h2`
   color: #333; /* 제목 색상 */
   border-bottom: 2px solid #005d4f; /* 하단 테두리 */
   padding-bottom: 10px; /* 아래 여백 */
+`;
+
+const Divider = styled.div`
+  height: 2px; /* 구분선 높이 */
+  background-color: #e0e0e0; /* 구분선 색상 */
+  margin: 11px 0; /* 위 아래 여백 */
 `;
 
 const Content = styled.div`
@@ -52,11 +70,22 @@ const AttachmentItem = styled.div`
 
 const Links = styled.div`
   display: flex; /* flexbox로 정렬 */
-  gap: 15px; /* 요소 간격 */
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
   margin-top: 30px; /* 위 여백 */
 `;
 
-const StyledButton = styled.button`
+const LeftLinks = styled.div`
+  display: flex; /* flexbox로 정렬 */
+  gap: 15px; /* 요소 간격 */
+`;
+
+const RightLinks = styled.div`
+  display: flex; /* flexbox로 정렬 */
+  gap: 15px; /* 요소 간격 */
+`;
+
+const StyledButton = styled.a`
+  display: inline-block; /* 링크가 블록처럼 작동하도록 */
   background-color: #005d4f; /* 고정된 배경색 */
   color: white; /* 글자색 */
   border: none; /* 테두리 없음 */
@@ -64,6 +93,7 @@ const StyledButton = styled.button`
   padding: 12px 18px; /* 여백 */
   cursor: pointer; /* 포인터 커서 */
   font-size: 16px; /* 글자 크기 */
+  text-decoration: none; /* 텍스트 데코레이션 제거 */
   transition: background-color 0.3s, transform 0.2s; /* 배경색 전환 및 변환 효과 */
 
   &:hover {
@@ -80,7 +110,6 @@ const DefaultView = ({ item, onDelete }) => {
     subject,
     content,
     poster,
-    email,
     createdAt,
     viewCount,
     editorView,
@@ -88,36 +117,38 @@ const DefaultView = ({ item, onDelete }) => {
     showEdit,
     showList,
     board,
-    attachments, // 파일 첨부 데이터
+    attachments,
   } = item;
 
   return (
     <StyledView>
-      <PostInfo>
-        <div>
-          {t('작성자')}: {poster}
-          {email && ` (${email})`}
-        </div>
-        <div>
-          <span>
-            {t('조회수')}: {viewCount.toLocaleString()}
-          </span>
-          <span style={{ marginLeft: '15px' }}>
-            {t('작성일시')}: {format(createdAt, 'yyyy.MM.dd HH:mm')}
-          </span>
-        </div>
-      </PostInfo>
       <Subject>
-        {category && `[${category}] `}
+        {category && `[${category}] `} 
         {subject}
       </Subject>
+      <PostInfo>
+        <div>
+          <span>
+            <span style={{ marginLeft: '10px' }} /> 
+            {poster}
+          </span>
+          <span style={{ marginLeft: '15px' }}>
+            {format(createdAt, 'yyyy.MM.dd HH:mm')}
+          </span>
+        </div>
+        <ViewCount>
+          <StyledEyeIcon />
+          {viewCount.toLocaleString()}
+          <span style={{ marginRight: '10px' }} /> 
+        </ViewCount>
+      </PostInfo>
+      <Divider />
       <Content
         dangerouslySetInnerHTML={{
           __html: editorView ? content : content.replace(/\n/g, '<br />'),
         }}
       />
-      
-      {/* 첨부파일 영역 추가 */}
+
       {attachments && attachments.length > 0 && (
         <Attachments>
           <h4>{t('첨부파일')}</h4>
@@ -132,24 +163,28 @@ const DefaultView = ({ item, onDelete }) => {
       )}
 
       <Links>
-        <StyledButton>
-          <Link href={`/board/write/${board.bid}`}>{t('글쓰기')}</Link>
-        </StyledButton>
-        {showEdit && (
-          <StyledButton>
-            <Link href={`/board/update/${seq}`}>{t('글수정')}</Link>
+        <LeftLinks>
+          {showEdit && (
+            <StyledButton as="a" href={`/board/update/${seq}`}>
+              {t('글수정')}
+            </StyledButton>
+          )}
+          {showDelete && (
+            <StyledButton type="button" onClick={() => onDelete(seq)}>
+              {t('글삭제')}
+            </StyledButton>
+          )}
+        </LeftLinks>
+        <RightLinks>
+          {showList && (
+            <StyledButton as="a" href={`/board/list/${board.bid}`}>
+              {t('글목록')}
+            </StyledButton>
+          )}
+          <StyledButton as="a" href={`/board/write/${board.bid}`}>
+            {t('글쓰기')}
           </StyledButton>
-        )}
-        {showDelete && (
-          <StyledButton type="button" onClick={() => onDelete(seq)}>
-            {t('글삭제')}
-          </StyledButton>
-        )}
-        {showList && (
-          <StyledButton>
-            <Link href={`/board/list/${board.bid}`}>{t('글목록')}</Link>
-          </StyledButton>
-        )}
+        </RightLinks>
       </Links>
     </StyledView>
   );

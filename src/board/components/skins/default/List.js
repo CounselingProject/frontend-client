@@ -28,6 +28,16 @@ const ColumnHeader = styled.div`
   border-bottom: 2px solid #ddd; /* 상단바와 리스트 구분선 */
   background-color: #005d4f; /* 상단바 배경색 */
   color: white; /* 글자 색상 */
+
+  span {
+    padding: 0 10px; /* 좌우 패딩 추가 */
+    flex: 1; /* 균등하게 나누기 */
+    text-align: center; /* 중앙 정렬 */
+  }
+
+  span:not(:last-child) {
+    border-right: 1px solid #ddd; /* 열 구분선 추가 */
+  }
 `;
 
 const Pagination = styled.div`
@@ -42,20 +52,28 @@ const NoDataMessage = styled.li`
   color: #999; /* 색상 설정 */
 `;
 
+const Title = styled.h2`
+  text-align: center; /* 중앙 정렬 */
+  margin: 20px 0; /* 상하 마진 추가 */
+  font-weight: bold; /* 글자 두껍게 */
+  color: #005d4f; /* 제목 색상 */
+`;
+
 const DefaultList = ({ items, form, onChange, onSubmit }) => {
   const { t } = useTranslation();
 
   return (
     <>
+      <Title>{t('자유_게시판')}</Title> {/* 제목 추가 */}
       <MenuBar>
         <SearchForm form={form} onChange={onChange} onSubmit={onSubmit} />
       </MenuBar>
       <ColumnHeader>
-        <span style={{ flex: '0 0 100px', textAlign: 'center', marginLeft: '5px' }}>{t('분류')}</span> {/* 5px 간격 추가 */}
-        <span style={{ flex: '1', textAlign: 'center' }}>{t('제목')}</span>
-        <span style={{ flex: '0 0 100px', textAlign: 'center' }}>{t('조회수')}</span>
-        <span style={{ flex: '0 0 150px', textAlign: 'center' }}>{t('등록일')}</span>
-        <span style={{ flex: '0 0 120px', textAlign: 'center' }}>{t('작성자')}</span>
+        <span>{t('분류')}</span>
+        <span>{t('제목')}</span>
+        <span>{t('조회수')}</span>
+        <span>{t('등록일')}</span>
+        <span>{t('작성자')}</span>
       </ColumnHeader>
       <ListItems>
         {items && items.length > 0 ? (
