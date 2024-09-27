@@ -63,7 +63,7 @@ const DefaultList = ({ items, form, onChange, onSubmit }) => {
             <ListItem key={`board_item_${item.seq}`} item={item} />
           ))
         ) : (
-          <NoDataMessage>{t('조회된_게시글이_없습니다.')}</NoDataMessage>
+          <NoDataMessage>{t('조회된_게시글이_없습니다')}</NoDataMessage>
         )}
       </ListItems>
 

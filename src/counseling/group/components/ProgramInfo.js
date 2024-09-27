@@ -59,11 +59,11 @@ const ProgramInfo = ({ item, onClose }) => {
   const onApply = useCallback(
     (item) => {
       if (item.applicantsCount >= item.counselingLimit) {
-        alert(t('신청이_마감되었습니다.'));
+        alert(t('신청이_마감되었습니다'));
         return;
       }
 
-      if (!confirm(t('정말_신청하겠습니까?'))) {
+      if (!confirm(t('정말_신청하겠습니까'))) {
         return;
       }
 

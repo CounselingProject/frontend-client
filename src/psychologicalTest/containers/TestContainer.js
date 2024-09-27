@@ -48,7 +48,7 @@ const TestContainer = ({ params }) => {
       const { answers } = form;
       const answered = Object.values(answers).length;
       if (answered < items.length) {
-        setErrors({ global: t('모든_문항에_답변하세요.') });
+        setErrors({ global: t('모든_문항에_답변하세요') });
         hasErrors = true;
       }
 
