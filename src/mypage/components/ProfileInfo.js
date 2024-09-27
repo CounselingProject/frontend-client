@@ -44,6 +44,16 @@ const StyledFileUpload = styled(FileUpload)`
   }
 `;
 
+// dl 태그 대신 사용할 DlContainer
+const DlContainer = styled.dl`
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 자식 요소들을 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+`;
+
+
 // 마이페이지 - 메인
 const FormBox = styled.form``;
 
