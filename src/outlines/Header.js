@@ -71,7 +71,7 @@ const Header = () => {
 
   // 관리자 URL
   const adminUrl =
-    process.env.NEXT_PUBLIC_ADMIN_URL + '?token=' + cookies.load('token');
+    process.env.NEXT_PUBLIC_ADMIN_URL;
 
   return (
     showHeader && (
