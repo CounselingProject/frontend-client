@@ -5,7 +5,26 @@ import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import Link from 'next/link';
 
-const StyledView = styled.div``;
+const StyledView = styled.div`
+  font-size: 16px; /* 기본 글자 크기 설정 */
+
+  .post-info {
+    font-size: 18px; /* 게시글 정보 글자 크기 */
+  }
+
+  .subject {
+    font-size: 20px; /* 제목 글자 크기 */
+    font-weight: bold; /* 제목 강조 */
+  }
+
+  .content {
+    font-size: 16px; /* 내용 글자 크기 */
+  }
+
+  .links {
+    font-size: 16px; /* 링크 글자 크기 */
+  }
+`;
 
 const DefaultView = ({ item, onDelete }) => {
   const { t } = useTranslation();

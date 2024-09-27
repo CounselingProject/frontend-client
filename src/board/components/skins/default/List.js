@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ListItem from './ListItem';
 import SearchForm from './SearchForm';
 import Link from 'next/link';
+import { StyledButton } from '@/commons/components/buttons/StyledButton'; // StyledButton 임포트
 
 const ListItems = styled.ul`
   list-style: none; /* 기본 리스트 스타일 제거 */
@@ -59,10 +60,12 @@ const DefaultList = ({ items, form, onChange, onSubmit, title }) => {
         )}
       </ListItems>
 
-      {/* 페이지네이션 섹션 추가 */}
+      {/* 글쓰기 버튼 추가 */}
       <Pagination>
         <Link href={`/board/write/${form.bid}`} style={{ textAlign: 'center' }}>
-          {t('글쓰기')}
+          <StyledButton type="button" variant="green"> {/* StyledButton 사용 */}
+            {t('글쓰기')}
+          </StyledButton>
         </Link>
       </Pagination>
     </>
