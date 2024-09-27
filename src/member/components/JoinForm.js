@@ -19,21 +19,29 @@ const FormBox = styled.form`
     width: 100%; /* FormBox의 너비 설정 */
 `;
 
+const LeftAlignedDl = styled.dl`
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    width: 100%; /* 필요한 경우 너비 조정 */
+    min-width: 600px;
+    max-width: 700px;
+`;
+
+
 const JoinForm = ({
-  form,
-  errors,
-  onSubmit,
-  onChange,
-  onToggle,
-  skey,
-  professors,
-}) => {
+                    form,
+                    errors,
+                    onSubmit,
+                    onChange,
+                    onToggle,
+                    skey,
+                    professors,
+                  }) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <StyledH1>{t('회원가입')}</StyledH1>
-      <dl>
+      <LeftAlignedDl>
         <StyledDt>{t('가입유형')}</StyledDt>
         <dd>
           {Object.keys(userType)
@@ -52,7 +60,7 @@ const JoinForm = ({
               </span>
             ))}
         </dd>
-      </dl>
+      </LeftAlignedDl>
       <dl>
         <StyledDt>{t('이메일')}</StyledDt>
         <dd>
@@ -163,7 +171,7 @@ const JoinForm = ({
           <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
         </dd>
       </dl>
-      <dl>
+      <LeftAlignedDl>
         <StyledDt>{t('성별')}</StyledDt>
         <dd>
           <span onClick={() => onToggle('gender', 'FEMALE')}>
@@ -184,8 +192,8 @@ const JoinForm = ({
           </span>
           <StyledMessage variant="danger">{errors?.gender}</StyledMessage>
         </dd>
-      </dl>
-      <dl>
+      </LeftAlignedDl>
+      <LeftAlignedDl>
         <StyledDt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</StyledDt>
         <dd>
           {form?.userType === 'STUDENT' ? (
@@ -236,7 +244,7 @@ const JoinForm = ({
             </>
           )}
         </dd>
-      </dl>
+      </LeftAlignedDl>
       <dl>
         <StyledDt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</StyledDt>
         <dd>
