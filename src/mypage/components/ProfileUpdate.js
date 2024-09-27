@@ -35,16 +35,18 @@ const ButtonWrapper = styled.div`
 
 // StyledFileUpload 정의
 const StyledFileUpload = styled(FileUpload)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.colors.green};
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* flexbox를 사용하여 이미지 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    border-radius: 50%; /* 원형 테두리 */
+    border: 2px solid ${({ theme }) => theme.colors.green}; /* 테두리 색상 */
+    overflow: hidden; /* 이미지가 테두리 영역을 넘어가지 않도록 설정 */
+    width: 200px; /* 너비 */
+    height: 200px; /* 높이 */
+    background-color: ${({ theme }) => theme.colors.white}; /* 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    margin-top: 5px;
+    margin-bottom: 15px;
 
   img {
     width: 100%;
