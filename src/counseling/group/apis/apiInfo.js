@@ -1,10 +1,10 @@
-import requestData from "@/commons/libs/requestData";
+import requestData from '@/commons/libs/requestData';
 
-// 집단상담 프로그램 목록 
+// 집단상담 프로그램 목록 조회
 export const apiList = (search) => {
-
     search = search ?? {};
-    
+
+
   const qs = [];
 
   for (const [k, v] of Object.entries(search)) {

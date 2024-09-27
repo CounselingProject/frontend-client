@@ -24,6 +24,22 @@ const Item = ({ item, className }) => {
 };
 
 const ListItem = styled(Item)`
+  font-size: 14px; /* 리스트 아이템 기본 글자 크기 */
+
+  .category {
+    font-size: 14px; /* 카테고리 글자 크기 */
+  }
+
+  .subject {
+    font-size: 14px; /* 제목 글자 크기 */
+  }
+
+  .view-count,
+  .created-at,
+  .poster {
+    font-size: 14px; /* 기타 정보 글자 크기 */
+  }
+
   display: flex;
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
@@ -42,7 +58,7 @@ const ListItem = styled(Item)`
   .category {
     font-weight: bold; /* 분류 강조 */
     color: #007bff; /* 색상 변경 */
-    margin-right: 10px; /* 분류와 제목 간격 */
+    margin-right: 30px; /* 분류와 제목 간격 */
     flex: 0 0 100px; /* 고정 너비 */
   }
 
