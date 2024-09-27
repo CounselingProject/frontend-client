@@ -81,7 +81,8 @@ const LoginContainer = ({ searchParams }) => {
 
               setForm({});
               const redirectURL = searchParams?.redirectUrl || '/';
-              router.replace(redirectURL);
+              // router.replace(redirectURL); 원래 코드
+              window.location.href = redirectURL; // 이렇게 하면 안되지만 임시 방편 코드
             } catch (err) {
               console.error(err);
             }
