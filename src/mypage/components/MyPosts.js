@@ -45,13 +45,11 @@ const MyPosts = ({ items }) => {
             <ListItem key={`board_item_${item.seq}`} item={item} />
           ))
         ) : (
-          <li className="no-data">{t('조회된_게시글이_없습니다.')}</li>
+          <li className="no-data">{t('조회된 게시글이 없습니다.')}</li>
         )}
       </ListItems>
     </>
-
   );
 };
-
 
 export default React.memo(MyPosts);

@@ -7,12 +7,12 @@ export const StyledButton = styled.button`
     width = width ?? '150px'; // 기본 너비 설정
     height = height ?? '38px'; // 기본 높이 설정
     return css`
-      color: #fff; // 글자 색상
-      background-color: ${theme.colors[variant]}; // 배경색
-      border: ${border}; // 테두리 설정
-      font-size: ${theme.fontSizes[size] || '14px'}; // 글자 크기 설정
-      width: ${width}; // 너비 설정
-      height: ${height}; // 높이 설정
+      color: #fff;
+      background-color: ${theme.colors[variant]};
+      border: ${border};
+      font-size: ${theme.fontSizes[size] || '14px'};
+      width: ${width};
+      height: ${height};
     `;
   }}
 
@@ -36,14 +36,16 @@ export const MypageStyledButton = styled.button`
       variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
     height = height ?? '38px'; // 기본 높이 설정
     return css`
-      margin-top: 15px; // 상단 여백
-      color: #fff; // 글자 색상
-      background-color: ${theme.colors.green}; // 배경색
-      border: ${border}; // 테두리 설정
-      font-size: ${theme.fontSizes[size] || '14px'}; // 글자 크기 설정
-      max-width: 800px; // 최대 너비 설정
-      min-width: 700px; // 최소 너비 설정
-      height: ${height}; // 높이 설정
+      margin-top: 15px;
+      color: #fff;
+      background-color: ${theme.colors.green};
+      border: ${border};
+      font-size: ${theme.fontSizes[size] || '14px'};
+      //width: ${width};
+      max-width: 800px; /* 최대 너비를 설정하여 입력 필드의 크기를 조절할 수 있음 */
+      min-width: 700px;
+      height: ${height};
+      
     `;
   }}
   
