@@ -93,41 +93,50 @@ const ReviewView = ({ item, onDelete }) => {
 
   return (
     <StyledView>
-      <div className="post-info">
-        <div className="left">
-          {t('작성자')}:{poster}
-          {email && `(${email})`}
+      <PostInfo>
+        <div>
+          {t('작성자')}: {poster}
+          {email && ` (${email})`}
         </div>
-        <div className="right">
+        <div>
           <span>
             {t('조회수')}: {viewCount.toLocaleString()}
           </span>
-          <span>
-            {t('작성일시')}:{format(createdAt, 'yyyy.MM.dd HH:mm')}
+          <span style={{ marginLeft: '15px' }}>
+            {t('작성일시')}: {format(createdAt, 'yyyy.MM.dd HH:mm')}
           </span>
         </div>
-      </div>
-      <div className="subject">
-        {category && `[${category}]`}
+      </PostInfo>
+      <Subject>
+        {category && `[${category}] `}
         {subject}
-      </div>
-      <div
-        className="content"
+      </Subject>
+      <Content
         dangerouslySetInnerHTML={{
           __html: editorView ? content : content.replace(/\n/g, '<br />'),
         }}
-      ></div>
-      <div className="links">
-        {showEdit && <Link href={`/board/update/${seq}`}>{t('글수정')}</Link>}
+      />
+
+      <Links>
+        <StyledButton>
+          <Link href={`/board/write/${board.bid}`}>{t('글쓰기')}</Link>
+        </StyledButton>
+        {showEdit && (
+          <StyledButton>
+            <Link href={`/board/update/${seq}`}>{t('글수정')}</Link>
+          </StyledButton>
+        )}
         {showDelete && (
-          <button type="button" onClick={() => onDelete(seq)}>
+          <StyledButton type="button" onClick={() => onDelete(seq)}>
             {t('글삭제')}
-          </button>
+          </StyledButton>
         )}
         {showList && (
-          <Link href={`/board/list/${board.bid}`}>{t('글목록')}</Link>
+          <StyledButton>
+            <Link href={`/board/list/${board.bid}`}>{t('글목록')}</Link>
+          </StyledButton>
         )}
-      </div>
+      </Links>
     </StyledView>
   );
 };
