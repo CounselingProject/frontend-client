@@ -1,13 +1,22 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import ProfileInfo from '../components/ProfileInfo'; // 프로필 정보를 표시하는 컴포넌트
 //import { getMemberInfo } from '@/member/apis/apiInfo'; // 회원 정보 조회 함수
 import { getUserStates} from '@/commons/contexts/UserInfoContext';
+import { getCommonActions } from '@/commons/contexts/CommonContext';
+import { useTranslation } from 'next-i18next';
 
 const InfoContainer = () => {
   const [memberInfo, setMemberInfo] = useState({}); // 회원 정보 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
   const { userInfo } = getUserStates();
+  const { t } = useTranslation(); // 다국어 지원을 위한 useTranslation hook 사용
+
+  const { setMainTitle } = getCommonActions();
+  useLayoutEffect(() => {
+    setMainTitle(t('마이페이지'));
+  }, [setMainTitle, t]);
+
   console.log(userInfo);
   useEffect(() => {
     setMemberInfo(userInfo);

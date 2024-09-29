@@ -1,13 +1,21 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useLayoutEffect } from 'react';
 import PsychologicalTest from '../components/PsychologicalTest';
 import { getAnswers } from '@/psychologicalTest/apis/apiAnswer';
 import Pagination from '@/commons/components/Pagination';
+import { getCommonActions } from '@/commons/contexts/CommonContext';
+import { useTranslation } from 'next-i18next';
 
 const TestContainer = () => {
   const [items, setItems] = useState(null);
   const [pagination, setPagination] = useState(null);
   const [page, setPage] = useState(1);
+  const { t } = useTranslation(); // 다국어 지원을 위한 useTranslation hook 사용
+
+  const { setMainTitle } = getCommonActions();
+  useLayoutEffect(() => {
+    setMainTitle(t('온라인심리검사'));
+  }, [setMainTitle, t]);
 
   useEffect(() => {
     (async () => {
