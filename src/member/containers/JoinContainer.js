@@ -66,6 +66,7 @@ const JoinContainer = () => {
         address: t('주소를_입력하세요.'),
         birth: t('생년월일을_입력하세요.'),
         gender: t('성별을_선택하세요.'),
+        mobile: t('휴대전화번호를_입력하세요.'),
       };
 
       if (form?.userType === 'STUDENT') {
