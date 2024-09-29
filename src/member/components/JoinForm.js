@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
-import { MemberStyledInput } from '@/commons/components/inputs/StyledInput';
+import { MemberStyledInput, JoinStyledInput } from '@/commons/components/inputs/StyledInput';
 import { MypageStyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '../constants/userType';
@@ -26,6 +26,32 @@ const LeftAlignedDl = styled.dl`
     max-width: 700px;
 `;
 
+const MemberStyledButton = styled.button`
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    margin-left: 10px;
+    padding: 10px 20px; /* 버튼의 상하, 좌우 여백 조정 */
+    min-width: 100px; /* 버튼의 최소 너비 설정 (필요에 따라 조정) */
+    height: 40px;
+    max-width: fit-content; /* 버튼의 최대 너비를 콘텐츠에 맞게 설정 */
+    background-color: #005d4f; /* 버튼 배경 색상 (필요에 따라 조정) */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 기본 테두리 제거 */
+    cursor: pointer; /* 커서를 포인터로 변경 */
+
+    &:hover {
+        background-color: #005d4f; /* 마우스 오버 시 배경 색상 변경 */
+        opacity: 0.9; // 살짝 투명하게 효과 추가
+    }
+`;
+
+
+const DdAligned = styled.dd`
+  display: flex; /* 버튼과 입력 필드를 나란히 배치 */
+  align-items: center; /* 세로 정렬 중앙 */
+  margin-bottom: 10px; /* 아래 간격 추가 */
+    min-width: 700px;
+    max-width: 800px;
+`;
 
 const JoinForm = ({
                     form,
@@ -35,6 +61,7 @@ const JoinForm = ({
                     onToggle,
                     skey,
                     professors,
+                    handleAddressClick,
                   }) => {
   const { t } = useTranslation();
 
@@ -125,15 +152,18 @@ const JoinForm = ({
       </dl>
       <dl>
         <StyledDt>{t('우편번호')}</StyledDt>
-        <dd>
-          <MemberStyledInput
+        <DdAligned>
+          <JoinStyledInput
             type="text"
             name="zonecode"
             value={form?.zonecode ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.zonecode}</StyledMessage>
-        </dd>
+          <MemberStyledButton type="button" onClick={handleAddressClick}>
+            {t('주소_검색')}
+          </MemberStyledButton>
+        </DdAligned>
+        <StyledMessage variant="danger">{errors?.zonecode}</StyledMessage>
       </dl>
       <dl>
         <StyledDt>{t('주소')}</StyledDt>
@@ -304,6 +334,7 @@ const JoinForm = ({
                 type="text"
                 name="skey"
                 value={skey}
+                //value={form?.skey??''}
                 onChange={onChange}
               />
               <div>

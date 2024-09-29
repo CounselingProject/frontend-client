@@ -1,10 +1,5 @@
 'use client';
-import React, {
-  useLayoutEffect,
-  useCallback,
-  useState,
-  useEffect,
-} from 'react';
+import React, { useLayoutEffect, useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
@@ -18,6 +13,8 @@ const initalForm = {
   status: 'ONCLASS',
   gender: 'FEMALE',
   agree: false,
+  zonecode: '',
+  address: '',
 };
 
 const JoinContainer = () => {
@@ -26,13 +23,23 @@ const JoinContainer = () => {
   const router = useRouter();
   const [form, setForm] = useState(initalForm);
   const [errors, setErrors] = useState({});
-
   const [professors, setProfessors] = useState([]);
   const [skey, setSkey] = useState('');
 
   useLayoutEffect(() => {
     setMainTitle(t('회원가입'));
   }, [t, setMainTitle]);
+
+  // 다음 주소 api 연동
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -48,6 +55,18 @@ const JoinContainer = () => {
     })();
   }, [skey]);
 
+  const handleAddressClick = () => {
+    new window.daum.Postcode({
+      oncomplete: (data) => {
+        setForm((prevForm) => ({
+          ...prevForm,
+          zonecode: data.zonecode,
+          address: data.address,
+        }));
+      },
+    }).open();
+  };
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -55,7 +74,6 @@ const JoinContainer = () => {
       const _errors = {};
       let hasErrors = false;
 
-      /* 필수 항목 검증 S */
       const requiredFields = {
         email: t('이메일을_입력하세요.'),
         password: t('비밀번호를_입력하세요.'),
@@ -69,25 +87,8 @@ const JoinContainer = () => {
         mobile: t('휴대전화번호를_입력하세요.'),
       };
 
-      if (form?.userType === 'STUDENT') {
-        requiredFields.deptNm = t('학과명을_입력하세요.');
-        requiredFields.deptNo = t('학과번호를_입력하세요.');
-        requiredFields.stdntNo = t('학번을_입력하세요.');
-        requiredFields.grade = t('학년을_입력하세요.');
-        requiredFields.professor = t('지도교수를_선택하세요.');
-      } else {
-        requiredFields.deptNm = t('부서명을_입력하세요.');
-        requiredFields.deptNo = t('부서번호를_입력하세요.');
-        requiredFields.empNo = t('사번을_입력하세요.');
-        requiredFields.subject = t('담당과목을_입력하세요.');
-      }
-
       for (const [field, message] of Object.entries(requiredFields)) {
-        // form[field]가 존재하고, 문자열인지 확인 후 trim() 호출
-        if (
-          !form[field] ||
-          (typeof form[field] === 'string' && !form[field].trim())
-        ) {
+        if (!form[field] || (typeof form[field] === 'string' && !form[field].trim())) {
           _errors[field] = _errors[field] ?? [];
           _errors[field].push(message);
           hasErrors = true;
@@ -98,9 +99,7 @@ const JoinContainer = () => {
         _errors.agree = [t('회원가입_약관에_동의하세요.')];
         hasErrors = true;
       }
-      /* 필수 항목 검증 E */
 
-      /* 비밀번호 및 비밀번호 확인 일치 여부 */
       if (form.password !== form.confirmPassword) {
         _errors.confirmPassword = [t('비밀번호가_일치하지_않습니다.')];
         hasErrors = true;
@@ -108,22 +107,18 @@ const JoinContainer = () => {
 
       setErrors(_errors);
       if (hasErrors) {
-        // 검증 실패시 회원 가입 X
         return;
       }
 
-      // 회원 가입 처리
       (async () => {
         try {
           await apiJoin(form);
           setForm(initalForm);
-          router.replace('/member/login'); // 회원가입 완료 후 페이지 이동
+          router.replace('/member/login');
         } catch (err) {
-          // 검증 실패, 가입 실패
-          const messages =
-            typeof err.message === 'string'
-              ? { global: [err.message] }
-              : err.message;
+          const messages = typeof err.message === 'string'
+            ? { global: [err.message] }
+            : err.message;
 
           for (const [field, _messages] of Object.entries(messages)) {
             _errors[field] = _errors[field] ?? [];
@@ -133,17 +128,13 @@ const JoinContainer = () => {
         }
       })();
     },
-    [form, router, t],
+    [form, router, t]
   );
 
   const onChange = useCallback((e) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === 'skey') {
-      setSkey(value);
-    } else {
-      setForm((form) => ({ ...form, [name]: value }));
-    }
+    setForm((form) => ({ ...form, [name]: value }));
   }, []);
 
   const onToggle = useCallback((name, value) => {
@@ -160,6 +151,7 @@ const JoinContainer = () => {
         errors={errors}
         skey={skey}
         professors={professors}
+        handleAddressClick={handleAddressClick}  // 주소 검색 클릭 핸들러 추가
       />
     </StyledWrapper>
   );
