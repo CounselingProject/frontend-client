@@ -1,15 +1,22 @@
 'use client';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useLayoutEffect, useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'next-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import ProfileUpdate from '../components/ProfileUpdate';
 import { updateMemberInfo } from '@/member/apis/apiInfo'; // apiRequest에서 updateMemberInfo 함수 가져오기  (경로 잘 못 됐었음)
 import { apiUser} from '@/member/apis/apiLogin';
+import { getCommonActions } from '@/commons/contexts/CommonContext';
+
 // 마이페이지 - 회원정보 수정
 const UpdateContainer = () => {
   const { t } = useTranslation(); // 다국어 지원을 위한 useTranslation hook 사용
   const router = useRouter(); // 라우터를 사용해 페이지 이동 제어
+
+  const { setMainTitle } = getCommonActions();
+  useLayoutEffect(() => {
+    setMainTitle(t('개인정보수정'));
+  }, [setMainTitle, t]);
 
   // 유저 정보와 관련된 context를 불러옴
   const {
