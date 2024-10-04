@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
-import { MemberStyledInput } from '@/commons/components/inputs/StyledInput';
+import { MemberStyledInput, JoinStyledInput } from '@/commons/components/inputs/StyledInput';
 import { MypageStyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import userType from '../constants/userType';
@@ -26,6 +26,32 @@ const LeftAlignedDl = styled.dl`
     max-width: 700px;
 `;
 
+const MemberStyledButton = styled.button`
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    margin-left: 10px;
+    padding: 10px 20px; /* 버튼의 상하, 좌우 여백 조정 */
+    min-width: 100px; /* 버튼의 최소 너비 설정 (필요에 따라 조정) */
+    height: 40px;
+    max-width: fit-content; /* 버튼의 최대 너비를 콘텐츠에 맞게 설정 */
+    background-color: #005d4f; /* 버튼 배경 색상 (필요에 따라 조정) */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 기본 테두리 제거 */
+    cursor: pointer; /* 커서를 포인터로 변경 */
+
+    &:hover {
+        background-color: #005d4f; /* 마우스 오버 시 배경 색상 변경 */
+        opacity: 0.9; // 살짝 투명하게 효과 추가
+    }
+`;
+
+
+const DdAligned = styled.dd`
+  display: flex; /* 버튼과 입력 필드를 나란히 배치 */
+  align-items: center; /* 세로 정렬 중앙 */
+  margin-bottom: 10px; /* 아래 간격 추가 */
+    min-width: 700px;
+    max-width: 800px;
+`;
 
 const JoinForm = ({
                     form,
@@ -35,14 +61,15 @@ const JoinForm = ({
                     onToggle,
                     skey,
                     professors,
+                    handleAddressClick,
                   }) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <StyledH1>{t('회원가입')}</StyledH1>
+      <StyledH1 suppressHydrationWarning>{t('회원가입')}</StyledH1>
       <LeftAlignedDl>
-        <StyledDt>{t('가입유형')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('가입유형')}</StyledDt>
         <dd>
           {Object.keys(userType)
             .filter((k) => k != 'ADMIN')
@@ -62,7 +89,7 @@ const JoinForm = ({
         </dd>
       </LeftAlignedDl>
       <dl>
-        <StyledDt>{t('이메일')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('이메일')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -74,7 +101,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('비밀번호')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('비밀번호')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="password"
@@ -86,7 +113,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('비밀번호_확인')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('비밀번호_확인')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="password"
@@ -100,7 +127,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('회원명')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('회원명')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -112,7 +139,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('휴대전화번호')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('휴대전화번호')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -124,19 +151,22 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('우편번호')}</StyledDt>
-        <dd>
-          <MemberStyledInput
+        <StyledDt suppressHydrationWarning>{t('우편번호')}</StyledDt>
+        <DdAligned>
+          <JoinStyledInput
             type="text"
             name="zonecode"
             value={form?.zonecode ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.zonecode}</StyledMessage>
-        </dd>
+          <MemberStyledButton type="button" onClick={handleAddressClick} suppressHydrationWarning>
+            {t('주소_검색')}
+          </MemberStyledButton>
+        </DdAligned>
+        <StyledMessage variant="danger">{errors?.zonecode}</StyledMessage>
       </dl>
       <dl>
-        <StyledDt>{t('주소')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('주소')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -148,7 +178,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('나머지_주소')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('나머지_주소')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -160,7 +190,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>{t('생년월일')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('생년월일')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="date"
@@ -172,9 +202,9 @@ const JoinForm = ({
         </dd>
       </dl>
       <LeftAlignedDl>
-        <StyledDt>{t('성별')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{t('성별')}</StyledDt>
         <dd>
-          <span onClick={() => onToggle('gender', 'FEMALE')}>
+          <span onClick={() => onToggle('gender', 'FEMALE')} suppressHydrationWarning>
             {form?.gender === 'FEMALE' ? (
               <IoMdRadioButtonOn />
             ) : (
@@ -182,7 +212,7 @@ const JoinForm = ({
             )}
             {t('여성')}
           </span>
-          <span onClick={() => onToggle('gender', 'MALE')}>
+          <span onClick={() => onToggle('gender', 'MALE')} suppressHydrationWarning>
             {form?.gender === 'MALE' ? (
               <IoMdRadioButtonOn />
             ) : (
@@ -194,7 +224,7 @@ const JoinForm = ({
         </dd>
       </LeftAlignedDl>
       <LeftAlignedDl>
-        <StyledDt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</StyledDt>
         <dd>
           {form?.userType === 'STUDENT' ? (
             <>
@@ -246,7 +276,7 @@ const JoinForm = ({
         </dd>
       </LeftAlignedDl>
       <dl>
-        <StyledDt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</StyledDt>
+        <StyledDt suppressHydrationWarning>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</StyledDt>
         <dd>
           <MemberStyledInput
             type="text"
@@ -258,7 +288,7 @@ const JoinForm = ({
         </dd>
       </dl>
       <dl>
-        <StyledDt>
+        <StyledDt suppressHydrationWarning>
           {form?.userType === 'COUNSELOR' ? t('부서번호') : t('학과번호')}
         </StyledDt>
         <dd>
@@ -274,7 +304,7 @@ const JoinForm = ({
       {form?.userType === 'STUDENT' ? (
         <>
           <dl>
-            <StyledDt>{t('학번')}</StyledDt>
+            <StyledDt suppressHydrationWarning>{t('학번')}</StyledDt>
             <dd>
               <MemberStyledInput
                 type="text"
@@ -286,7 +316,7 @@ const JoinForm = ({
             </dd>
           </dl>
           <dl>
-            <StyledDt>{t('학년')}</StyledDt>
+            <StyledDt suppressHydrationWarning>{t('학년')}</StyledDt>
             <dd>
               <MemberStyledInput
                 type="text"
@@ -298,12 +328,12 @@ const JoinForm = ({
             </dd>
           </dl>
           <dl>
-            <StyledDt>{t('지도교수')}</StyledDt>
+            <StyledDt suppressHydrationWarning>{t('지도교수')}</StyledDt>
             <dd>
               <MemberStyledInput
                 type="text"
                 name="skey"
-                value={skey}
+                value={skey ?? ''}
                 onChange={onChange}
               />
               <div>
@@ -319,7 +349,7 @@ const JoinForm = ({
                       </option>
                     ))
                   ) : (
-                    <option value="">{t('교수를_선택하세요')}</option>
+                    <option value="" suppressHydrationWarning>{t('교수를_선택하세요')}</option>
                   )}
                 </select>
               </div>
@@ -332,7 +362,7 @@ const JoinForm = ({
       ) : (
         <>
           <dl>
-            <StyledDt>{t('사번')}</StyledDt>
+            <StyledDt suppressHydrationWarning>{t('사번')}</StyledDt>
             <dd>
               <MemberStyledInput
                 type="text"
@@ -344,7 +374,7 @@ const JoinForm = ({
             </dd>
           </dl>
           <dl>
-            <StyledDt>{t('담당과목')}</StyledDt>
+            <StyledDt suppressHydrationWarning>{t('담당과목')}</StyledDt>
             <dd>
               <MemberStyledInput
                 type="text"
@@ -366,7 +396,7 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <MypageStyledButton type="submit" variant="green">
+      <MypageStyledButton type="submit" variant="green" suppressHydrationWarning>
         {t('회원가입')}
       </MypageStyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
