@@ -134,7 +134,11 @@ const JoinContainer = () => {
   const onChange = useCallback((e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setForm((form) => ({ ...form, [name]: value }));
+    if (name === 'skey') {
+      setSkey(value);
+    } else {
+      setForm((form) => ({ ...form, [name]: value }));
+    }
   }, []);
 
   const onToggle = useCallback((name, value) => {
