@@ -55,3 +55,7 @@ img {
 .ReactModal__Overlay {
   position: absolute !important;
 }
+
+.ck-editor__editable {
+  height: 350px;
+}
