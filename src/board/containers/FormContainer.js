@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { getUserStates } from '@/commons/contexts/UserInfoContext';
 import { getBoard, write, update, getInfo } from '../apis/apiBoard';
-
+import { deleteFile, getFiles } from '@/commons/libs/apiFile';
+import { produce } from 'immer';
 import DefaultForm from '../components/skins/default/Form';
 import ReviewForm from '../components/skins/review/Form';
 
@@ -48,6 +49,9 @@ const FormContainer = ({ params }) => {
         try {
           const data = await getInfo(seq);
           if (data) {
+            const editorImages = await getFiles(data.gid, 'editor');
+            if (editorImages) data.editorImages = editorImages;
+
             setForm((form) => ({ ...form, ...data, mode: 'update' }));
             setBoard(data.board);
             setMainTitle(data.subject);
@@ -134,6 +138,29 @@ const FormContainer = ({ params }) => {
     [t, form, router, board],
   );
 
+  const onFileDelete = useCallback(
+    (seq) => {
+      (async () => {
+        try {
+          await deleteFile(seq);
+          console.log('form', form);
+          if (form?.editorImages) {
+            setForm(
+              produce((draft) => {
+                draft.editorImages = draft.editorImages.filter(
+                  (file) => file.seq != seq,
+                );
+              }),
+            );
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    },
+    [form],
+  );
+
   if (!board) {
     return <MyInstagramLoader />;
   }
@@ -150,6 +177,7 @@ const FormContainer = ({ params }) => {
       onChange={onChange}
       onClick={onClick}
       onSubmit={onSubmit}
+      onFileDelete={onFileDelete}
     />
   );
 };

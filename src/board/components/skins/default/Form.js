@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FaRegCheckSquare, FaCheckSquare } from 'react-icons/fa';
 import { AiFillNotification } from 'react-icons/ai';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'; // ClassicEditor import 추가
 import { getUserStates } from '@/commons/contexts/UserInfoContext';
 import {
   StyledInput,
@@ -13,6 +15,7 @@ import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import FileUpload from '@/commons/components/FileUpload';
 import FileItems from '@/commons/components/FileItems';
+import { set } from 'date-fns';
 
 const FormBox = styled.form`
   background: ${({ theme }) => theme.colors.lightGray};
@@ -97,7 +100,6 @@ const DefaultForm = ({
   const { t } = useTranslation();
   const [editor, setEditor] = useState(null);
   const { isAdmin } = getUserStates();
-
   const insertImageCallback = useCallback(
     (files) => {
       if (!files || files.length === 0) {
@@ -168,22 +170,24 @@ const DefaultForm = ({
         <StyledDl>
           <dt>{t('공지글')}</dt>
           <dd>
-          <NoticeButton onClick={() => onClick('notice', !Boolean(form?.notice))}>
-            <AiFillNotification
-              style={{
-                marginRight: '5px',
-                verticalAlign: 'middle',
-                color: 'red',
-                fontSize: '1.5em',
-              }}
-            />
-            {form?.notice ? (
-              <FaCheckSquare style={{ marginRight: '5px' }} />
-            ) : (
-              <FaRegCheckSquare style={{ marginRight: '5px' }} />
-            )}
-            {t('공지글로_등록하기')}
-          </NoticeButton>
+            <NoticeButton
+              onClick={() => onClick('notice', !Boolean(form?.notice))}
+            >
+              <AiFillNotification
+                style={{
+                  marginRight: '5px',
+                  verticalAlign: 'middle',
+                  color: 'red',
+                  fontSize: '1.5em',
+                }}
+              />
+              {form?.notice ? (
+                <FaCheckSquare style={{ marginRight: '5px' }} />
+              ) : (
+                <FaRegCheckSquare style={{ marginRight: '5px' }} />
+              )}
+              {t('공지글로_등록하기')}
+            </NoticeButton>
           </dd>
         </StyledDl>
       )}
@@ -191,7 +195,21 @@ const DefaultForm = ({
         <dt>{t('내용')}</dt>
         <dd>
           {board?.useEditor ? (
-            <h1>에디터</h1>
+            <CKEditor
+              editor={ClassicEditor}
+              config={{
+                height: 400,
+              }}
+              data={form?.content}
+              onReady={(editor) => {
+                setEditor(editor);
+              }}
+              onChange={(_, editor) => {
+                onChange({
+                  target: { name: 'content', value: editor.getData() },
+                });
+              }}
+            />
           ) : (
             <StyledTextarea
               name="content"
@@ -204,6 +222,7 @@ const DefaultForm = ({
             imageOnly={true}
             gid={form?.gid}
             color="green"
+            location="editor"
             callback={insertImageCallback}
           >
             {t('이미지_첨부')}
